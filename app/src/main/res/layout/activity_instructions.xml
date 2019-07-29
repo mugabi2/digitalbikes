@@ -4,56 +4,240 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.samuelhimself.bible1.Instructions">
+    tools:context="com.stardigitalbikes.samuelhimself.bible1.Instructions">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
+    <include layout="@layout/apptoolbar"
+        android:id="@+id/insttoolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        >
-        <Button
-            android:id="@+id/hm9"
-            android:layout_weight="1"
+        app:layout_constraintVertical_weight="1">
+
+        <LinearLayout
+            android:id="@+id/linearvvLayout10"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/home"
-            android:textAllCaps="false"
-            android:textSize="7pt"
-            android:fontFamily="sans-serif"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearvvLayout6">
 
-        <Button
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/parkingPoints"
-            android:textAllCaps="false"
-            android:textSize="7pt"
-            android:fontFamily="sans-serif"
-            />
+            <android.support.v7.widget.CardView
+                android:id="@+id/cavvr2d3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica_roman"
+                        android:padding="16dp"
+                        android:text="@string/inst_text_1"
+                        android:textColor="@color/colorAppBlue"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="16sp"
+                        android:src="@drawable/ic_verified_user_black_24dp"
+                        android:tint="@drawable/blue_image" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/carvvvvv55d3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica_roman"
+                        android:padding="16dp"
+                        android:text="@string/inst_text_2"
+                        android:textColor="@color/colorAppBlue"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="35dp"
+                        android:layout_marginBottom="16sp"
+                        android:src="@drawable/ic_motorcycle_black_24dp"
+                        android:tint="@drawable/blue_image" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/carkjghd3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/cavvvvvvvvvrd3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="7dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica_roman"
+                        android:padding="16dp"
+                        android:text="@string/inst_text_3"
+                        android:textColor="@color/colorAppBlue"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="58dp"
+                        android:layout_height="35dp"
+                        android:layout_marginBottom="16sp"
+                        android:src="@drawable/ic_schedule_black_24dp"
+                        android:tint="@drawable/blue_image" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/casvvvvvvvvvvvvvvrd3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica_roman"
+                        android:padding="16dp"
+                        android:text="@string/inst_text_4"
+                        android:textColor="@color/colorAppBlue"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="16sp"
+                        android:src="@drawable/ic_all_inclusive_black_24dp"
+                        android:tint="@drawable/blue_image" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/dfcvvvvvvvar55d3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica_roman"
+                        android:padding="16dp"
+                        android:text="@string/inst_text_5"
+                        android:textColor="@color/colorAppBlue"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="16sp"
+                        android:src="@drawable/ic_remove_red_eye_black_24dp"
+                        android:tint="@drawable/blue_image" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/dfddcvvvvvvvar55d3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica_roman"
+                        android:padding="16dp"
+                        android:text="@string/inst_text_6"
+                        android:textColor="@color/colorAppBlue"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="16sp"
+                        android:src="@drawable/ic_remove_red_eye_black_24dp"
+                        android:tint="@drawable/blue_image" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
 
 
-        <Button
-            android:id="@+id/more9"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/more"
-            android:textAllCaps="false"
-            android:textSize="7pt"
-            android:fontFamily="sans-serif"
-            />
-
-
-    </LinearLayout>
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

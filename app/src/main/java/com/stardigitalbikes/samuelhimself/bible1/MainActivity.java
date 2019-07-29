@@ -1,4 +1,4 @@
-package com.example.samuelhimself.bible1;
+package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

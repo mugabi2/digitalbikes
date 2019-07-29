@@ -1,4 +1,4 @@
-package com.example.samuelhimself.bible1;
+package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -72,6 +72,7 @@ public class passwordrecovery extends AppCompatActivity {
     private TextView text;
     private Handler mHandler = new Handler();
     private int mProgressStatus=0;
+    String phoe;
 
 
     @Override
@@ -82,20 +83,24 @@ public class passwordrecovery extends AppCompatActivity {
         progBar= (ProgressBar)findViewById(R.id.pbrec);
         pogless();
 
-        ephone=(EditText)findViewById(R.id.input_phone_new);
-        epassword=(EditText)findViewById(R.id.input_password_new);
+        Bundle extras=getIntent().getExtras();
+        phoe=extras.getString("phone");
 
 
-        Button Bcreate=(Button)findViewById(R.id.createnew);
+//        ephone=(EditText)findViewById(R.id.input_phone_new);
+//        epassword=(EditText)findViewById(R.id.input_password_new);
 
-        Bcreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent int111=new Intent(passwordrecovery.this,registration.class);
-                startActivity(int111);
 
-            }
-        });
+//        Button Bcreate=(Button)findViewById(R.id.createnew);
+//
+//        Bcreate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent int111=new Intent(passwordrecovery.this,registration.class);
+//                startActivity(int111);
+//
+//            }
+//        });
 
     }
 
@@ -129,10 +134,10 @@ public class passwordrecovery extends AppCompatActivity {
     public void recover(View view){
 
         progBar.setVisibility(ProgressBar.VISIBLE);
-        String phone =ephone.getText().toString();
+//        String phone =ephone.getText().toString();
         String psword =epassword.getText().toString();
 
-        new passwordrecovery.backgroundrecover(this).execute(phone,psword);
+        new passwordrecovery.backgroundrecover(this).execute(psword);
     }
 
     class backgroundrecover extends AsyncTask<String, Void,String> {
@@ -177,7 +182,7 @@ public class passwordrecovery extends AppCompatActivity {
         protected String doInBackground(String... voids) {
             String result="";
 
-            String phonenum=voids[0];
+//            String phonenum=voids[0];
             String pass=voids[1];
 
             String connstr="http://stardigitalbikes.com/password_rec.php";
@@ -193,7 +198,7 @@ public class passwordrecovery extends AppCompatActivity {
 
                 OutputStream ops =http.getOutputStream();
                 BufferedWriter writer =new BufferedWriter(new OutputStreamWriter(ops,"UTF-8"));
-                String data = URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(phonenum,"UTF-8")
+                String data = URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(phoe,"UTF-8")
                         +"&&"+ URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(pass,"UTF-8")
                         +"&&"+ URLEncoder.encode("serverKey","UTF-8")+"="+URLEncoder.encode(serverKey,"UTF-8");
                 writer.write(data);

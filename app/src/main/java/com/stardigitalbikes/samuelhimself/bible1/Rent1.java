@@ -1,4 +1,4 @@
-package com.example.samuelhimself.bible1;
+package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -37,11 +37,11 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import static com.example.samuelhimself.bible1.R.id.cash1;
-import static com.example.samuelhimself.bible1.R.id.digitaltime1;
-import static com.example.samuelhimself.bible1.R.id.fulltime;
+import static com.stardigitalbikes.samuelhimself.bible1.R.id.cash1;
+import static com.stardigitalbikes.samuelhimself.bible1.R.id.digitaltime1;
+import static com.stardigitalbikes.samuelhimself.bible1.R.id.fulltime;
 
-import static com.example.samuelhimself.bible1.R.id.radio_female;
+import static com.stardigitalbikes.samuelhimself.bible1.R.id.radio_female;
 
 public class Rent1 extends AppCompatActivity {
 

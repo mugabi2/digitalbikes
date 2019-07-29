@@ -1,8 +1,10 @@
-package com.example.samuelhimself.bible1;
+package com.stardigitalbikes.samuelhimself.bible1;
+
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationChannel;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +18,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +26,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +41,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -138,6 +145,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
 
+//    just want to see this comment am telling you
     private ProgressBar progBar;
     private TextView text;
     private Handler mHandler = new Handler();
@@ -188,12 +196,13 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     String method,pkucu="2000 bikes",pkmubs="2500 bikes";
 
     String dura, duration = "20 minutes",ups;
-    Dialog myDialog;
+    Dialog myDialog, updialog;
+
 
 
     String ditime;
     String paymentInt,location;
-    int checkPm = 0, pmi, pmc = 0, pmd = 0, suckind, succfour, sucki;
+    int checkPm = 0, pmi, pmc = -1, pmd = -1, suckind, succfour, sucki;
 
     String returntime;
 
@@ -222,21 +231,28 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
     ImageView imagev;
     int connection=1;
-    String allupdates;
+    String allupdates,todaysmeassage;
     String[] imagenamesarray;
 
     ProgressBar pb1,pb2,pb3,pb4,pb5,pb6,pb7,pb8,pb9,pb10;
     CardView cd1,cd2,cd3,cd4,cd5,cd6,cd7,cd8,cd9,cd10;
+
+    private static final int NOTIFICATION_ID = 1;
+    private static final String CHANNEL_ID = "my_notification_channel";
+
+    String notimessage;
+    int notinumber;
+    int version=0,newVersion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapsimport1);
 
+
         progBar= (ProgressBar)findViewById(R.id.pbmap);
         pogless();
-
-        Toast.makeText(getApplicationContext(),"Please click on popup",Toast.LENGTH_LONG).show();
 
 
         //   Bundle extras=getIntent().getExtras();
@@ -251,30 +267,8 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         prefs=getSharedPreferences(prefName,MODE_PRIVATE);
 
 
-//        android.support.v7.app.ActionBar actionbar = getSupportActionBar();
-//        getSupportActionBar().setElevation(0);
-//
-//        TextView textview = new TextView(Mapsimport1.this);
-//
-//        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-//                RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        textview.setLayoutParams(layoutparams);
-//        textview.setText(getString(R.string.pickup_location));
-//        textview.setTextColor(Color.BLACK);
-//        textview.setTextSize(17);
-//        ExternalFontPath = "helvetica_roman.otf";
-//        FontLoaderTypeface = Typeface.createFromAsset(getAssets(), ExternalFontPath);
-//        textview.setTypeface(FontLoaderTypeface);
-//        actionbar.setCustomView(textview);
-//        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//        actionbar.setCustomView(textview);
-//        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//        actionbar.setCustomView(textview);
-
-
 //        ------------------------------------
 ////        BOTTOM SHEET PRICE
-
 
         View bottomSheet = findViewById(R.id.bottom_sheetid);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -328,52 +322,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         View bottomSheete = findViewById(R.id.bottom_sheetid);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheete);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-
-//        View nestedScrollView=(View)findViewById(R.id.bottom_sheetid);
-//        mBottomSheetBehavior=BottomSheetBehavior.from(nestedScrollView);
-
-
-//        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-//            @Override
-//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-//                String state = "";
-//
-//                switch (newState) {
-//                    case BottomSheetBehavior.STATE_DRAGGING: {
-//                        state = "DRAGGING";
-//                        break;
-//                    }
-//                    case BottomSheetBehavior.STATE_SETTLING: {
-//                        state = "SETTLING";
-//                        break;
-//                    }
-//                    case BottomSheetBehavior.STATE_EXPANDED: {
-//                        state = "EXPANDED";
-//                        break;
-//                    }
-//                    case BottomSheetBehavior.STATE_COLLAPSED: {
-//                        state = "COLLAPSED";
-//                        break;
-//                    }
-//                    case BottomSheetBehavior.STATE_HIDDEN: {
-//                        state = "HIDDEN";
-//                        break;
-//                    }
-//                }
-//
-////                Toast.makeText(BottomSheetActivity.this, "Bottom Sheet State Changed to: " + state, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-//
-//            }
-//        });
-
-//        setHasOptionsMenu(true);
-
-//        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-//        location=prefs.getString(FIRST_NAME_KEY,"");
 
 
 //        CARD VIEW
@@ -474,6 +422,10 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             pkwandegenya=user.getString("WA");
             pkmaingateucu=user.getString("MGU");
             pkbtucker=user.getString("BT");
+            todaysmeassage=user.getString("message");
+            notinumber=user.getInt("NTN");
+            notimessage=user.getString("NOTI");
+            newVersion=user.getInt("VERS");
 
 //            location=user.getString("PL");
 
@@ -482,9 +434,38 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
 
+//        hss
+//        BLOCKCHAIN oblock=new BLOCKCHAIN();
+//        String nome="sam", samhash=oblock.MD5(nome);
+//        Toast.makeText(getApplicationContext(), samhash, Toast.LENGTH_LONG).show();
+
+//        NOTIFICATION IFF
+            if(notinumber==0) {
+//            Toast.makeText(getApplicationContext(), todaysmeassage, Toast.LENGTH_LONG).show();
+        }else if(notinumber==1){
+//        notification
+            createNotificationChannel();
+// Starts the notification below
+            addNotification();
+//            Toast.makeText(getApplicationContext(), todaysmeassage, Toast.LENGTH_LONG).show();
+        }else if(notinumber==2&&version!=newVersion){
+//            UPDATE OPTIONAL d88
+                updialog = new Dialog(this);
+                updialog.setContentView(R.layout.update_popup);
+
+                showupdatePopup();
+            }else   if(notinumber==3&&version!=newVersion){
+//            UPDATE COMPULSURY
+                updialog = new Dialog(this);
+                updialog.setContentView(R.layout.update_popup);
+
+                showupdatePopup();
+            }
+
+
         switch (location){
             case "MUK":
-//                zooom= new LatLng(0.331604, 32.568423);
+//                zooom= new LatLng(0.331604, 32.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz568423);
 //                Toast.makeText(getApplicationContext(),"Makerere University",Toast.LENGTH_LONG).show();
                 break;
             case "MUBS":
@@ -529,7 +510,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            reminder.setVisibility(ProgressBar.VISIBLE);
             reminder.append("Please select an agent and return bike by "+returntime);
         }else{
 
@@ -545,6 +526,87 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        TextView tdigit=findViewById(R.id.textditime2);
 //        tdigit.append(somet);
     }
+
+    //    creat notification channel
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void addNotification() {
+        int prio=2;
+
+//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+
+
+        // Create an explicit intent for an Activity in your app
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_home11)
+                .setContentTitle("Digital Bikes")
+                .setContentText(notimessage)
+                .setPriority(prio)
+//                .setSound(R.raw.bbell1)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+// notificationId is a unique int for each notification that you must define
+        notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+
+
+//
+    }
+
+    // Creates and displays a notification
+//    private void addNotification() {
+//        int prio=2;
+//
+////        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+//
+//
+//        // Create an explicit intent for an Activity in your app
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+//
+//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+////                .setSmallIcon(R.drawable.ic_home11)
+//
+////                .setSmallIcon(R.mipmap.gpicon1_round)
+//                .setContentTitle("Digital Bikes")
+//                .setContentText(notimessage)
+//                .setPriority(prio)
+////                .setSound(R.raw.bbell1)
+//                .setContentIntent(pendingIntent)
+//                .setAutoCancel(true);
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//
+//// notificationId is a unique int for each notification that you must define
+//        notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+//
+//
+////
+//    }
+
+
 
 //    private void requestPermission(){
 //        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION},1);
@@ -638,26 +700,31 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public  void goToPrice(View view){
+        Button bproc=myDialog.findViewById(R.id.go_to_pickup_button);
+
+//        ANIMATION
+        Animation animation= AnimationUtils.loadAnimation(Mapsimport1.this,R.anim.bounce);
+        bproc.startAnimation(animation);
+
 
         if (pmc==0) {//REQUEST DIGITAL TIME FROME HERE
-            if(ditime.equals("00:00")){
+            if(ditime.equals("00:00")&& pmc>0){
                 Toast.makeText(getApplicationContext(), "You do not have digital time to spend", Toast.LENGTH_SHORT).show();
             }else{
                 progBar.setVisibility(ProgressBar.VISIBLE);
                 new backgroundrequest(Mapsimport1.this).execute(usname, ufname, uphone, umail, uresi, udura, paymentInt, uagcode);
                     Toast.makeText(getApplicationContext(), "requesting.......", Toast.LENGTH_LONG).show();
                     Log.d("JSONStatus", "requestING");
-
             }
-        }else{
+        }else if (pmc>0){
 //            if payment is digital time reequest directly
             progBar.setVisibility(ProgressBar.VISIBLE);
             new backgroundprice(Mapsimport1.this).execute();
             Toast.makeText(getApplicationContext(), "requesting.....", Toast.LENGTH_LONG).show();
-
+        }else {
+            Toast.makeText(getApplicationContext(), "check the buttons...", Toast.LENGTH_LONG).show();
         }
     }
-
 
     public void onRadioButtonClickedPayment(View view) {
         // Is the button now checked?
@@ -741,7 +808,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                 }
         }
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -1437,12 +1503,10 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-
     private void bulidGoogleApiClient() {
         client = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
         client.connect();
     }
-
 
     @Override
     public View getInfoWindow(Marker marker) {
@@ -1491,6 +1555,47 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+//d89
+    public void showupdatePopup() {
+        Button cancel,updatelink;
+        TextView upmsg;
+
+        upmsg=updialog.findViewById(R.id.upmsgtext);
+        upmsg.setText("New version availabe, please update");
+
+        cancel=updialog.findViewById(R.id.cancelbuttonuppopup);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updialog.dismiss();
+            }
+        });
+
+        updatelink=updialog.findViewById(R.id.updatebuttonpopup);
+        updatelink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=com.stardigitalbikes.samuelhimself.bible1"));
+                startActivity(browserIntent);
+            }
+        });
+
+        updialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        updialog.setCancelable(false);
+
+        if(notinumber==2){
+//            UPDATE OPTIONAL
+            updialog.setCancelable(true);
+        }else   if(notinumber==3){
+//            UPDATE COMPULSURY
+            cancel.setVisibility(View.INVISIBLE);
+            updialog.setCancelable(false);
+        }
+
+        updialog.show();
     }
 
     public void showPopup() {
@@ -1575,6 +1680,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         });
         myDialog.show();
     }
+
     class backgroundprice extends AsyncTask<String, Void,String> {
 
         AlertDialog dialog;
@@ -1891,7 +1997,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         moveTaskToBack(true);
     }
 
-
     public int imgviewname(int number){
 //        String name="R.id.iupdate"+number;
         int name=0;// =R.id.iupdat;//+number;
@@ -2003,6 +2108,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
             ArrayList<Bitmap> bitmapArray=new ArrayList<Bitmap>();
 
+//            GETTING THE MAXIMUM NUMBER OF UPDATES
             try {
                 jObjc = new JSONObject(allupdates);
 

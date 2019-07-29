@@ -1,4 +1,4 @@
-package com.example.samuelhimself.bible1;
+package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,6 +14,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,8 +45,8 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import static com.example.samuelhimself.bible1.R.id.continueshare;
-import static com.example.samuelhimself.bible1.R.id.radio_female;
+import static com.stardigitalbikes.samuelhimself.bible1.R.id.continueshare;
+import static com.stardigitalbikes.samuelhimself.bible1.R.id.radio_female;
 
 public class registration extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -88,12 +90,17 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
 //    SPINNER
     private Spinner spinner;
-    private static final String[] paths = {"MUK", "MUBS", "UCU"};
+    private static final String[] paths = {"MUK"};//, "MUBS", "UCU"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        Button bsinu=findViewById(R.id.signup);
+//        ANIMATION
+        Animation animation= AnimationUtils.loadAnimation(registration.this,R.anim.blink_anim);
+        bsinu.startAnimation(animation);
 
         //^^^^^^^^^^^^^^^^^^^^^^
         spinner = (Spinner)findViewById(R.id.spinner);
@@ -206,26 +213,31 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
     }
 
         public void regMe(View view){
+        String phonel =ephone.getText().toString();
+        int plen =phonel.length();
 
-        String sname =esname.getText().toString();
-        String fname =efname.getText().toString();
-        String phone =ephone.getText().toString();
-        String email =eemail.getText().toString();
-        String psword =epassword.getText().toString();
-        String resid =eresi.getText().toString();
- 
+        if (plen==9) {
+            String sname = esname.getText().toString();
+            String fname = efname.getText().toString();
+            String phone = ephone.getText().toString();
+            String email = eemail.getText().toString();
+            String psword = epassword.getText().toString();
+            String resid = eresi.getText().toString();
+
 
             //Checking if all fields have been filled
-            if(!sname.isEmpty() && !fname.isEmpty() && !phone.isEmpty() && !email.isEmpty() && !psword.isEmpty() &&!resid.isEmpty()){
-                ProgressBar pb =findViewById(R.id.progressBar4);
+            if (!sname.isEmpty() && !fname.isEmpty() && !phone.isEmpty() && !email.isEmpty() && !psword.isEmpty() && !resid.isEmpty()) {
+                ProgressBar pb = findViewById(R.id.progressBar4);
                 pb.setVisibility(ProgressBar.VISIBLE);
-                        new backgroundregistration(this).execute(sname,fname,phone,email,psword,resid,sex);
-                        Log.d("Request status","GOOD INPUT am gonna make the request");
+                new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
+                Log.d("Request status", "GOOD INPUT am gonna make the request");
+            } else {
+                Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
             }
-            else {
-                Toast.makeText(getApplicationContext(),"Please fill in all fields",Toast.LENGTH_LONG).show();
-            }
-
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Check length of your phone number", Toast.LENGTH_LONG).show();
+        }
     }
     //##################BACK GROUND CLASSS$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$444444444
     class backgroundregistration extends AsyncTask<String, Void,String> {
@@ -235,10 +247,6 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         Context context;
         public backgroundregistration(Context context){
             this.context=context;
-        }
-
-        @Override
-        protected void onPreExecute() {
         }
 
         @Override
@@ -257,13 +265,20 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             switch (suckinda) {
                 case 0:
                     Toast.makeText(getApplicationContext(),mesg,Toast.LENGTH_LONG).show();
+                    Log.d("SHARE CODE", "000000");
+
                     break;
                 case 1:
                     all=s;
                     showshare();
+                    Log.d("SHARE CODE", "1111111");
+
                     break;
 
             }
+
+            Log.d("SHARE CODE", " "+mesg);
+
 
         }
 
@@ -278,7 +293,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             String residence=voids[5];
             String sex=voids[6];
 
-
+//45
             String connstr="http://stardigitalbikes.com/user_sign_up_pdo.php";
 //            String connstr="http://192.168.43.113/pdobikephp/user_sign_up_pdo.php";
 
@@ -458,6 +473,8 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                 if(!scode.isEmpty()){
                     sharing();
                     Log.d("Request status","INPUT PRESENT;;;CONTINUE");
+//                    Toast.makeText(getApplicationContext(),all,Toast.LENGTH_LONG).show();
+
                 }else {
 //                    Toast.makeText(getApplicationContext(),all,Toast.LENGTH_LONG).show();
                     Intent int111=new Intent(registration.this,Mapsimport1.class);
@@ -483,7 +500,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         @Override
         protected void onPostExecute(String s) {
             String jjon = s.toString();
-//            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
 
             try {
                 jObjc = new JSONObject(s);
@@ -513,10 +530,12 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         @Override
         protected String doInBackground(String... voids) {
             String result="";
-//            String AgCode =voids[0];
+//            String AgCode =voids[0];1212
 
-            String connstr="http://stardigitalbikes.com/share_code_get.php";
-//            String connstr="http://192.168.43.113/pdobikephp/share_code_get.php";
+            String connst="http://stardigitalbikes.com/share_code_get.php";
+
+//            String connst="http://stardigitalbikes.com/share_code_get.php";
+//            String connst="http://192.168.43.113/pdobikephp/share_code_get.php";
 
 
             prefer=getSharedPreferences(prefName,MODE_PRIVATE);
@@ -528,7 +547,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
 
             try {
-                URL url =new URL(connstr);
+                URL url =new URL(connst);
                 HttpURLConnection http =(HttpURLConnection) url.openConnection();
                 http.setRequestMethod("POST");
                 http.setDoInput(true);
@@ -566,13 +585,13 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                 return result;
 
             } catch (MalformedURLException e) {
-                Log.d("JSON Exception",e.toString());
+                Log.d("JSON Exception 1",e.toString());
                 result =e.getMessage();
             } catch (ProtocolException e) {
-                Log.d("JSON Exception",e.toString());
+                Log.d("JSON Exception 2",e.toString());
                 result =e.getMessage();
             } catch (IOException e) {
-                Log.d("JSON Exception",e.toString());
+                Log.d("JSON Exception 3",e.toString());
                 result =e.getMessage();
             }
 

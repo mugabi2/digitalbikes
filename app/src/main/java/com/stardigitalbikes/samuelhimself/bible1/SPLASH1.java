@@ -1,4 +1,4 @@
-package com.example.samuelhimself.bible1;
+package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,6 +9,10 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -71,6 +75,32 @@ public class SPLASH1 extends AppCompatActivity {
         prefl=getSharedPreferences(preflogin, MODE_PRIVATE);
 //        prefb=getSharedPreferences(prefName2,MODE_PRIVATE);
 
+        final Button bspreg=(Button)findViewById(R.id.spreg);
+        final Button bsplogin=(Button)findViewById(R.id.splogin);
+
+//        ANIMATION
+//        Animation animation= AnimationUtils.loadAnimation(SPLASH1.this,R.anim.blink_anim);
+//        bspreg.startAnimation(animation);
+
+        bsplogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(SPLASH1.this,LOGIN.class);
+                startActivity(intent);
+//                finish();
+
+            }
+        });
+
+        bspreg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(SPLASH1.this,registration.class);
+                startActivity(intent);
+//                finish();
+
+            }
+        });
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -80,12 +110,20 @@ public class SPLASH1 extends AppCompatActivity {
                     new SPLASH1.backgroundBikesIn(SPLASH1.this).execute();
 
                 }else{
-                    Intent intent= new Intent(SPLASH1.this,LOGIN.class);
-                    startActivity(intent);
-                    finish();
+                    bsplogin.setVisibility(View.VISIBLE);
+                    bspreg.setVisibility(View.VISIBLE);
+//        ANIMATION
+                    Animation animationlogin= AnimationUtils.loadAnimation(SPLASH1.this,R.anim.blink_anim);
+                    bsplogin.startAnimation(animationlogin);
+
+//                    Intent intent= new Intent(SPLASH1.this,LOGIN.class);
+//                    startActivity(intent);
+//                    finish();
                 }
             }
         }, 1000);
+
+
 
 
 

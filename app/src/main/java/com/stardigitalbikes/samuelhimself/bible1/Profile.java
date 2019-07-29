@@ -1,4 +1,4 @@
-package com.example.samuelhimself.bible1;
+package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -170,6 +172,12 @@ public class Profile extends AppCompatActivity {
 
 
     public void signMeOut(View view){
+        Button bsiout=(Button)findViewById(R.id.signout);
+
+//        ANIMATION
+        Animation animation= AnimationUtils.loadAnimation(Profile.this,R.anim.bounce);
+        bsiout.startAnimation(animation);
+
         ProgressBar pb =findViewById(R.id.progressBar3);
         pb.setVisibility(ProgressBar.VISIBLE);
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);

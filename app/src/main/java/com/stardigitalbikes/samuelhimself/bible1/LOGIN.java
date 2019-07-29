@@ -1,4 +1,4 @@
-package com.example.samuelhimself.bible1;
+package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,8 +12,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -44,7 +46,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import static com.example.samuelhimself.bible1.R.id.radio_female;
+import static com.stardigitalbikes.samuelhimself.bible1.R.id.radio_female;
 
 public class LOGIN extends AppCompatActivity {
 
@@ -82,6 +84,14 @@ public class LOGIN extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Button logoin=findViewById(R.id.btn_login);
+
+//        ImageView ilogin=findViewById(R.id.btn_login);
+        //        ANIMATION
+        Animation animation= AnimationUtils.loadAnimation(LOGIN.this,R.anim.blink2);
+        logoin.startAnimation(animation);
+
 
         progBar= (ProgressBar)findViewById(R.id.progressBar);
         pogless();

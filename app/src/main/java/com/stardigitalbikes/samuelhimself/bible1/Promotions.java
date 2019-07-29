@@ -1,9 +1,10 @@
-package com.example.samuelhimself.bible1;
+package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -172,15 +175,53 @@ public class Promotions extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.usermenu:
-                Intent int1 =new Intent(getApplicationContext(),Profile.class);
-                startActivity(int1);
+//            case R.id.usermenu:
+//                Intent int1 =new Intent(getApplicationContext(),Profile.class);
+//                startActivity(int1);
+
+            case R.id.action_profile:
+                startActivity(new Intent(Promotions.this, Profile.class));
+                break;
+//            case R.id.action_tutorial:
+//                startActivity(new Intent(Mapsimport1.this, Instructions.class));
+////                startActivity(new Intent(Mapsimport1.this, LOGIN2.class));
+////                Intent inty =new Intent(Mapsimport1.this,Events.class);
+////                inty.putExtra("updates",ups);
+////                startActivity(inty);
+//
+//                break;
+            case R.id.action_safetytips:
+                startActivity(new Intent(Promotions.this, SafetyTips.class));
+                break;
+//            case R.id.action_support:
+//                startActivity(new Intent(Mapsimport1.this, Support.class));
+//                break;
+//            case R.id.action_events:
+//                Intent inty =new Intent(Mapsimport1.this,Events.class);
+//                inty.putExtra("updates",ups);
+//                startActivity(inty);
+//                break;
+            case R.id.action_termsandconds:
+                Intent browserIntent = new Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("http://stardigitalbikes.com/terms_and_conditions.php"));
+                startActivity(browserIntent);
+
+                break;
+//            case R.id.action_share:
+//                startActivity(new Intent(Mapsimport1.this, Promotions.class));
+//                break;
 
         }
         return super.onOptionsItemSelected(item);
     }
 
     public  void sharegen(View view){
+        Button bshare=(Button)findViewById(R.id.sharegen);
+
+//        ANIMATION
+        Animation animation= AnimationUtils.loadAnimation(Promotions.this,R.anim.bounce);
+        bshare.startAnimation(animation);
 
         if(daynight==0){//GENERATE CODE
             progBar.setVisibility(ProgressBar.VISIBLE);
@@ -189,7 +230,9 @@ public class Promotions extends AppCompatActivity {
 //            progBar.setVisibility(ProgressBar.VISIBLE);
             Intent int1 =new Intent(Intent.ACTION_SEND);
             int1.setType("text/plain");
-            String shareBody ="Follow the link to download digital bikes and input code:"+gencode+" to earn 20 minutes Digital time";
+            String shareBody ="https://play.google.com/store/apps/details?id=com.stardigitalbikes.samuelhimself.bible1" +
+                    " Follow the link above to download digital bikes and input code:"+gencode+" to earn 20 minutes Digital time";
+//            String shareBody =getResources().getString(R.string.mylink)+gencode;
             int1.putExtra(Intent.EXTRA_SUBJECT,shareBody);
             int1.putExtra(Intent.EXTRA_TEXT,shareBody);
             startActivity(Intent.createChooser(int1, "Share using"));

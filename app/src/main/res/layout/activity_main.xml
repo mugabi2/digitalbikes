@@ -4,19 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
- tools:context=".MainActivity"
+    tools:context=".MainActivity"
     android:background="#ffffff">
 
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/mytoolbar1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00ffff"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        />
+    <include layout="@layout/apptoolbar"
+        android:id="@+id/homeToolbar" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -26,89 +19,98 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="267dp"
+        android:background="#ffffff"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#ffffff"
-        >
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:background="#ffffff">
-
-            <Button
-                android:layout_gravity="center"
-                android:background="#ffffff"
-                android:id="@+id/rab"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:textAllCaps="false"
-                android:text="@string/rentABike"
-                android:textSize="7pt" />
-
-            <Button
-                android:background="#ffffff"
-                android:id="@+id/evt"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAllCaps="false"
-                android:text="@string/events"
-                android:textSize="7pt" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_gravity="center"
             android:background="#ffffff"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
-                android:background="#ffffff"
-
-                android:id="@+id/prom"
-                android:layout_weight="1"
+                android:id="@+id/rab"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textColor="#00003a"
+                android:background="#ffffff"
+                android:text="@string/rentABike"
                 android:fontFamily="casual"
-                android:text="@string/promotions"
                 android:textAllCaps="false"
-                android:textSize="7pt"
-                android:gravity="center"/>
+                android:drawableTop="@drawable/bike144"
+                android:textSize="7pt" />
 
             <Button
-
-                android:background="#ffffff"
-                android:id="@+id/gop"
-                android:layout_weight="1"
+                android:id="@+id/inst"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="casual"
-                android:text="@string/goPremium"
-                android:textAllCaps="false"
-                android:textSize="7pt"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:textColor="#00003a"
                 android:gravity="center"
+                android:fontFamily="casual"
+                android:drawableTop="@drawable/inst5"
+                android:text="@string/tutorial"
+                android:textAllCaps="false"
+                android:textSize="7pt" />
 
-                />
 
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="#ffffff"
+            android:orientation="horizontal">
+
+            <Button
+
+                android:id="@+id/evt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:textColor="#00003a"
+                android:fontFamily="casual"
+                android:drawableTop="@drawable/ic_events3"
+                android:text="@string/events"
+                android:textAllCaps="false"
+                android:textSize="7pt"
+                />
+            <Button
+                android:id="@+id/prom"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:textColor="#00003a"
+                android:fontFamily="casual"
+                android:drawableTop="@drawable/share3"
+                android:text="@string/share"
+                android:textAllCaps="false"
+                android:textSize="7pt" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#f6f6f6" />
+
+
     </LinearLayout>
-
-
 
 
     <LinearLayout
@@ -118,71 +120,77 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:background="#ffffff"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:background="#ffffff"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
 
-        >
-
-
-
-                <Button
-
-                    android:background="#ffffff"
-                    android:id="@+id/hm0"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/home"
-                    android:textAllCaps="false"
-                    android:textSize="7pt"
-                    android:fontFamily="sans-serif"
-                    />
 
         <Button
-            android:background="#fffffF"
-            android:layout_weight="1"
+
+            android:id="@+id/hm0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/parkingPoints"
-            android:textAllCaps="false"
-            android:textSize="7pt"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:textColor="#00003a"
+            android:drawableTop="@drawable/ic_home13"
             android:fontFamily="sans-serif"
-            />
+            android:text="@string/home"
+            android:textAllCaps="false"
+            android:textSize="7pt" />
+
+        <Button
+            android:id="@+id/safety1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#fffffF"
+            android:textColor="#00003a"
+            android:drawableTop="@drawable/ic_safe1"
+            android:fontFamily="sans-serif"
+            android:text="@string/safetyTips"
+            android:textAllCaps="false"
+            android:textSize="7pt" />
 
 
         <Button
-            android:background="#fffffF"
             android:id="@+id/more1"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#fffffF"
+            android:textColor="#00003a"
+            android:drawableTop="@drawable/ic_more"
+            android:fontFamily="sans-serif"
             android:text="@string/more"
             android:textAllCaps="false"
-            android:textSize="6pt"
-            android:fontFamily="sans-serif"
-            />
+            android:textSize="6pt" />
 
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
-        android:layout_height="219dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.144"
-        app:srcCompat="@drawable/p1" />
+        app:layout_constraintVertical_bias="0.161"
+        app:srcCompat="@drawable/bicycle3s1" />
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>

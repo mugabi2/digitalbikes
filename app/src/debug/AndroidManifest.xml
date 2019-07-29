@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.samuelhimself.bible1">
+    package="com.stardigitalbikes.samuelhimself.bible1">
 
     <application>
-        <activity android:name="com.example.samuelhimself.bible1.registration"></activity>
+        <activity android:name="com.stardigitalbikes.samuelhimself.bible1.registration"></activity>
     </application>
 </manifest>

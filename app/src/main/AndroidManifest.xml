@@ -1,37 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.samuelhimself.bible1">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.stardigitalbikes.samuelhimself.bible1">
 
+    <!-- android:versionCode="2" -->
+
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <!-- android:icon="@mipmap/ic_launcher" -->
+    <!-- android:roundIcon="@mipmap/dbicon6" -->
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/gpicon1"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/gpicon1_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LOGIN"
+            android:label="@string/login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SPLASH1"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LOGIN" />
-        <activity android:name=".SPLASH1"/>
-        <activity android:name=".More" />
-        <activity android:name=".Price" />
-        <activity android:name=".SafetyTips" />
-        <activity android:name=".Credit" />
-        <activity android:name=".Profile" />
-        <activity android:name=".Support" />
-        <activity android:name=".History" />
-        <activity android:name=".About"/>
-        <activity android:name=".Rent1"/>
-        <activity android:name=".SignUp" />
-        <activity android:name=".Instructions" />
-        <activity android:name=".Promotions" />
-        <activity android:name=".Events" />
-        <activity android:name=".GoPremium"/>
+        <activity
+            android:name=".More"
+            android:label="@string/more"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Price"
+            android:label="@string/price"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SafetyTips"
+            android:label="@string/safetyTips"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Credit"
+            android:label="@string/credit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile"
+            android:label="@string/profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Support"
+            android:label="@string/getInTouch"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".History"
+            android:label="@string/myhistory"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".About"
+            android:label="@string/about"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Rent1"
+            android:label="@string/rentABike"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignUp"
+            android:label="@string/signUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Instructions"
+            android:label="@string/instructions"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Promotions"
+            android:label="Share Code"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Events"
+            android:label="@string/events"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GoPremium"
+            android:label="@string/goPremium"
+            android:screenOrientation="portrait" />
+
+        <!--
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="AIzaSyC_tXiX6JmgdbJ7WdQzGglBhWIESkzaL_Q"
+            tools:node="replace" />
+
+
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".rentingmap"
+            android:label="@string/title_activity_rentingmap"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".parkingPointsMap"
+            android:label="@string/title_activity_parking_points_map"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Mapsimport1"
+            android:label="@string/digitalBikes"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".databaseConnect"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LOGIN2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".registration"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".returnBike"
+            android:label="Bike return"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".fine"
+            android:label="Fine"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".finalRegistration"
+            android:label="Final registration"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Price1"
+            android:label="Price"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".passwordrecovery"
+            android:label="Password Recovery"
+            android:screenOrientation="portrait" />
+        <activity android:name=".passwordrecovery2" />
+        <activity android:name=".passwordrecovery3"></activity>
     </application>
 
 </manifest>
