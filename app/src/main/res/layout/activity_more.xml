@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.samuelhimself.bible1.More"
+    android:background="#ffffff"
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/mytoolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00ffff"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+
+        <Button
+            android:id="@+id/st"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="@string/safetyTips"
+            android:fontFamily="casual"
+            android:textSize="13pt"
+            android:background="#ffffff"
+            android:textAllCaps="false"
+            />
+
+            <View
+                android:layout_width="300dp"
+                android:layout_height="2dp"
+                android:background="#B0C9CF"
+
+                ></View>
+
+        <Button
+            android:id="@+id/crd"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="@string/credit"
+            android:fontFamily="casual"
+            android:textSize="13pt"
+            android:background="#ffffff"
+            android:textAllCaps="false"
+            />
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:background="#B0C9CF"
+
+            ></View>
+
+        <Button
+            android:id="@+id/tad"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="@string/termsAndConditions"
+            android:fontFamily="casual"
+            android:textSize="13pt"
+            android:background="#ffffff"
+            android:textAllCaps="false"
+            />
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:background="#B0C9CF"
+
+            ></View>
+
+        <Button
+            android:id="@+id/pfile"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="@string/profile"
+            android:fontFamily="casual"
+            android:textSize="13pt"
+            android:background="#ffffff"
+            android:textAllCaps="false"
+            />
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:background="#B0C9CF"
+
+            ></View>
+
+        <Button
+            android:id="@+id/spt"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="@string/support"
+            android:fontFamily="casual"
+            android:textSize="13pt"
+            android:background="#ffffff"
+            android:textAllCaps="false"
+            />
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="2dp"
+            android:background="#B0C9CF"
+
+            ></View>
+
+        <Button
+            android:id="@+id/hist"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="@string/history"
+            android:fontFamily="casual"
+            android:textSize="13pt"
+            android:background="#ffffff"
+            android:textAllCaps="false"
+
+        />
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:background="#ffffff"
+        >
+        <Button
+            android:id="@+id/hm1"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/home"
+            android:textAllCaps="false"
+            android:textSize="7pt"
+            android:fontFamily="sans-serif"
+            android:background="#ffffff"
+            />
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/parkingPoints"
+            android:textAllCaps="false"
+            android:textSize="7pt"
+            android:fontFamily="sans-serif"
+            android:background="#ffffff"
+            />
+
+
+        <Button
+            android:id="@+id/more2"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/more"
+            android:textAllCaps="false"
+            android:textSize="7pt"
+            android:fontFamily="sans-serif"
+            android:background="#ffffff"
+            />
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
