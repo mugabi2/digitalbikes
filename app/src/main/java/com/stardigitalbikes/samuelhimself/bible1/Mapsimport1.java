@@ -146,6 +146,8 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         LocationListener, GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
 
 //    just want to see this comment am telling you
+
+//    this time i want to see this comment
     private ProgressBar progBar;
     private TextView text;
     private Handler mHandler = new Handler();

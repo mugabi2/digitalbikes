@@ -1,9 +1,11 @@
 package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -67,10 +72,16 @@ public class SPLASH1 extends AppCompatActivity {
     private static final String PHONE_NUMBER_KEY ="Phone Number";
     int sucksey;
 
+    Dialog refDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash1);
+
+        refDialog = new Dialog(this);
+        refDialog.setContentView(R.layout.restart);
+
 
         prefl=getSharedPreferences(preflogin, MODE_PRIVATE);
 //        prefb=getSharedPreferences(prefName2,MODE_PRIVATE);
@@ -178,8 +189,9 @@ public class SPLASH1 extends AppCompatActivity {
                 }
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error creating the json object " + e.toString());
-                dialog.setMessage("Please connect to the internet and then try again");
-                dialog.show();
+//                dialog.setMessage("Please connect to the internet and then try again");
+//                dialog.show();
+                showRefPopup();
             }
 
             switch (sucksey) {
@@ -270,4 +282,24 @@ public class SPLASH1 extends AppCompatActivity {
             return result;
         }
     }
+
+    public void showRefPopup() {
+//        ImageView closePopup;
+//        closePopup =(ImageView) refDialog.findViewById(R.id.close_popup);
+//        closePopup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                refDialog.dismiss();
+//            }
+//        });
+        refDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        refDialog.setCancelable(false);
+        refDialog.show();
+    }
+
+    public void bikins(View view){
+        refDialog.dismiss();
+        new SPLASH1.backgroundBikesIn(SPLASH1.this).execute();
+    }
+
 }

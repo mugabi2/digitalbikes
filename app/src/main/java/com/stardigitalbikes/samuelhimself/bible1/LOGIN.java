@@ -118,7 +118,7 @@ public class LOGIN extends AppCompatActivity {
     }
 
     public  void reset(View view){
-        Intent int111=new Intent(LOGIN.this,passwordrecovery.class);
+        Intent int111=new Intent(LOGIN.this,passwordrecovery2.class);
         startActivity(int111);
 
     }
@@ -194,8 +194,8 @@ public class LOGIN extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-                dialog= new AlertDialog.Builder(context).create();
-                   dialog.setTitle("login status");
+            dialog= new AlertDialog.Builder(context).create();
+            dialog.setTitle("login status");
         }
 
         @Override
@@ -272,8 +272,8 @@ public class LOGIN extends AppCompatActivity {
                 OutputStream ops =http.getOutputStream();
                 BufferedWriter writer =new BufferedWriter(new OutputStreamWriter(ops,"UTF-8"));
                 String data = URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(phonenum,"UTF-8")
-                         +"&&"+ URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(pass,"UTF-8")
-                         +"&&"+ URLEncoder.encode("serverKey","UTF-8")+"="+URLEncoder.encode(serverKey,"UTF-8");
+                        +"&&"+ URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(pass,"UTF-8")
+                        +"&&"+ URLEncoder.encode("serverKey","UTF-8")+"="+URLEncoder.encode(serverKey,"UTF-8");
                 writer.write(data);
                 writer.flush();
                 writer.close();

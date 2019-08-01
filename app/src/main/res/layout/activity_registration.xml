@@ -10,7 +10,7 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="334dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="14dp"
@@ -43,7 +43,7 @@
                 android:id="@+id/sname"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/round"
                 android:drawableLeft="@drawable/name_draw2"
                 android:ems="10"
@@ -66,33 +66,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/round"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:paddingLeft="4dp"
                     android:text="+256"
-                    android:textSize="7pt" />
-
+                    android:paddingLeft="4dp"
+                    android:textSize="7pt"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:text="  "
-                    android:textSize="7pt" />
-
-                <EditText
-                    android:id="@+id/phonenum"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:background="@drawable/round"
-                    android:ems="10"
-                    android:hint="@string/phonenumber"
-                    android:inputType="phone"
-                    android:maxLength="9"
-                    android:textSize="7pt" />
+                    android:textSize="7pt"/>
+            <EditText
+                android:id="@+id/phonenum"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/round"
+                android:maxLength="9"
+                android:ems="10"
+                android:hint="@string/phonenumber"
+                android:inputType="phone"
+                android:textSize="7pt" />
             </LinearLayout>
 
             <EditText
@@ -210,7 +208,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Please come with your University Identity Card to complete registration"
-                android:textColor="#ec7e29"
+                android:textColor="#ff0000"
                 android:textSize="7pt" />
 
             <Button
@@ -219,10 +217,9 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/round51"
+                android:background="@drawable/round1"
                 android:onClick="regMe"
-                android:text="Sign up"
-                android:textAllCaps="false"
+                android:text="sign up"
                 android:textColor="#ffffff" />
 
             <Button
@@ -230,9 +227,8 @@
                 android:layout_width="170dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center"
-                android:textAllCaps="false"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/round52"
+                android:background="@drawable/round1"
                 android:onClick="logMeIn"
                 android:text="Login link"
                 android:textColor="#ffffff" />
