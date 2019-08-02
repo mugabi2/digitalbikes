@@ -303,7 +303,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         shareimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Mapsimport1.this, Promotions.class));
+                startActivity(new Intent(Mapsimport1.this, History.class));// CHANGE BACK TO PROMOTIONS
             }
         });
 
