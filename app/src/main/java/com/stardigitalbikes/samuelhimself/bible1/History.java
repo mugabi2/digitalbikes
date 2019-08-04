@@ -33,7 +33,8 @@ public class History extends AppCompatActivity {
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(History.this, LinearLayoutManager.HORIZONTAL, false);mRecyclerView.setLayoutManager(horizontalLayoutManagaer);
 
         mProgressCircle = findViewById(R.id.progress_circle);
 

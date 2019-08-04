@@ -32,6 +32,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -132,6 +134,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import org.json.JSONArray;
@@ -246,6 +253,14 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     int notinumber;
     int version=0,newVersion;
 
+//    recycler
+private RecyclerView mRecyclerView;
+    private ImageAdapter mAdapter;
+
+    private ProgressBar mProgressCircle;
+
+    private DatabaseReference mDatabaseRef;
+    private List<Upload> mUploads;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,6 +270,40 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
         progBar= (ProgressBar)findViewById(R.id.pbmap);
         pogless();
+
+//        recycler
+
+        mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(Mapsimport1.this, LinearLayoutManager.HORIZONTAL, false);mRecyclerView.setLayoutManager(horizontalLayoutManagaer);
+
+//        mProgressCircle = findViewById(R.id.progress_circle);
+
+        mUploads = new ArrayList<>();
+
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Upload upload = postSnapshot.getValue(Upload.class);
+                    mUploads.add(upload);
+                }
+
+                mAdapter = new ImageAdapter(Mapsimport1.this, mUploads);
+
+                mRecyclerView.setAdapter(mAdapter);
+//                mProgressCircle.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Mapsimport1.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+//                mProgressCircle.setVisibility(View.INVISIBLE);
+            }
+        });
 
 
         //   Bundle extras=getIntent().getExtras();
@@ -286,7 +335,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 downArrow.setVisibility(View.INVISIBLE);
                 upBar.setVisibility(View.VISIBLE);
-                new Mapsimport1.downloadimage().execute();
+//                new Mapsimport1.downloadimage().execute();
 
             }
             else {
@@ -325,28 +374,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheete);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
-
-//        CARD VIEW
-        cd1=(CardView)findViewById(R.id.card1);
-        cd2=(CardView)findViewById(R.id.card2);
-        cd3=(CardView)findViewById(R.id.card3);
-        cd4=(CardView)findViewById(R.id.card4);
-        cd5=(CardView)findViewById(R.id.card5);
-        cd6=(CardView)findViewById(R.id.card6);
-        cd7=(CardView)findViewById(R.id.card7);
-        cd8=(CardView)findViewById(R.id.card8);
-        cd9=(CardView)findViewById(R.id.card9);
-        cd10=(CardView)findViewById(R.id.card10);
-
-        cd2.setVisibility(View.GONE);
-        cd3.setVisibility(View.GONE);
-        cd4.setVisibility(View.GONE);
-        cd5.setVisibility(View.GONE);
-        cd6.setVisibility(View.GONE);
-        cd7.setVisibility(View.GONE);
-        cd8.setVisibility(View.GONE);
-        cd9.setVisibility(View.GONE);
-        cd10.setVisibility(View.GONE);
 
         myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.rent_bike_popup);
@@ -1999,175 +2026,175 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         moveTaskToBack(true);
     }
 
-    public int imgviewname(int number){
-//        String name="R.id.iupdate"+number;
-        int name=0;// =R.id.iupdat;//+number;
-
-        switch (number){
-            case 1:
-                name =R.id.iupdate1;
-                pb1 =findViewById(R.id.progress_bar_1);
-                pb1.setVisibility(ProgressBar.INVISIBLE);
-                break;
-            case 2:
-                name =R.id.iupdate2;
-                cd2.setVisibility(View.VISIBLE);
-                pb2 =findViewById(R.id.progress_bar_2);
-                pb2.setVisibility(ProgressBar.INVISIBLE);
-                break;
-            case 3:
-                name =R.id.iupdate3;
-                cd3.setVisibility(View.VISIBLE);
-                pb3 =findViewById(R.id.progress_bar_3);
-                pb3.setVisibility(ProgressBar.INVISIBLE);
-                break;
-            case 4:
-                name =R.id.iupdate4;
-                cd4.setVisibility(View.VISIBLE);
-                pb4 =findViewById(R.id.progress_bar_4);
-                pb4.setVisibility(ProgressBar.INVISIBLE);
-                break;
-            case 5:
-                name =R.id.iupdate5;
-                cd5.setVisibility(View.VISIBLE);
-                pb5 =findViewById(R.id.progress_bar_5);
-                pb5.setVisibility(ProgressBar.INVISIBLE);
-                break;
-            case 6:
-                name =R.id.iupdate6;
-                cd6.setVisibility(View.VISIBLE);
-                pb6 =findViewById(R.id.progress_bar_6);
-                pb6.setVisibility(ProgressBar.INVISIBLE);
-                break;
-            case 7:
-                name =R.id.iupdate7;
-                cd7.setVisibility(View.VISIBLE);
-                pb7 =findViewById(R.id.progress_bar_7);
-                pb7.setVisibility(ProgressBar.INVISIBLE);
-                break;
-            case 8:
-                name =R.id.iupdate8;
-                cd8.setVisibility(View.VISIBLE);
-                pb8 =findViewById(R.id.progress_bar_8);
-                pb8.setVisibility(ProgressBar.INVISIBLE);
-                break;
-            case 9:
-                name =R.id.iupdate9;
-                cd9.setVisibility(View.VISIBLE);
-                pb9 =findViewById(R.id.progress_bar_9);
-                pb9.setVisibility(ProgressBar.INVISIBLE);
-                break;
-            case 10:
-                name =R.id.iupdate10;
-                cd10.setVisibility(View.VISIBLE);
-                pb10 =findViewById(R.id.progress_bar_10);
-                pb10.setVisibility(ProgressBar.INVISIBLE);
-                break;
-        }
-
-        return name;
-    }
-
-    class downloadimage extends AsyncTask<Void, Void,ArrayList> {
-        Bitmap image;
-        String name;
-//        int ceiling;
-//        public downloadimage(int ceiling){
-//            this.ceiling=ceiling;
+//    public int imgviewname(int number){
+////        String name="R.id.iupdate"+number;
+//        int name=0;// =R.id.iupdat;//+number;
+//
+//        switch (number){
+//            case 1:
+//                name =R.id.iupdate1;
+//                pb1 =findViewById(R.id.progress_bar_1);
+//                pb1.setVisibility(ProgressBar.INVISIBLE);
+//                break;
+//            case 2:
+//                name =R.id.iupdate2;
+//                cd2.setVisibility(View.VISIBLE);
+//                pb2 =findViewById(R.id.progress_bar_2);
+//                pb2.setVisibility(ProgressBar.INVISIBLE);
+//                break;
+//            case 3:
+//                name =R.id.iupdate3;
+//                cd3.setVisibility(View.VISIBLE);
+//                pb3 =findViewById(R.id.progress_bar_3);
+//                pb3.setVisibility(ProgressBar.INVISIBLE);
+//                break;
+//            case 4:
+//                name =R.id.iupdate4;
+//                cd4.setVisibility(View.VISIBLE);
+//                pb4 =findViewById(R.id.progress_bar_4);
+//                pb4.setVisibility(ProgressBar.INVISIBLE);
+//                break;
+//            case 5:
+//                name =R.id.iupdate5;
+//                cd5.setVisibility(View.VISIBLE);
+//                pb5 =findViewById(R.id.progress_bar_5);
+//                pb5.setVisibility(ProgressBar.INVISIBLE);
+//                break;
+//            case 6:
+//                name =R.id.iupdate6;
+//                cd6.setVisibility(View.VISIBLE);
+//                pb6 =findViewById(R.id.progress_bar_6);
+//                pb6.setVisibility(ProgressBar.INVISIBLE);
+//                break;
+//            case 7:
+//                name =R.id.iupdate7;
+//                cd7.setVisibility(View.VISIBLE);
+//                pb7 =findViewById(R.id.progress_bar_7);
+//                pb7.setVisibility(ProgressBar.INVISIBLE);
+//                break;
+//            case 8:
+//                name =R.id.iupdate8;
+//                cd8.setVisibility(View.VISIBLE);
+//                pb8 =findViewById(R.id.progress_bar_8);
+//                pb8.setVisibility(ProgressBar.INVISIBLE);
+//                break;
+//            case 9:
+//                name =R.id.iupdate9;
+//                cd9.setVisibility(View.VISIBLE);
+//                pb9 =findViewById(R.id.progress_bar_9);
+//                pb9.setVisibility(ProgressBar.INVISIBLE);
+//                break;
+//            case 10:
+//                name =R.id.iupdate10;
+//                cd10.setVisibility(View.VISIBLE);
+//                pb10 =findViewById(R.id.progress_bar_10);
+//                pb10.setVisibility(ProgressBar.INVISIBLE);
+//                break;
 //        }
+//
+//        return name;
+//    }
 
-        @Override
-        protected void onPostExecute(ArrayList bitmaps) {
-//            super.onPostExecute(bitmaps);
-
-//            if(bitmap!=null){
-//                imageToUpload.setImageBitmap(bitmap);
+//    class downloadimage extends AsyncTask<Void, Void,ArrayList> {
+//        Bitmap image;
+//        String name;
+////        int ceiling;
+////        public downloadimage(int ceiling){
+////            this.ceiling=ceiling;
+////        }
+//
+//        @Override
+//        protected void onPostExecute(ArrayList bitmaps) {
+////            super.onPostExecute(bitmaps);
+//
+////            if(bitmap!=null){
+////                imageToUpload.setImageBitmap(bitmap);
+////            }
+//            int position, imname;
+//            Bitmap bit;
+//
+//            if (connection==1) {
+//                for (int i = 1; i <= max; i++) {
+//                    position = i - 1;
+//                    imname = imgviewname(i);
+//                    imagev = findViewById(imname);
+//                    bit = (Bitmap) bitmaps.get(position);
+//                    imagev.setImageBitmap(bit);
+//                }
+//            }else {
+//                Toast.makeText(getApplicationContext(), "Connection failed, please reload", Toast.LENGTH_SHORT).show();
+//
 //            }
-            int position, imname;
-            Bitmap bit;
-
-            if (connection==1) {
-                for (int i = 1; i <= max; i++) {
-                    position = i - 1;
-                    imname = imgviewname(i);
-                    imagev = findViewById(imname);
-                    bit = (Bitmap) bitmaps.get(position);
-                    imagev.setImageBitmap(bit);
-                }
-            }else {
-                Toast.makeText(getApplicationContext(), "Connection failed, please reload", Toast.LENGTH_SHORT).show();
-
-            }
-        }
-
-        @Override
-        protected  ArrayList<Bitmap> doInBackground(Void... params) {
-//            IN NEED A FOR LOOP
-//            ARRAY OF BITMAPS
-
-//            String result="",SERVER_ADDRESS="http://192.168.43.113/pdobikephp/pictures/";
-            String result="",SERVER_ADDRESS="http://stardigitalbikes.com/pictures/";
-
-            ArrayList<Bitmap> bitmapArray=new ArrayList<Bitmap>();
-
-//            GETTING THE MAXIMUM NUMBER OF UPDATES
-            try {
-                jObjc = new JSONObject(allupdates);
-
-                JSONArray userArray=jObjc.getJSONArray("user");
-                JSONObject user=userArray.getJSONObject(0);
-                max=user.getInt("UT");
-                Log.d("UPDATES", "in the array");
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.d("ASD", e.toString());
-
-            }
-
-            if (max>0){
-                imagenamesarray=new String[max];
-
-                for (int i=1;i<=max;i++){
-                    try {
-                        jObjc = new JSONObject(allupdates);
-
-                        JSONArray userArray=jObjc.getJSONArray("user");
-                        JSONObject user=userArray.getJSONObject(0);
-                        name=user.getString(String.valueOf(i));
-                        Log.d("UPDATES", "FOR THE UPDATES");
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("ASD", e.toString());
-                    }
-
-                    String url = SERVER_ADDRESS + name;
-                    Bitmap itembit;
-
-                    try {
-                        URLConnection connection = new URL(url).openConnection();
-                        connection.setConnectTimeout(1000 * 30);
-                        connection.setReadTimeout(1000 * 30);
-
-                        itembit= BitmapFactory.decodeStream((InputStream) connection.getContent(), null, null);
-                        bitmapArray.add(itembit);//ADD BITMAP TO ARRAY
-
-                        Log.d("UPDATES", "CONNECTION");
-
-                    } catch (Exception e) {
-                        Log.d("ASD", e.toString());
-                        connection=0;
-                        result = e.getMessage();
-                        return null;
-                    }
-                }
-            }
-            return bitmapArray;
-        }
-
-
-    }
+//        }
+//
+//        @Override
+//        protected  ArrayList<Bitmap> doInBackground(Void... params) {
+////            IN NEED A FOR LOOP
+////            ARRAY OF BITMAPS
+//
+////            String result="",SERVER_ADDRESS="http://192.168.43.113/pdobikephp/pictures/";
+//            String result="",SERVER_ADDRESS="http://stardigitalbikes.com/pictures/";
+//
+//            ArrayList<Bitmap> bitmapArray=new ArrayList<Bitmap>();
+//
+////            GETTING THE MAXIMUM NUMBER OF UPDATES
+//            try {
+//                jObjc = new JSONObject(allupdates);
+//
+//                JSONArray userArray=jObjc.getJSONArray("user");
+//                JSONObject user=userArray.getJSONObject(0);
+//                max=user.getInt("UT");
+//                Log.d("UPDATES", "in the array");
+//
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//                Log.d("ASD", e.toString());
+//
+//            }
+//
+//            if (max>0){
+//                imagenamesarray=new String[max];
+//
+//                for (int i=1;i<=max;i++){
+//                    try {
+//                        jObjc = new JSONObject(allupdates);
+//
+//                        JSONArray userArray=jObjc.getJSONArray("user");
+//                        JSONObject user=userArray.getJSONObject(0);
+//                        name=user.getString(String.valueOf(i));
+//                        Log.d("UPDATES", "FOR THE UPDATES");
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                        Log.d("ASD", e.toString());
+//                    }
+//
+//                    String url = SERVER_ADDRESS + name;
+//                    Bitmap itembit;
+//
+//                    try {
+//                        URLConnection connection = new URL(url).openConnection();
+//                        connection.setConnectTimeout(1000 * 30);
+//                        connection.setReadTimeout(1000 * 30);
+//
+//                        itembit= BitmapFactory.decodeStream((InputStream) connection.getContent(), null, null);
+//                        bitmapArray.add(itembit);//ADD BITMAP TO ARRAY
+//
+//                        Log.d("UPDATES", "CONNECTION");
+//
+//                    } catch (Exception e) {
+//                        Log.d("ASD", e.toString());
+//                        connection=0;
+//                        result = e.getMessage();
+//                        return null;
+//                    }
+//                }
+//            }
+//            return bitmapArray;
+//        }
+//
+//
+//    }
 
 }
