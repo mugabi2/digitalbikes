@@ -1,6 +1,5 @@
 package com.stardigitalbikes.samuelhimself.bible1;
 
-
 public class Upload {
     private String mName;
     private String mImageUrl;

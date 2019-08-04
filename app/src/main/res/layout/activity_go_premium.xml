@@ -1,162 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.stardigitalbikes.samuelhimself.bible1.GoPremium">
+    android:padding="16dp"
+    tools:context=".GoPremium">
 
 
-<include layout="@layout/apptoolbar"
-    android:id="@+id/gopremiumtoolbar"/>
+    <!--<include layout="@layout/apptoolbar"-->
+        <!--android:id="@+id/gopremiumtoolbar"/>-->
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:background="#ffffff"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <Button
-            android:id="@+id/hm7"
-            android:background="#ffffff"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_home2"
-            android:fontFamily="sans-serif"
-            android:text="@string/home"
-            android:textAllCaps="false"
-            android:textSize="7pt" />
-
-        <Button
-            android:background="#ffffff"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/parkingpoints2"
-            android:fontFamily="sans-serif"
-            android:text="@string/parkingPoints"
-            android:textAllCaps="false"
-            android:textSize="7pt" />
-
-
-        <Button
-            android:id="@+id/more7"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#ffffff"
-            android:drawableTop="@drawable/ic_more"
-            android:fontFamily="sans-serif"
-            android:text="@string/more"
-            android:textAllCaps="false"
-            android:textSize="7pt" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="368dp"
-        android:background="#ffffff"
-        android:layout_height="155dp"
-        android:layout_marginBottom="84dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:background="#ffffff"
-            android:id="@+id/button5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/perMonth"
-            android:textAllCaps="false"
-            android:textSize="9pt" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#f6f6f6" />
-
-        <Button
-            android:background="#ffffff"
-            android:id="@+id/button6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/per3Months"
-            android:textAllCaps="false"
-            android:textSize="9pt"
-
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#f6f6f6"
-            />
-
-        <Button
-            android:background="#ffffff"
-            android:id="@+id/button7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/perYear"
-            android:textAllCaps="false"
-            android:textSize="9pt" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView37"
+    <Button
+        android:id="@+id/button_choose_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
-        android:gravity="center"
-        android:text="@string/benefitsOfPremium"
-        android:textSize="13pt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Choose file" />
 
-    <TextView
-        android:id="@+id/textView38"
+    <EditText
+        android:id="@+id/edit_text_file_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/button_choose_image"
+        android:hint="Enter file name" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/progress_bar"
+        android:layout_below="@id/edit_text_file_name"
+        android:layout_marginTop="16dp" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_upload"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/button_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Upload" />
+
+    <TextView
+        android:id="@+id/text_view_show_uploads"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button_upload"
+        android:layout_alignTop="@+id/button_upload"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@+id/button_upload"
         android:gravity="center"
-        android:text="@string/comingSoon"
-        android:textSize="15pt"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView37"
-        app:layout_constraintVertical_bias="0.502" />
+        android:text="Show Uploads"
+        android:textSize="16sp" />
 
-    <View
-        android:layout_width="368dp"
-        android:layout_height="0.5dp"
-        android:background="#f6f6f6"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="493dp" />
-
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
