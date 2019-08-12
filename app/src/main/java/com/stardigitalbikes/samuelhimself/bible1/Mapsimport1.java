@@ -46,10 +46,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -154,7 +156,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
 //    just want to see this comment am telling you
 
-//    this time i want to see this comment
+    //    this time i want to see this comment
     private ProgressBar progBar;
     private TextView text;
     private Handler mHandler = new Handler();
@@ -205,7 +207,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     String method,pkucu="2000 bikes",pkmubs="2500 bikes";
 
     String dura, duration = "20 minutes",ups;
-    Dialog myDialog, updialog;
+    Dialog myDialog, updialog,ratdialog;
 
 
 
@@ -253,8 +255,8 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     int notinumber;
     int version=0,newVersion;
 
-//    recycler
-private RecyclerView mRecyclerView;
+    //    recycler
+    private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
 
     private ProgressBar mProgressCircle;
@@ -262,10 +264,21 @@ private RecyclerView mRecyclerView;
     private DatabaseReference mDatabaseRef;
     private List<Upload> mUploads;
 
+    //    FEEDBACK
+    private RatingBar ratingBar;
+    private int stars;
+    Button sendFeed;
+    EditText feedMsg;
+    String feedbackmsg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapsimport1);
+
+//        feedabback
+        ratdialog = new Dialog(this);
+        ratdialog.setContentView(R.layout.rating);
 
 
         progBar= (ProgressBar)findViewById(R.id.pbmap);
@@ -352,14 +365,15 @@ private RecyclerView mRecyclerView;
         shareimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Mapsimport1.this, GoPremium.class));// CHANGE BACK TO PROMOTIONS
+                startActivity(new Intent(Mapsimport1.this, Promotions.class));// CHANGE BACK TO PROMOTIONS
             }
         });
 
         instimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Mapsimport1.this, Instructions.class));
+//                startActivity(new Intent(Mapsimport1.this, Instructions.class));
+                showFeedback();
             }
         });
 
@@ -469,7 +483,7 @@ private RecyclerView mRecyclerView;
 //        Toast.makeText(getApplicationContext(), samhash, Toast.LENGTH_LONG).show();
 
 //        NOTIFICATION IFF
-            if(notinumber==0) {
+        if(notinumber==0) {
 //            Toast.makeText(getApplicationContext(), todaysmeassage, Toast.LENGTH_LONG).show();
         }else if(notinumber==1){
 //        notification
@@ -479,17 +493,17 @@ private RecyclerView mRecyclerView;
 //            Toast.makeText(getApplicationContext(), todaysmeassage, Toast.LENGTH_LONG).show();
         }else if(notinumber==2&&version!=newVersion){
 //            UPDATE OPTIONAL d88
-                updialog = new Dialog(this);
-                updialog.setContentView(R.layout.update_popup);
+            updialog = new Dialog(this);
+            updialog.setContentView(R.layout.update_popup);
 
-                showupdatePopup();
-            }else   if(notinumber==3&&version!=newVersion){
+            showupdatePopup();
+        }else   if(notinumber==3&&version!=newVersion){
 //            UPDATE COMPULSURY
-                updialog = new Dialog(this);
-                updialog.setContentView(R.layout.update_popup);
+            updialog = new Dialog(this);
+            updialog.setContentView(R.layout.update_popup);
 
-                showupdatePopup();
-            }
+            showupdatePopup();
+        }
 
 
         switch (location){
@@ -555,6 +569,130 @@ private RecyclerView mRecyclerView;
 //        TextView tdigit=findViewById(R.id.textditime2);
 //        tdigit.append(somet);
     }
+//$
+    class backgroundfeedback extends AsyncTask<String, Void,String> {
+        Context context;
+        public backgroundfeedback(Context context){
+            this.context=context;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try {
+                jObj = new JSONObject(s);
+                if(json!=null){
+                    int success=jObj.getInt("success");
+                    String feedThanks=jObj.getString("message");
+                    Toast.makeText(getApplicationContext(),feedThanks,Toast.LENGTH_SHORT).show();
+
+                    Log.d("JSONStatus", "JSON RETURNED");
+                }else{
+                    Log.e("JSON Parser", "RETURNED JSON IS NULL ");
+                }
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error creating the json object " + e.toString());
+            }
+            ratdialog.dismiss();
+        }
+
+        @Override
+        protected String doInBackground(String... voids) {
+            String result="";
+
+            String connstr="http://stardigitalbikes.com/feedback.php";
+//            String connstr="http://192.168.43.113/pdobikephp/fines_clear_pdo.php";
+            try {
+                URL url =new URL(connstr);
+                HttpURLConnection http =(HttpURLConnection) url.openConnection();
+                http.setRequestMethod("POST");
+                http.setDoInput(true);
+                http.setDoOutput(true);
+
+
+//                Log.d("PHONE NUMBER ISSH"," "+phonenum+" "+extrat+" "+bikeNumb+" "+fineCash);
+                String str=String.valueOf(stars);
+                OutputStream ops =http.getOutputStream();
+                BufferedWriter writer =new BufferedWriter(new OutputStreamWriter(ops,"UTF-8"));
+                String data = URLEncoder.encode("surname","UTF-8")+"="+URLEncoder.encode(usname,"UTF-8")
+                        +"&&"+ URLEncoder.encode("firstname","UTF-8")+"="+URLEncoder.encode(ufname,"UTF-8")
+                        +"&&"+ URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(uphone,"UTF-8")
+                        +"&&"+ URLEncoder.encode("stars","UTF-8")+"="+URLEncoder.encode(str,"UTF-8")
+                        +"&&"+ URLEncoder.encode("comment","UTF-8")+"="+URLEncoder.encode(feedbackmsg,"UTF-8");
+                writer.write(data);
+                writer.flush();
+                writer.close();
+                ops.close();
+                Log.d("JSON Exception","DONE SENDING");
+
+                InputStream ips =http.getInputStream();
+                BufferedReader reader=new BufferedReader(new InputStreamReader(ips,"ISO-8859-1"));
+                String line ="";
+                while ((line=reader.readLine()) !=null){
+                    result +=line;
+
+                }
+//#######INTRODICING THE READING OOF THE RETURNED JSON
+                ips.close();
+                reader.close();
+                json = result.toString();
+
+                try {
+                    jObj = new JSONObject(json);
+                    if(json!=null){
+                        int success=jObj.getInt("success");
+
+                        Log.d("JSONStatus", "JSON RETURNED");
+
+//                        if(success==1){
+//                            rentStatus=true;
+//                            JSONArray userArray=jObj.getJSONArray("user");
+//                            JSONObject user=userArray.getJSONObject(0);
+//                            String bike=user.getString("BN");
+//                            prefb=getSharedPreferences(prefName2,MODE_PRIVATE);
+//                            SharedPreferences.Editor editor=prefb.edit();
+//                            editor.putBoolean(RENT_BIKE_KEY,rentStatus);
+//                            editor.putString(BIKE_NUMBER_KEY,bike);
+//                            editor.commit();
+//
+//                        }else{
+//                            rentStatus=false;
+//                            prefb=getSharedPreferences(prefName2,MODE_PRIVATE);
+//                            SharedPreferences.Editor editor=prefb.edit();
+//                            editor.putBoolean(RENT_BIKE_KEY,rentStatus);
+//                            editor.commit();
+//                            Log.d("JSONStatus","Login failure");
+//                            message=jObj.getString("message");
+//                            Log.d("JSONStatus",message);
+//                        }
+
+                    }else{
+                        Log.e("JSON Parser", "RETURNED JSON IS NULL ");
+                        message=jObj.getString("message");
+                    }
+                } catch (JSONException e) {
+                    Log.e("JSON Parser", "Error creating the json object " + e.toString());
+                }
+//##################################################################33
+                http.disconnect();
+                return result;
+
+            } catch (MalformedURLException e) {
+                Log.d("JSON Exception",e.toString());
+                result =e.getMessage();
+            } catch (ProtocolException e) {
+                Log.d("JSON Exception",e.toString());
+                result =e.getMessage();
+            } catch (IOException e) {
+                Log.d("JSON Exception",e.toString());
+                result =e.getMessage();
+            }
+
+            return result;
+        }
+
+
+    }
+
 
     //    creat notification channel
 
@@ -657,15 +795,15 @@ private RecyclerView mRecyclerView;
         upBar = findViewById(R.id.up_bar1);
 
         if(mBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                downArrow.setVisibility(View.INVISIBLE);
-                upBar.setVisibility(View.VISIBLE);
-            }
-            else {
-                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                downArrow.setVisibility(View.VISIBLE);
-                upBar.setVisibility(View.INVISIBLE);
-            }
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            downArrow.setVisibility(View.INVISIBLE);
+            upBar.setVisibility(View.VISIBLE);
+        }
+        else {
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            downArrow.setVisibility(View.VISIBLE);
+            upBar.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -724,8 +862,14 @@ private RecyclerView mRecyclerView;
 //            case R.id.action_share:
 //                startActivity(new Intent(Mapsimport1.this, Promotions.class));
 //                break;
-       }
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void sendfeed(View view){
+        feedbackmsg = feedMsg.getText().toString();
+//        Toast.makeText(getApplicationContext(),feedbackmsg,Toast.LENGTH_SHORT).show();
+        new Mapsimport1.backgroundfeedback(Mapsimport1.this).execute();
     }
 
     public  void goToPrice(View view){
@@ -742,8 +886,8 @@ private RecyclerView mRecyclerView;
             }else{
                 progBar.setVisibility(ProgressBar.VISIBLE);
                 new backgroundrequest(Mapsimport1.this).execute(usname, ufname, uphone, umail, uresi, udura, paymentInt, uagcode);
-                    Toast.makeText(getApplicationContext(), "requesting.......", Toast.LENGTH_LONG).show();
-                    Log.d("JSONStatus", "requestING");
+                Toast.makeText(getApplicationContext(), "requesting.......", Toast.LENGTH_LONG).show();
+                Log.d("JSONStatus", "requestING");
             }
         }else if (pmc>0){
 //            if payment is digital time reequest directly
@@ -992,12 +1136,12 @@ private RecyclerView mRecyclerView;
             case "0 bikes":
                 mMap.addMarker(ms);
                 break;
-                default:
-                    if (location.equals("MUK")&&
-                            !(pkmarystuart.equals("0 bikes"))){
+            default:
+                if (location.equals("MUK")&&
+                        !(pkmarystuart.equals("0 bikes"))){
                     mMap.addMarker(ms).showInfoWindow();
-                    }
-                    break;
+                }
+                break;
         }
         markers.add(ms);
 
@@ -1283,7 +1427,7 @@ private RecyclerView mRecyclerView;
 //                    REQUESZT BIKE RETURN
                     progBar.setVisibility(ProgressBar.VISIBLE);
                     Toast.makeText(getApplicationContext(), "requesting.....", Toast.LENGTH_LONG).show();
-                returnBike(uagcode);
+                    returnBike(uagcode);
                 }else {
                     Toast.makeText(getApplicationContext(), "no bikes available at "+selected, Toast.LENGTH_SHORT).show();}
             }
@@ -1371,7 +1515,7 @@ private RecyclerView mRecyclerView;
 
             try {
                 jObj = new JSONObject(json);
-                  int  success = jObj.getInt("success");
+                int  success = jObj.getInt("success");
 
                 switch (success){
                     case 0:
@@ -1585,7 +1729,43 @@ private RecyclerView mRecyclerView;
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-//d89
+    //$
+    public void showFeedback(){
+        //feedback
+        ImageView cancel;
+        Button sendfeed;
+
+        cancel=ratdialog.findViewById(R.id.close_popupf);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratdialog.dismiss();
+            }
+        });
+
+        ratingBar = ratdialog.findViewById(R.id.rating);
+        sendFeed=ratdialog.findViewById(R.id.send_feedback);
+        feedMsg=ratdialog.findViewById(R.id.feedtext);
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                stars = (int)ratingBar.getRating();
+            }
+        });
+//    sendfeed=ratdialog.findViewById(R.id.send_feedback);
+//    sendfeed.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            feedbackmsg = feedMsg.getText().toString();
+//            Toast.makeText(getApplicationContext(),feedbackmsg,Toast.LENGTH_SHORT).show();
+//            new Mapsimport1.backgroundfeedback(Mapsimport1.this).execute();
+//        }
+//    });
+
+        ratdialog.show();
+    }
+
     public void showupdatePopup() {
         Button cancel,updatelink;
         TextView upmsg;
@@ -1710,18 +1890,13 @@ private RecyclerView mRecyclerView;
         myDialog.show();
     }
 
+
     class backgroundprice extends AsyncTask<String, Void,String> {
 
         AlertDialog dialog;
         Context context;
         public backgroundprice(Context context){
             this.context=context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-//            dialog= new AlertDialog.Builder(context).create();
-//            dialog.setTitle("login status");
         }
 
         @Override
@@ -1745,12 +1920,12 @@ private RecyclerView mRecyclerView;
                     Toast.makeText(getApplicationContext(),"Not connected!",Toast.LENGTH_LONG).show();
                     break;
                 case 1:
-                Intent intent = new Intent(Mapsimport1.this, Price1.class);
-                intent.putExtra("all", s);
-                intent.putExtra("duration", udura);
-                intent.putExtra("agent", uagcode);
-                startActivity(intent);
-                break;
+                    Intent intent = new Intent(Mapsimport1.this, Price1.class);
+                    intent.putExtra("all", s);
+                    intent.putExtra("duration", udura);
+                    intent.putExtra("agent", uagcode);
+                    startActivity(intent);
+                    break;
                 case 2:
                     Intent int3 =new Intent(getApplicationContext(),fine.class);
                     int3.putExtra("fines",s);
@@ -1916,10 +2091,10 @@ private RecyclerView mRecyclerView;
 
             prefer=getSharedPreferences(prefName,MODE_PRIVATE);
             String Usurname=prefer.getString(SURNAME_KEY,""),
-            Ufirstname=prefer.getString(FIRST_NAME_KEY,""),
-            Uphone=prefer.getString(PHONE_NUMBER_KEY,""),
-            Uemail=prefer.getString(EMAIL_ADDRESS_KEY,""),
-            Uresidence=prefer.getString(RESIDENCE_KEY,"");
+                    Ufirstname=prefer.getString(FIRST_NAME_KEY,""),
+                    Uphone=prefer.getString(PHONE_NUMBER_KEY,""),
+                    Uemail=prefer.getString(EMAIL_ADDRESS_KEY,""),
+                    Uresidence=prefer.getString(RESIDENCE_KEY,"");
 
 
             try {
