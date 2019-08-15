@@ -25,6 +25,7 @@
         android:layout_alignStart="@+id/card3"
         android:background="#ffffff"
         app:cardCornerRadius="7dp"
+        android:layout_marginBottom="50dp"
         app:layout_anchor="@+id/carddkjghd3kjghd3"
         app:layout_anchorGravity="right|bottom"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,13 +64,24 @@
                 android:textColor="#00003a" />
 
             <Button
+                android:id="@+id/givefeedbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:drawableLeft="@drawable/feed3"
+                android:text="Rating and feedback"
+                android:textAllCaps="false"
+                android:textColor="#00003a" />
+
+            <Button
                 android:id="@+id/sendemail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:drawableLeft="@drawable/send_draw2"
-                android:text="@string/sendFeedback"
+                android:text="Email us"
                 android:textAllCaps="false"
                 android:textColor="#00003a" />
 

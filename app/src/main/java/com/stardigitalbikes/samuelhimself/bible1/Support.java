@@ -71,10 +71,24 @@ public class Support extends AppCompatActivity {
     private static final String DIGITAL_TIME_KEY = "Digital Time";
     private static final String LOCATION_KEY ="Location";
 
+    Button feedB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
+
+//        feedabback
+        ratdialog = new Dialog(this);
+        ratdialog.setContentView(R.layout.rating);
+
+        feedB=findViewById(R.id.givefeedbtn);
+        feedB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFeedback();
+            }
+        });
 
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
 
@@ -88,7 +102,7 @@ public class Support extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent int1 =new Intent(Intent.ACTION_DIAL);
-                int1.setData(Uri.parse("tel:0704975898"));
+                int1.setData(Uri.parse("tel:0774645196"));
                 startActivity(int1);
                 Log.d("DIAL","CLICKED CALLING-------------");
             }
@@ -168,6 +182,11 @@ public class Support extends AppCompatActivity {
 //    });
 
         ratdialog.show();
+    }
+    public void sendfeed(View view){
+        feedbackmsg = feedMsg.getText().toString();
+//        Toast.makeText(getApplicationContext(),feedbackmsg,Toast.LENGTH_SHORT).show();
+        new Support.backgroundfeedback(Support.this).execute();
     }
 
 //    $

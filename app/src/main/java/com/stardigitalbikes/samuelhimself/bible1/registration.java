@@ -261,6 +261,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.d("jObjc", e.toString());
             }
             switch (suckinda) {
                 case 0:
@@ -340,6 +341,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                         int success=jObj.getInt("success");
 
                         Log.d("JSONStatus", "JSON RETURNED");
+                        Log.d("JSONStatuss", jObj.toString());
 
                         if(success==1){
                             JSONArray userArray=jObj.getJSONArray("user");

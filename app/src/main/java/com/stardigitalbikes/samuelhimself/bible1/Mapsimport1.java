@@ -289,7 +289,8 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
 //        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(Mapsimport1.this, LinearLayoutManager.HORIZONTAL, false);mRecyclerView.setLayoutManager(horizontalLayoutManagaer);
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(Mapsimport1.this, LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(horizontalLayoutManagaer);
 
 //        mProgressCircle = findViewById(R.id.progress_circle);
 
@@ -365,7 +366,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         shareimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Mapsimport1.this, Promotions.class));// CHANGE BACK TO PROMOTIONS
+                startActivity(new Intent(Mapsimport1.this, GoPremium.class));// CHANGE BACK TO PROMOTIONS
             }
         });
 
@@ -393,9 +394,10 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         myDialog.setContentView(R.layout.rent_bike_popup);
 
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-
+//$$
         TextView Tdt=(TextView)findViewById(R.id.textdigitaltime3);
-        Tdt.append(prefs.getString(DIGITAL_TIME_KEY,"")+ " Hrs");
+//        Tdt.append(prefs.getString(DIGITAL_TIME_KEY,"")+ " Hrs");
+        Tdt.append(ditime+ " Hrs");
 
 
 //        progBar= (ProgressBar)findViewById(R.id.progressBar2);
@@ -482,7 +484,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        String nome="sam", samhash=oblock.MD5(nome);
 //        Toast.makeText(getApplicationContext(), samhash, Toast.LENGTH_LONG).show();
 
-//        NOTIFICATION IFF
+//        NOTIFICATION IFF      123 4-rating
         if(notinumber==0) {
 //            Toast.makeText(getApplicationContext(), todaysmeassage, Toast.LENGTH_LONG).show();
         }else if(notinumber==1){
@@ -503,6 +505,9 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             updialog.setContentView(R.layout.update_popup);
 
             showupdatePopup();
+        }else if(notinumber==4){
+//            RATING
+            showFeedback();
         }
 
 
@@ -2048,7 +2053,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             try {
                 jObjc = new JSONObject(s);
                 sucki=jObjc.getInt("success");
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -2132,6 +2136,8 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                 ips.close();
                 reader.close();
                 json = result.toString();
+                Log.d("JSONret", json);
+
 
                 try {
                     jObj = new JSONObject(json);
