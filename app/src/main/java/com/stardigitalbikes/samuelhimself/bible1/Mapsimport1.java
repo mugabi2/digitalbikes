@@ -245,7 +245,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     String notimessage;
     int notinumber;
     int version=0,newVersion;
-
+    TextView reminder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,6 +256,8 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         progBar= (ProgressBar)findViewById(R.id.pbmap);
         pogless();
 
+
+        reminder=(TextView)findViewById(R.id.reminder1);
 
         //   Bundle extras=getIntent().getExtras();
 //        Toast.makeText(getApplicationContext(),extras.getInt("money"),Toast.LENGTH_LONG).show();
@@ -431,10 +433,13 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
 //            location=user.getString("PL");
 
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        Log.e("NTN MSG", notimessage);
+        reminder.setVisibility(ProgressBar.VISIBLE);
+        reminder.append(notimessage);
 
 //        hss
 //        BLOCKCHAIN oblock=new BLOCKCHAIN();
@@ -497,7 +502,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //            }
 //            applyFontToMenuItem(mi);
 //        }
-        TextView reminder=(TextView)findViewById(R.id.reminder1);
 
 //        WHETHER RENTED OR NOT
 
