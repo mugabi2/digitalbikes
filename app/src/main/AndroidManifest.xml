@@ -173,20 +173,23 @@
             android:label="Password Recovery"
             android:screenOrientation="portrait" />
         <activity android:name=".passwordrecovery2" />
-        <activity android:name=".passwordrecovery3"></activity>
+        <activity android:name=".passwordrecovery3" />
 
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name=".myFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".myFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
-        <service android:name=".MyFirebaseIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-
+        <!--<service-->
+            <!--android:name=".myFirebaseMessagingService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true"></service>-->
     </application>
 
 </manifest>
