@@ -204,7 +204,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
     String ditime;
     String paymentInt,location;
-    int checkPm = 0, pmi, pmc = -1, pmd = -1, suckind, succfour, sucki;
+    int checkPm = 0, pmi, pmc = 1, pmd = -1, suckind, succfour, sucki;
 
     String returntime;
 
@@ -1874,9 +1874,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                     break;
             }
 
-        }
-        public void onBackPressed(){
-            moveTaskToBack(true);
         }
         @Override
         protected String doInBackground(String... voids) {

@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -92,10 +93,26 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
     private Spinner spinner;
     private static final String[] paths = {"MUK"};//, "MUBS", "UCU"};
 
+    CheckBox checkBoxer;
+    int tac=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        checkBoxer=findViewById(R.id.check);
+        checkBoxer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("check", "cheque "+tac);
+//                Toast.makeText(getApplicationContext(),"check "+tac,Toast.LENGTH_SHORT).show();
+                if(checkBoxer.isChecked()){
+                    tac=1;
+                }else{
+                    tac=0;
+                }
+            }
+        });
 
         Button bsinu=findViewById(R.id.signup);
 //        ANIMATION
@@ -227,10 +244,14 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
             //Checking if all fields have been filled
             if (!sname.isEmpty() && !fname.isEmpty() && !phone.isEmpty() && !email.isEmpty() && !psword.isEmpty() && !resid.isEmpty()) {
-                ProgressBar pb = findViewById(R.id.progressBar4);
-                pb.setVisibility(ProgressBar.VISIBLE);
-                new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
-                Log.d("Request status", "GOOD INPUT am gonna make the request");
+                if (tac==1) {
+                    ProgressBar pb = findViewById(R.id.progressBar4);
+                    pb.setVisibility(ProgressBar.VISIBLE);
+                    new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
+                    Log.d("Request status", "GOOD INPUT am gonna make the request");
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please check Terms and Conditions", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
             }
@@ -274,12 +295,8 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                     Log.d("SHARE CODE", "1111111");
 
                     break;
-
             }
-
             Log.d("SHARE CODE", " "+mesg);
-
-
         }
 
         @Override
@@ -597,8 +614,19 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
             return result;
         }
-
-
     }
+
+    public void checkboxed(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+        Toast.makeText(getApplicationContext(),"touch touch touch",Toast.LENGTH_SHORT).show();
+//        !!!
+                if (checked){
+                Toast.makeText(getApplicationContext(),"check",Toast.LENGTH_SHORT).show();
+                }else{
+                Toast.makeText(getApplicationContext(),"Please check terms and conditions",Toast.LENGTH_SHORT).show();
+                }
+    }
+
 
 }
