@@ -78,8 +78,7 @@ public class LOGIN extends AppCompatActivity {
     static String json = "";
     String usersurname,userfirstname,userphonenumb,useremailadd,userresidence,usergender,message,prefer2;
     Boolean loginStatus;
-
-
+    String mesag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,14 +204,13 @@ public class LOGIN extends AppCompatActivity {
 //      new registration().savingToSharedPrefs(usersurname,userfirstname,userphonenumb,useremailadd,userresidence,usergender,loginStatus);
 //            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
 
-            ProgressBar pb =findViewById(R.id.progressBar);
-            pb.setVisibility(ProgressBar.INVISIBLE);
 
 //            prefl=getSharedPreferences(preflogin, MODE_PRIVATE);
 
             try {
                 jObj = new JSONObject(json);
                 int  success = jObj.getInt("success");
+                mesag=jObj.getString("message");
 
                 switch (success){
                     case 1:
@@ -231,6 +229,8 @@ public class LOGIN extends AppCompatActivity {
                         startActivity(int14);
                         break;
                     default:
+                        Toast.makeText(getApplicationContext(),mesag,Toast.LENGTH_SHORT).show();
+
                         break;
                 }
             } catch (JSONException e) {
@@ -249,6 +249,9 @@ public class LOGIN extends AppCompatActivity {
 ////                pb.setVisibility(ProgressBar.INVISIBLE);
 ////                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
 //            }
+
+            ProgressBar pb =findViewById(R.id.progressBar);
+            pb.setVisibility(ProgressBar.INVISIBLE);
         }
 
         @Override

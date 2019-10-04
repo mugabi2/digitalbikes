@@ -58,7 +58,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
     private SharedPreferences prefer;
     private String prefName2 ="preBike";
-    String thecode,send;
+    String thecode="0",send;
 
 
     String serverKey="2y10f2Kkl1GRi5si0AAsgvsgJWyqXsUszC3DuvRLwZZ";
@@ -95,10 +95,15 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
     CheckBox checkBoxer;
     int tac=0;
+
+    EditText epromocode;
+    String promotion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        epromocode=findViewById(R.id.pcodeif);
 
         checkBoxer=findViewById(R.id.check);
         checkBoxer.setOnClickListener(new View.OnClickListener() {
@@ -245,24 +250,40 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             //Checking if all fields have been filled
             if (!sname.isEmpty() && !fname.isEmpty() && !phone.isEmpty() && !email.isEmpty() && !psword.isEmpty() && !resid.isEmpty()) {
                 if (tac==1) {
-                    ProgressBar pb = findViewById(R.id.progressBar4);
-                    pb.setVisibility(ProgressBar.VISIBLE);
-                    new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
-                    Log.d("Request status", "GOOD INPUT am gonna make the request");
+
+                    String pcode=epromocode.getText().toString();
+//                    thecode=scode;
+//////////////
+                    if(!pcode.isEmpty()){
+//      PROMO CODE???????
+                        promotion="1";
+                        thecode=pcode;
+//                        new registration.backgroundsharecode(registration.this).execute();
+                        new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
+                    }else {
+                        promotion="0";
+                        ProgressBar pb = findViewById(R.id.progressBar4);
+                        pb.setVisibility(ProgressBar.VISIBLE);
+                        new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
+                        Log.d("Request status", "GOOD INPUT am gonna make the REGITSTRATION");
+                    }
+
+//                    ProgressBar pb = findViewById(R.id.progressBar4);
+//                    pb.setVisibility(ProgressBar.VISIBLE);
+//                    new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
+//                    Log.d("Request status", "GOOD INPUT am gonna make the request");
                 }else{
                     Toast.makeText(getApplicationContext(), "Please check Terms and Conditions", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
             }
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), "Check length of your phone number", Toast.LENGTH_LONG).show();
         }
     }
     //##################BACK GROUND CLASSS$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$444444444
     class backgroundregistration extends AsyncTask<String, Void,String> {
-
 
         AlertDialog dialog;
         Context context;
@@ -273,8 +294,9 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         @Override
         protected void onPostExecute(String s) {
             prefl=getSharedPreferences(preflogin, MODE_PRIVATE);
-//            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
 
+            Log.d("SHREE",s);
             try {
                 jObjc = new JSONObject(s);
                 suckinda=jObjc.getInt("success");
@@ -285,13 +307,16 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             }
             switch (suckinda) {
                 case 0:
-                    Toast.makeText(getApplicationContext(),mesg,Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),mesg,Toast.LENGTH_LONG).show();
                     Log.d("SHARE CODE", "000000");
 
                     break;
                 case 1:
                     all=s;
-                    showshare();
+                    Intent int111=new Intent(registration.this,Mapsimport1.class);
+                    int111.putExtra("bikesin",all);
+                    startActivity(int111);
+                    finish();
                     Log.d("SHARE CODE", "1111111");
 
                     break;
@@ -321,6 +346,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                 http.setDoInput(true);
                 http.setDoOutput(true);
 
+                Log.d("SEND",sname+phonenum+' '+promotion+" "+thecode);
 
                 OutputStream ops =http.getOutputStream();
                 BufferedWriter writer =new BufferedWriter(new OutputStreamWriter(ops,"UTF-8"));
@@ -332,7 +358,9 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                         +"&&"+ URLEncoder.encode("residence","UTF-8")+"="+URLEncoder.encode(residence,"UTF-8")
                         +"&&"+ URLEncoder.encode("gender","UTF-8")+"="+URLEncoder.encode(sex,"UTF-8")
                         +"&&"+ URLEncoder.encode("preferredlocation","UTF-8")+"="+URLEncoder.encode(preferred,"UTF-8")
-                        +"&&"+ URLEncoder.encode("serverKey","UTF-8")+"="+URLEncoder.encode(serverKey,"UTF-8");
+                        +"&&"+ URLEncoder.encode("serverKey","UTF-8")+"="+URLEncoder.encode(serverKey,"UTF-8")
+                        +"&&"+ URLEncoder.encode("promotion","UTF-8")+"="+URLEncoder.encode(promotion,"UTF-8")
+                        +"&&"+ URLEncoder.encode("code","UTF-8")+"="+URLEncoder.encode(thecode,"UTF-8");
                 writer.write(data);
                 writer.flush();
                 writer.close();
@@ -442,7 +470,6 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             return result;
         }
 
-
     }
 
     public  void savingToSharedPrefs( String Ssurname,String Sfirstname,String Sphonenumb,String Semail,String Sresidence,String Sgender,String Spref){
@@ -486,7 +513,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View v) {
                 String scode=esharecode.getText().toString();
                 thecode=scode;
-
+//////////////
                 if(!scode.isEmpty()){
                     sharing();
                     Log.d("Request status","INPUT PRESENT;;;CONTINUE");
@@ -541,9 +568,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             }
 
         }
-        public void onBackPressed(){
-            moveTaskToBack(true);
-        }
+
         @Override
         protected String doInBackground(String... voids) {
             String result="";
@@ -561,7 +586,6 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                     Uphone=prefer.getString(PHONE_NUMBER_KEY,""),
                     Uresidence=prefer.getString(RESIDENCE_KEY,"");
             String Ugender=prefer.getString(GENDER_KEY,"");
-
 
             try {
                 URL url =new URL(connst);
