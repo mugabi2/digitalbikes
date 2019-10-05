@@ -2,6 +2,7 @@ package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class Support extends AppCompatActivity {
@@ -25,6 +28,14 @@ public class Support extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
+
+//        STATUS BAR
+        if(Build.VERSION.SDK_INT >=21){
+            Window window=this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.darkdarkTurq));
+        }
 
 
         Bcall= findViewById(R.id.callhelp);

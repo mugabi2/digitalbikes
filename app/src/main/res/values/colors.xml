@@ -4,6 +4,11 @@
     <color name="colorPrimaryDark1">#303F9F</color>
     <color name="colorAccent1">#FF4081</color>
 
+
+    <color name="darkTurq">#235D69</color>
+    <color name="darkdarkTurq">#1A454E</color>
+    <color name="lightTurq">#2B7483</color>
+
     <color name="colorAccentCustom">#00c3ff</color>
 
     <color name="colorPrimary">#fff</color>
@@ -22,4 +27,6 @@
     <color name="colorAppBlueFaded">#8200003d</color>
     <color name="colorAppBlueMoreFaded">#5d00003d</color>
     <color name="colorAppBlueMuchMoreFaded">#3000143d</color>
+
+
 </resources>
