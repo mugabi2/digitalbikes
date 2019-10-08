@@ -43,6 +43,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -213,7 +215,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
     String ditime;
     String paymentInt,location;
-    int checkPm = 0, pmi, pmc = -1, pmd = -1, suckind, succfour, sucki;
+    int checkPm = 0, pmi, pmc = 1, pmd = -1, suckind, succfour, sucki;
 
     String returntime;
 
@@ -254,6 +256,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     String notimessage;
     int notinumber;
     int version=0,newVersion;
+<<<<<<< HEAD
 
     //    recycler
     private RecyclerView mRecyclerView;
@@ -270,15 +273,28 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     Button sendFeed;
     EditText feedMsg;
     String feedbackmsg;
+=======
+    TextView reminder;
+>>>>>>> userInterface
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapsimport1);
 
+<<<<<<< HEAD
 //        feedabback
         ratdialog = new Dialog(this);
         ratdialog.setContentView(R.layout.rating);
+=======
+//        STATUS BAR
+        if(Build.VERSION.SDK_INT >=21){
+            Window window=this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.darkdarkTurq));
+        }
+>>>>>>> userInterface
 
 
         progBar= (ProgressBar)findViewById(R.id.pbmap);
@@ -319,6 +335,8 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
+
+        reminder=(TextView)findViewById(R.id.reminder1);
 
         //   Bundle extras=getIntent().getExtras();
 //        Toast.makeText(getApplicationContext(),extras.getInt("money"),Toast.LENGTH_LONG).show();
@@ -478,6 +496,10 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
 
+        Log.e("NTN MSG", notimessage);
+        reminder.setVisibility(ProgressBar.VISIBLE);
+        reminder.append(notimessage);
+
 //        hss
 //        BLOCKCHAIN oblock=new BLOCKCHAIN();
 //        String nome="sam", samhash=oblock.MD5(nome);
@@ -542,7 +564,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //            }
 //            applyFontToMenuItem(mi);
 //        }
-        TextView reminder=(TextView)findViewById(R.id.reminder1);
 
 //        WHETHER RENTED OR NOT
 
@@ -2075,9 +2096,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                     break;
             }
 
-        }
-        public void onBackPressed(){
-            moveTaskToBack(true);
         }
         @Override
         protected String doInBackground(String... voids) {

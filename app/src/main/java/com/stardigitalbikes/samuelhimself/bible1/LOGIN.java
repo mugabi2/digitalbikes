@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,12 +81,19 @@ public class LOGIN extends AppCompatActivity {
     static String json = "";
     String usersurname,userfirstname,userphonenumb,useremailadd,userresidence,usergender,message,prefer2;
     Boolean loginStatus;
-
-
+    String mesag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+//        STATUS BAR
+        if(Build.VERSION.SDK_INT >=21){
+            Window window=this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.darkdarkTurq));
+        }
 
         Button logoin=findViewById(R.id.btn_login);
 
@@ -205,14 +215,13 @@ public class LOGIN extends AppCompatActivity {
 //      new registration().savingToSharedPrefs(usersurname,userfirstname,userphonenumb,useremailadd,userresidence,usergender,loginStatus);
 //            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
 
-            ProgressBar pb =findViewById(R.id.progressBar);
-            pb.setVisibility(ProgressBar.INVISIBLE);
 
 //            prefl=getSharedPreferences(preflogin, MODE_PRIVATE);
 
             try {
                 jObj = new JSONObject(json);
                 int  success = jObj.getInt("success");
+                mesag=jObj.getString("message");
 
                 switch (success){
                     case 1:
@@ -231,6 +240,8 @@ public class LOGIN extends AppCompatActivity {
                         startActivity(int14);
                         break;
                     default:
+                        Toast.makeText(getApplicationContext(),mesag,Toast.LENGTH_SHORT).show();
+
                         break;
                 }
             } catch (JSONException e) {
@@ -249,6 +260,9 @@ public class LOGIN extends AppCompatActivity {
 ////                pb.setVisibility(ProgressBar.INVISIBLE);
 ////                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
 //            }
+
+            ProgressBar pb =findViewById(R.id.progressBar);
+            pb.setVisibility(ProgressBar.INVISIBLE);
         }
 
         @Override
