@@ -474,7 +474,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
 //            location=user.getString("PL");
 
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
