@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">Digital Bikes</string>
     <!--buttons-->
+    <string name="digitaltimepacks">Digital Time Packs</string>
+    <string name="hourglass">Hour Glass</string>
+    <string name="timebucket">Time Bucket</string>
+    <string name="onehour">1:00 hr</string>
+    <string name="fullday">12:00 hrs</string>
     <string name="clickToLogin">Click to login</string>
     <string name="duration">Duration</string>
+    <string name="fine">Fine</string>
+    <string name="clearfine">Clear Fine</string>
+    <string name="forgotpass">Forgot password!</string>
+    <string name="havefine">Dear user, you have a fine</string>
+    <string name="rentalagreement">Rental Agreement</string>
     <string name="confirm">Confirm</string>
     <string name="signout">Sign Out</string>
     <string name="halfDay">Half Day(6Hrs)</string>

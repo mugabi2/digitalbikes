@@ -5,11 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-<<<<<<< HEAD
 import android.os.AsyncTask;
-=======
 import android.os.Build;
->>>>>>> userInterface
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,7 +81,6 @@ public class Support extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
 
-<<<<<<< HEAD
 //        feedabback
         ratdialog = new Dialog(this);
         ratdialog.setContentView(R.layout.rating);
@@ -98,7 +94,6 @@ public class Support extends AppCompatActivity {
         });
 
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-=======
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
             Window window=this.getWindow();
@@ -106,8 +101,6 @@ public class Support extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.darkdarkTurq));
         }
-
->>>>>>> userInterface
 
         usname=prefs.getString(SURNAME_KEY,"");
         ufname=prefs.getString(FIRST_NAME_KEY,"");

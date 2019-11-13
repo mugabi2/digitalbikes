@@ -7,7 +7,7 @@
     android:id="@+id/bottom_sheetid"
     android:orientation="vertical"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="90dp"
+    app:behavior_peekHeight="65dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
     tools:context=".Mapsimport1">
 
@@ -19,69 +19,80 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorLighter"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/expand1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_gravity="center"
-                    android:layout_width="160dp"
-                    android:layout_height="6dp"
-                    android:textSize="15sp"
-                    android:alpha="0.8"
-                    android:fontFamily="@font/helvetica_roman"
-                    android:textColor="@color/colorAppBlue"
-                    android:background="@drawable/round9"
-                    android:padding="9dp"
-                    android:paddingStart="13dp"
-                    android:paddingEnd="13dp"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="sha">
 
-                    <ImageView
-                        android:id="@+id/imageshare"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/sharing1"
-                        android:padding="5dp"
-                        android:background="@drawable/round10"
-                        android:layout_marginRight="25dp"
-                        android:tint="@color/colorAppBlue"/>
+                        <TextView
+                            android:id="@+id/imageshare"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:layout_marginTop="29dp"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/share"
+                            android:textColor="@color/grey"
+                            android:textSize="6pt" />
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/sharing3"/>
+
+                    </FrameLayout>
 
                     <ImageView
                         android:id="@+id/imageinst"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:onClick="ins"
+                        android:layout_marginHorizontal="70dp"
                         android:src="@drawable/insting1"
-                        android:background="@drawable/round11"
-                        android:layout_marginRight="25dp"
-                        android:tint="@color/colorAppBlue"/>
+                        android:background="@drawable/round11"/>
 
-                    <ImageView
-                        android:id="@+id/imagesupport"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/phoning1"
-                        android:background="@drawable/round10"
-                        android:layout_gravity="center_horizontal"
-                        android:tint="@color/colorAppBlue"/>
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="sup">
+                        <TextView
+                            android:id="@+id/imagesupport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/support"
+                            android:layout_marginTop="29dp"
+                            android:background="@color/white"
+                            android:textColor="@color/grey"
+                            android:textSize="6pt"
+                            android:layout_gravity="center_horizontal"/>
 
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/phoning3"/>
+                    </FrameLayout>
                 </LinearLayout>
-
                 <ImageView
                     android:id="@+id/down_arrow1"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="1dp"
                     android:layout_width="wrap_content"
                     android:layout_height="7dp"
                     android:src="@drawable/arrow_downward"/>

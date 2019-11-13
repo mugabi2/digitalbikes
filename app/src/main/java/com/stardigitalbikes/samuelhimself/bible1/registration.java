@@ -92,7 +92,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
     Button Bsignup,Bcontinueshare;
     int suckinda,sucks;
 
-//    SPINNER
+    //    SPINNER
     private Spinner spinner;
     private static final String[] paths = {"MUK"};//, "MUBS", "UCU"};
 
@@ -113,6 +113,8 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.darkdarkTurq));
         }
+
+        preferred="MUK";
 
         epromocode=findViewById(R.id.pcodeif);
 
@@ -136,13 +138,13 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         bsinu.startAnimation(animation);
 
         //^^^^^^^^^^^^^^^^^^^^^^
-        spinner = (Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(registration.this,
-                android.R.layout.simple_spinner_item,paths);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+//        spinner = (Spinner)findViewById(R.id.spinner);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(registration.this,
+//                android.R.layout.simple_spinner_item,paths);
+//
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
+//        spinner.setOnItemSelectedListener(this);
 
 
 //66666^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -156,7 +158,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         esname=(EditText)findViewById(R.id.sname);
         efname=(EditText)findViewById(R.id.fname);
         ephone=(EditText)findViewById(R.id.phonenum);
-        eemail=(EditText)findViewById(R.id.Eemail);
+//        eemail=(EditText)findViewById(R.id.Eemail);
         epassword=(EditText)findViewById(R.id.Ppassword);
         eresi=(EditText)findViewById(R.id.resi);
         Bsignup=(Button)findViewById(R.id.signup);
@@ -203,12 +205,12 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                 if (checked){
                     sex="M";
                 }
-                    break;
+                break;
             case radio_female:
                 if (checked){
                     sex="F";
                 }
-                    break;
+                break;
         }
     }
     public void TACwebsite(View view){
@@ -245,7 +247,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         }).start();
     }
 
-        public void regMe(View view){
+    public void regMe(View view){
         String phonel =ephone.getText().toString();
         int plen =phonel.length();
 
@@ -253,13 +255,13 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             String sname = esname.getText().toString();
             String fname = efname.getText().toString();
             String phone = ephone.getText().toString();
-            String email = eemail.getText().toString();
+//            String email = eemail.getText().toString();
             String psword = epassword.getText().toString();
             String resid = eresi.getText().toString();
 
 
             //Checking if all fields have been filled
-            if (!sname.isEmpty() && !fname.isEmpty() && !phone.isEmpty() && !email.isEmpty() && !psword.isEmpty() && !resid.isEmpty()) {
+            if (!sname.isEmpty() && !fname.isEmpty() && !phone.isEmpty() && !psword.isEmpty() && !resid.isEmpty()) {
                 if (tac==1) {
 
                     String pcode=epromocode.getText().toString();
@@ -270,12 +272,12 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                         promotion="1";
                         thecode=pcode;
 //                        new registration.backgroundsharecode(registration.this).execute();
-                        new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
+                        new backgroundregistration(this).execute(sname, fname, phone, psword, resid, sex);
                     }else {
                         promotion="0";
                         ProgressBar pb = findViewById(R.id.progressBar4);
                         pb.setVisibility(ProgressBar.VISIBLE);
-                        new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
+                        new backgroundregistration(this).execute(sname, fname, phone, psword, resid, sex);
                         Log.d("Request status", "GOOD INPUT am gonna make the REGITSTRATION");
                     }
 
@@ -315,7 +317,6 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.d("jObjc", e.toString());
             }
             switch (suckinda) {
                 case 0:
@@ -324,6 +325,10 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
                     break;
                 case 1:
+                    SharedPreferences.Editor editor=prefl.edit();
+                    loginStatus=Boolean.TRUE;
+                    editor.putBoolean(LOGIN_STATUS_KEY,loginStatus);
+                    editor.commit();
                     all=s;
                     Intent int111=new Intent(registration.this,Mapsimport1.class);
                     int111.putExtra("bikesin",all);
@@ -338,14 +343,16 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
         @Override
         protected String doInBackground(String... voids) {
+            Log.d("SEX SEX SEX ", sex);
+
             String result="";
             String sname =voids[0];
             String  fname= voids[1];
             String phonenum=voids[2];
-            String mail=voids[3];
-            String pass=voids[4];
-            String residence=voids[5];
-            String sex=voids[6];
+            String pass=voids[3];
+            String residence=voids[4];
+            String sex=voids[5];
+//            String mail=voids[3];
 
 //45
             String connstr="http://stardigitalbikes.com/user_sign_up_pdo.php";
@@ -365,7 +372,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                 String data = URLEncoder.encode("surname","UTF-8")+"="+URLEncoder.encode(sname,"UTF-8")
                         +"&&"+ URLEncoder.encode("firstname","UTF-8")+"="+URLEncoder.encode(fname,"UTF-8")
                         +"&&"+ URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(phonenum,"UTF-8")
-                        +"&&"+ URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(mail,"UTF-8")
+//                        +"&&"+ URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(mail,"UTF-8")
                         +"&&"+ URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(pass,"UTF-8")
                         +"&&"+ URLEncoder.encode("residence","UTF-8")+"="+URLEncoder.encode(residence,"UTF-8")
                         +"&&"+ URLEncoder.encode("gender","UTF-8")+"="+URLEncoder.encode(sex,"UTF-8")
@@ -397,7 +404,6 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                         int success=jObj.getInt("success");
 
                         Log.d("JSONStatus", "JSON RETURNED");
-                        Log.d("JSONStatuss", jObj.toString());
 
                         if(success==1){
                             JSONArray userArray=jObj.getJSONArray("user");
@@ -405,7 +411,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                             usersurname=user.getString("SN");
                             userfirstname=user.getString("FN");
                             userphonenumb=user.getString("PN");
-                            useremailadd=user.getString("EM");
+//                            useremailadd=user.getString("EM");
                             userresidence=user.getString("RD");
                             usergender=user.getString("GD");
                             prefer2=user.getString("PL");
@@ -421,7 +427,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
 //make SHARED PREFS A METHOD
 
-                      savingToSharedPrefs(usersurname,userfirstname,userphonenumb,useremailadd,userresidence,usergender,prefer2);
+                            savingToSharedPrefs(usersurname,userfirstname,userphonenumb,userresidence,usergender,prefer2);
 
 
                         }else{
@@ -485,7 +491,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    public  void savingToSharedPrefs( String Ssurname,String Sfirstname,String Sphonenumb,String Semail,String Sresidence,String Sgender,String Spref){
+    public  void savingToSharedPrefs( String Ssurname,String Sfirstname,String Sphonenumb,String Sresidence,String Sgender,String Spref){
         //shared prefs#########################################
         prefs=getSharedPreferences(prefName, MODE_PRIVATE);
         SharedPreferences.Editor editor=prefs.edit();
@@ -494,7 +500,6 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         editor.putString(SURNAME_KEY, Ssurname);
         editor.putString(FIRST_NAME_KEY, Sfirstname);
         editor.putString(PHONE_NUMBER_KEY, Sphonenumb);
-        editor.putString(EMAIL_ADDRESS_KEY, Semail);
         editor.putString(RESIDENCE_KEY, Sresidence);
         editor.putString(GENDER_KEY, Sgender);
         editor.putString(LOCATION_KEY, Spref);
@@ -658,11 +663,11 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         boolean checked = ((CheckBox) view).isChecked();
         Toast.makeText(getApplicationContext(),"touch touch touch",Toast.LENGTH_SHORT).show();
 //        !!!
-                if (checked){
-                Toast.makeText(getApplicationContext(),"check",Toast.LENGTH_SHORT).show();
-                }else{
-                Toast.makeText(getApplicationContext(),"Please check terms and conditions",Toast.LENGTH_SHORT).show();
-                }
+        if (checked){
+            Toast.makeText(getApplicationContext(),"check",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(),"Please check terms and conditions",Toast.LENGTH_SHORT).show();
+        }
     }
 
 

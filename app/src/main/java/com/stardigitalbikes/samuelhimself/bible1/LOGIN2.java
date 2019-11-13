@@ -23,8 +23,8 @@ public class LOGIN2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
 
-        countdownText=findViewById(R.id.time1);
-        countdownButton=findViewById(R.id.startstop);
+//        countdownText=findViewById(R.id.time1);
+//        countdownButton=findViewById(R.id.startstop);
 
         countdownButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -256,7 +256,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     String notimessage;
     int notinumber;
     int version=0,newVersion;
-<<<<<<< HEAD
 
     //    recycler
     private RecyclerView mRecyclerView;
@@ -273,20 +272,16 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     Button sendFeed;
     EditText feedMsg;
     String feedbackmsg;
-=======
     TextView reminder;
->>>>>>> userInterface
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapsimport1);
 
-<<<<<<< HEAD
 //        feedabback
         ratdialog = new Dialog(this);
         ratdialog.setContentView(R.layout.rating);
-=======
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
             Window window=this.getWindow();
@@ -294,7 +289,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.darkdarkTurq));
         }
->>>>>>> userInterface
 
 
         progBar= (ProgressBar)findViewById(R.id.pbmap);
@@ -377,31 +371,31 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             }
             }
         });
-        ImageView shareimg=(ImageView)findViewById(R.id.imageshare);
-        ImageView supimg=(ImageView)findViewById(R.id.imagesupport);
-        ImageView instimg=(ImageView)findViewById(R.id.imageinst);
-
-        shareimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Mapsimport1.this, GoPremium.class));// CHANGE BACK TO PROMOTIONS
-            }
-        });
-
-        instimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                startActivity(new Intent(Mapsimport1.this, Instructions.class));
-                showFeedback();
-            }
-        });
-
-        supimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Mapsimport1.this, Support.class));
-            }
-        });
+//        ImageView shareimg=(ImageView)findViewById(R.id.imageshare);
+//        ImageView supimg=(ImageView)findViewById(R.id.imagesupport);
+//        ImageView instimg=(ImageView)findViewById(R.id.imageinst);
+//
+//        shareimg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(Mapsimport1.this, GoPremium.class));// CHANGE BACK TO PROMOTIONS
+//            }
+//        });
+//
+//        instimg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                startActivity(new Intent(Mapsimport1.this, Instructions.class));
+//                showFeedback();
+//            }
+//        });
+//
+//        supimg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(Mapsimport1.this, Support.class));
+//            }
+//        });
 
         View bottomSheete = findViewById(R.id.bottom_sheetid);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheete);
@@ -414,8 +408,8 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
 //$$
         TextView Tdt=(TextView)findViewById(R.id.textdigitaltime3);
-//        Tdt.append(prefs.getString(DIGITAL_TIME_KEY,"")+ " Hrs");
-        Tdt.append(ditime+ " Hrs");
+        Tdt.append(prefs.getString(DIGITAL_TIME_KEY,"")+ " Hrs");
+//        Tdt.append(ditime+ " Hrs");
 
 
 //        progBar= (ProgressBar)findViewById(R.id.progressBar2);
@@ -442,7 +436,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         usname=prefs.getString(SURNAME_KEY,"");
         ufname=prefs.getString(FIRST_NAME_KEY,"");
         uphone=prefs.getString(PHONE_NUMBER_KEY,"");
-        umail=prefs.getString(EMAIL_ADDRESS_KEY,"");
+//        umail=prefs.getString(EMAIL_ADDRESS_KEY,"");
         uresi=prefs.getString(RESIDENCE_KEY,"");
         location=prefs.getString(LOCATION_KEY,"");
 
@@ -505,7 +499,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        String nome="sam", samhash=oblock.MD5(nome);
 //        Toast.makeText(getApplicationContext(), samhash, Toast.LENGTH_LONG).show();
 
-//        NOTIFICATION IFF      123 4-rating
+//        NOTIFICATION IFF      123 4-rating 6=no bikes
         if(notinumber==0) {
 //            Toast.makeText(getApplicationContext(), todaysmeassage, Toast.LENGTH_LONG).show();
         }else if(notinumber==1){
@@ -529,7 +523,10 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         }else if(notinumber==4){
 //            RATING
             showFeedback();
+        }else if(notinumber==6){
+                Toast.makeText(getApplicationContext(),"Bike taken please try another location",Toast.LENGTH_LONG).show();
         }
+
 
 
         switch (location){
@@ -594,7 +591,18 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        TextView tdigit=findViewById(R.id.textditime2);
 //        tdigit.append(somet);
     }
-//$
+
+    public void sha(View view){
+        startActivity(new Intent(Mapsimport1.this, Promotions.class));//Promotions
+    }
+    public void sup(View view){
+        startActivity(new Intent(Mapsimport1.this, Support.class));//Promotions
+    }
+    public void ins(View view){
+        startActivity(new Intent(Mapsimport1.this, Events.class));//Instructions// credit for progress/lottie
+    }
+
+    //$
     class backgroundfeedback extends AsyncTask<String, Void,String> {
         Context context;
         public backgroundfeedback(Context context){
@@ -617,7 +625,14 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error creating the json object " + e.toString());
             }
+//            @#
             ratdialog.dismiss();
+            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
         }
 
         @Override
@@ -1010,7 +1025,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setInfoWindowAdapter(this);
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(Mapsimport1.this));
         mMap.setOnInfoWindowClickListener(this);
         final List<MarkerOptions> markers = new ArrayList<>();
 
@@ -1103,7 +1118,9 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        USE THE LOCATION OF THE USER TO DETERMINE
 //                  1***WHERE TO ZOOM IN
 //                  2***WHICH MARKER TO OPEN WITH
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0.331604, 32.568423),15));
+        float zom= (float) 15.5;
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0.331604, 32.568423),zom));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0.334561, 32.569160),zom));
 
 
         LatLng livingstone = new LatLng(0.338686, 32.567718);
@@ -1538,27 +1555,40 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
             progBar.setVisibility(ProgressBar.INVISIBLE);
 
+//            $#
             try {
                 jObj = new JSONObject(json);
                 int  success = jObj.getInt("success");
 
-                switch (success){
-                    case 0:
-                        break;
-                    case 4:
-                        Intent int1 =new Intent(getApplicationContext(),Mapsimport1.class);
-                        int1.putExtra("bikesin",s);
-                        startActivity(int1);
-                        break;
-                    case 2:
-                        Intent int2 =new Intent(getApplicationContext(),fine.class);
-                        int2.putExtra("fines",s);
-                        startActivity(int2);
-                        break;
-                    case 3:
-                        Intent int3 =new Intent(getApplicationContext(),finalRegistration.class);
-                        startActivity(int3);
-                        break;
+                JSONArray userArray=jObjc.getJSONArray("user");
+                JSONObject user=userArray.getJSONObject(0);
+
+                int notinumb=user.getInt("NTN");
+
+                if (notinumb==6){//BIKES ARE NOT THERE
+                    Intent int1 =new Intent(getApplicationContext(),Mapsimport1.class);
+                    int1.putExtra("bikesin",s);
+                    startActivity(int1);
+                }else {
+//                    BIKES STILL THERE
+                    switch (success) {
+                        case 0:
+                            break;
+                        case 4:
+                            Intent int1 = new Intent(getApplicationContext(), Mapsimport1.class);
+                            int1.putExtra("bikesin", s);
+                            startActivity(int1);
+                            break;
+                        case 2:
+                            Intent int2 = new Intent(getApplicationContext(), fine.class);
+                            int2.putExtra("fines", s);
+                            startActivity(int2);
+                            break;
+                        case 3:
+                            Intent int3 = new Intent(getApplicationContext(), finalRegistration.class);
+                            startActivity(int3);
+                            break;
+                    }
                 }
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error creating the json object " + e.toString());
@@ -1594,7 +1624,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                 String data = URLEncoder.encode("surname","UTF-8")+"="+URLEncoder.encode(sname,"UTF-8")
                         +"&&"+ URLEncoder.encode("firstname","UTF-8")+"="+URLEncoder.encode(fname,"UTF-8")
                         +"&&"+ URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(phonenum,"UTF-8")
-                        +"&&"+ URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(mail,"UTF-8")
+//                        +"&&"+ URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(mail,"UTF-8")
                         +"&&"+ URLEncoder.encode("residence","UTF-8")+"="+URLEncoder.encode(residence,"UTF-8")
                         +"&&"+ URLEncoder.encode("duration","UTF-8")+"="+URLEncoder.encode(udura,"UTF-8")
 //                        +"&&"+ URLEncoder.encode("durationInt","UTF-8")+"="+URLEncoder.encode(dura,"UTF-8")
@@ -2114,7 +2144,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             String Usurname=prefer.getString(SURNAME_KEY,""),
                     Ufirstname=prefer.getString(FIRST_NAME_KEY,""),
                     Uphone=prefer.getString(PHONE_NUMBER_KEY,""),
-                    Uemail=prefer.getString(EMAIL_ADDRESS_KEY,""),
+//                    Uemail=prefer.getString(EMAIL_ADDRESS_KEY,""),
                     Uresidence=prefer.getString(RESIDENCE_KEY,"");
 
 
@@ -2132,7 +2162,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                         +"&&"+ URLEncoder.encode("surname","UTF-8")+"="+URLEncoder.encode(Usurname,"UTF-8")
                         +"&&"+ URLEncoder.encode("firstname","UTF-8")+"="+URLEncoder.encode(Ufirstname,"UTF-8")
                         +"&&"+ URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(Uphone,"UTF-8")
-                        +"&&"+ URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(Uemail,"UTF-8")
+//                        +"&&"+ URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(Uemail,"UTF-8")
                         +"&&"+ URLEncoder.encode("bikenumber","UTF-8")+"="+URLEncoder.encode(bikey,"UTF-8")
                         +"&&"+ URLEncoder.encode("residence","UTF-8")+"="+URLEncoder.encode(Uresidence,"UTF-8")
                         +"&&"+ URLEncoder.encode("serverKey","UTF-8")+"="+URLEncoder.encode(serverKey,"UTF-8");

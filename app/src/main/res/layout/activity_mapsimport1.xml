@@ -66,8 +66,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="60dp"
-        android:background="#ffa07a"
-        android:textSize="12pt" />
+        android:padding="5dp"
+        android:background="@drawable/msglitro"
+        android:textSize="11pt"
+        android:textColor="@color/white"/>
 
 
     <ProgressBar

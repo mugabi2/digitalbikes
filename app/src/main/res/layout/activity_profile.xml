@@ -5,11 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.stardigitalbikes.samuelhimself.bible1.Profile">
-<!--d4ede9-->
+    <!--d4ede9-->
 
     <include layout="@layout/apptoolbar"
         android:id="@+id/profiletoolbar"/>
-<!--PHONE-->
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="55dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/lgi"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <!--PHONE-->
     <LinearLayout
         android:id="@+id/linearLayout10"
         android:layout_width="match_parent"
@@ -59,43 +78,43 @@
 
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/card565"
-            android:layout_width="130dp"
-            android:layout_height="60dp"
-            android:background="#ffffff"
-            android:layout_marginBottom="7dp"
-            app:cardCornerRadius="7dp">
+        <!--<android.support.v7.widget.CardView-->
+        <!--android:id="@+id/card565"-->
+        <!--android:layout_width="130dp"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:background="#ffffff"-->
+        <!--android:layout_marginBottom="7dp"-->
+        <!--app:cardCornerRadius="7dp">-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:orientation="vertical"
-                android:padding="7dp">
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:orientation="vertical"-->
+        <!--android:padding="7dp">-->
 
-                <TextView
-                    android:id="@+id/textinemail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="9dp"
-                    android:textColor="#00003a"
-                    android:textSize="5pt" />
+        <!--<TextView-->
+        <!--android:id="@+id/textinemail"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="9dp"-->
+        <!--android:textColor="#00003a"-->
+        <!--android:textSize="5pt" />-->
 
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="Email"
-                    android:textColor="#c5c5c5"
-                    android:textSize="4pt" />
+        <!--<TextView-->
+        <!--android:id="@+id/textView19"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:text="Email"-->
+        <!--android:textColor="#c5c5c5"-->
+        <!--android:textSize="4pt" />-->
 
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+        <!--</LinearLayout>-->
+        <!--</android.support.v7.widget.CardView>-->
 
     </LinearLayout>
-<!--RESIDENCD-->
+    <!--RESIDENCD-->
     <LinearLayout
         android:id="@+id/linearLayout12"
         android:layout_width="match_parent"
@@ -146,42 +165,42 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/caddrd3"
-            android:layout_width="130dp"
-            android:layout_height="60dp"
-            android:background="#ffffff"
-            android:layout_marginBottom="7dp"
-            app:cardCornerRadius="7dp">
+        <!--<android.support.v7.widget.CardView-->
+        <!--android:id="@+id/caddrd3"-->
+        <!--android:layout_width="130dp"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:background="#ffffff"-->
+        <!--android:layout_marginBottom="7dp"-->
+        <!--app:cardCornerRadius="7dp">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="7dp">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical"-->
+        <!--android:padding="7dp">-->
 
-                <TextView
-                    android:id="@+id/preferred1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:textColor="#00003a"
-                    android:textSize="9pt" />
+        <!--<TextView-->
+        <!--android:id="@+id/preferred1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="0dp"-->
+        <!--android:textColor="#00003a"-->
+        <!--android:textSize="9pt" />-->
 
-                <TextView
-                    android:id="@+id/textdi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="Preferred Location"
-                    android:textColor="#c5c5c5"
-                    android:textSize="4pt" />
+        <!--<TextView-->
+        <!--android:id="@+id/textdi"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:text="Preferred Location"-->
+        <!--android:textColor="#c5c5c5"-->
+        <!--android:textSize="4pt" />-->
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+        <!--</LinearLayout>-->
+        <!--</android.support.v7.widget.CardView>-->
 
     </LinearLayout>
-<!--DIGITAL TIME-->
+    <!--DIGITAL TIME-->
     <LinearLayout
         android:id="@+id/linearLayout13"
         android:layout_width="match_parent"
@@ -268,7 +287,7 @@
 
     </LinearLayout>
 
-<!--NAME-->
+    <!--NAME-->
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
@@ -277,7 +296,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="116dp"
         android:background="#ffffff"
         android:gravity="center"
         android:padding="7dp"
@@ -299,15 +318,17 @@
 
     <Button
         android:id="@+id/signout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/roundlogbtn"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/round5"
         android:onClick="signMeOut"
         android:padding="15dp"
         android:text="@string/signout"

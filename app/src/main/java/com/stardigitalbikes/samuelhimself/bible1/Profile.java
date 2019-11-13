@@ -96,13 +96,13 @@ public class Profile extends AppCompatActivity {
 
         TextView Tphone=(TextView)findViewById(R.id.textinphone);
         Tphone.append(prefs.getString(PHONE_NUMBER_KEY,""));
-
-        TextView Temail=(TextView)findViewById(R.id.textinemail);
-        Temail.append(prefs.getString(EMAIL_ADDRESS_KEY,""));
-
-        TextView Tloca=(TextView)findViewById(R.id.preferred1);
-        Tloca.append(prefs.getString(LOCATION_KEY,""));
-
+//
+//        TextView Temail=(TextView)findViewById(R.id.textinemail);
+//        Temail.append(prefs.getString(EMAIL_ADDRESS_KEY,""));
+//
+//        TextView Tloca=(TextView)findViewById(R.id.preferred1);
+//        Tloca.append(prefs.getString(LOCATION_KEY,""));
+//
 
         TextView Tdt=(TextView)findViewById(R.id.textdigitaltime2);
         Tdt.append(prefs.getString(DIGITAL_TIME_KEY,"")+ " Hrs");

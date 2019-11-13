@@ -51,13 +51,17 @@ dependencies {
     //    firebase
     implementation 'com.google.firebase:firebase-storage:11.8.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
-    implementation 'com.google.firebase:firebase-core:11.8.0'         // this line must be included to integrate with Firebase
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    // this line must be included to integrate with Firebase
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
 
 //PROGRESS BAR
-    implementation 'com.github.castorflex.smoothprogressbar:library:1.0.0'
-    // or
-    implementation 'com.github.castorflex.smoothprogressbar:library-circular:1.0.0'
+    implementation 'com.github.castorflex.smoothprogressbar:library:1.1.0'
+//    // or
+    implementation 'com.github.castorflex.smoothprogressbar:library-circular:1.3.0'
+//
+//    implementation project(':library')
+//    implementation project(':library-circular')
 
 //    from reagan uif
 //---------------------------------
@@ -65,10 +69,9 @@ dependencies {
 
 //    notification
     implementation "com.android.support:support-compat:26.1.0"
-
-//    progreess$$$$$$
-//    implementation 'com.github.castorflex.smoothprogressbar:library:1.0.0'
-    // or
-    implementation 'com.github.castorflex.smoothprogressbar:library-circular:1.0.0'
+//,,,,,,,,,,,,,,,,,,,,,,,
+    implementation 'com.airbnb.android:lottie:2.5.0-rc1'
+//    implementation 'com.google.firebase:firebase-ml-vision:11.8.0'
 }
+
 apply plugin: 'com.google.gms.google-services'

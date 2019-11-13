@@ -85,7 +85,7 @@ public class LOGIN extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login2);
 
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
@@ -103,8 +103,8 @@ public class LOGIN extends AppCompatActivity {
         logoin.startAnimation(animation);
 
 
-        progBar= (ProgressBar)findViewById(R.id.progressBar);
-        pogless();
+//        progBar= (ProgressBar)findViewById(R.id.progressBar);
+//        pogless();
 
 //        ProgressBar pb =findViewById(R.id.progressBar);
 //        pb.setVisibility(ProgressBar.INVISIBLE);
@@ -133,32 +133,32 @@ public class LOGIN extends AppCompatActivity {
 
     }
 
-    public void pogless() {
-
-        new Thread(new Runnable() {
-            public void run() {
-                final int presentage=0;
-                while (mProgressStatus < 100) {
-                    mProgressStatus += 10;
-                    if(mProgressStatus==100){
-                        mProgressStatus=0;
-                    }
-                    // Update the progress bar
-                    mHandler.post(new Runnable() {
-                        public void run() {
-                            progBar.setProgress(mProgressStatus);
-//                            text.setText(""+mProgressStatus+"%");
-                        }
-                    });
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-    }
+//    public void pogless() {
+//
+//        new Thread(new Runnable() {
+//            public void run() {
+//                final int presentage=0;
+//                while (mProgressStatus < 100) {
+//                    mProgressStatus += 10;
+//                    if(mProgressStatus==100){
+//                        mProgressStatus=0;
+//                    }
+//                    // Update the progress bar
+//                    mHandler.post(new Runnable() {
+//                        public void run() {
+//                            progBar.setProgress(mProgressStatus);
+////                            text.setText(""+mProgressStatus+"%");
+//                        }
+//                    });
+//                    try {
+//                        Thread.sleep(50);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }).start();
+//    }
 
 
     public void onBackPressed(){
@@ -182,8 +182,8 @@ public class LOGIN extends AppCompatActivity {
 
 
         if(!phone.isEmpty() && !psword.isEmpty() && !phone.isEmpty() ){
-            ProgressBar pb =findViewById(R.id.progressBar);
-            pb.setVisibility(ProgressBar.VISIBLE);
+//            ProgressBar pb =findViewById(R.id.progressBar);
+//            pb.setVisibility(ProgressBar.VISIBLE);
             new LOGIN.backgroundlogin(this).execute(phone,psword);
 //            Toast.makeText(getApplicationContext(),"Authenticating...",Toast.LENGTH_SHORT).show();
         }
@@ -260,9 +260,9 @@ public class LOGIN extends AppCompatActivity {
 ////                pb.setVisibility(ProgressBar.INVISIBLE);
 ////                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
 //            }
-
-            ProgressBar pb =findViewById(R.id.progressBar);
-            pb.setVisibility(ProgressBar.INVISIBLE);
+//
+//            ProgressBar pb =findViewById(R.id.progressBar);
+//            pb.setVisibility(ProgressBar.INVISIBLE);
         }
 
         @Override

@@ -76,6 +76,7 @@ public class SPLASH1 extends AppCompatActivity {
     int sucksey;
 
     Dialog refDialog;
+    Button bspref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +99,7 @@ public class SPLASH1 extends AppCompatActivity {
 
         final Button bspreg=(Button)findViewById(R.id.spreg);
         final Button bsplogin=(Button)findViewById(R.id.splogin);
+        bspref=(Button)findViewById(R.id.sprefresh);
 
 //        ANIMATION
 //        Animation animation= AnimationUtils.loadAnimation(SPLASH1.this,R.anim.blink_anim);
@@ -119,6 +121,15 @@ public class SPLASH1 extends AppCompatActivity {
                 Intent intent= new Intent(SPLASH1.this,registration.class);
                 startActivity(intent);
 //                finish();
+
+            }
+        });
+//        $$
+        bspref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bspref.setVisibility(View.INVISIBLE);
+                new SPLASH1.backgroundBikesIn(SPLASH1.this).execute();
 
             }
         });
@@ -201,7 +212,11 @@ public class SPLASH1 extends AppCompatActivity {
                 Log.e("JSON Parser", "Error creating the json object " + e.toString());
 //                dialog.setMessage("Please connect to the internet and then try again");
 //                dialog.show();
-                showRefPopup();
+//                showRefPopup();
+//                ###
+                Toast.makeText(getApplicationContext(),"Please check internet connection!",Toast.LENGTH_SHORT).show();
+                bspref.setVisibility(View.VISIBLE);
+
             }
 
             switch (sucksey) {

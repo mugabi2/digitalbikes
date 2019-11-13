@@ -1,35 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#235d69"
     android:layout_height="match_parent"
-    tools:context=".LOGIN2"
-    android:orientation="vertical"
-    >
+    tools:context="com.stardigitalbikes.samuelhimself.bible1.SPLASH1">
+    <!--d4ede9-->
+    <RelativeLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#235d69"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp">
 
-    <Button
-        android:id="@+id/startstop"
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/splasho" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="208dp"
-        android:layout_marginEnd="129dp"
-
-        android:text="start"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/time1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp"
+        android:layout_marginBottom="29dp"
+        android:layout_marginTop="190dp"
+        android:background="@drawable/roundlog"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
 
-        android:textSize="20pt"/>
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/lgi" />
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginHorizontal="2dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="+256"
+                android:textSize="7pt" />
+
+            <EditText
+                android:id="@+id/input_phone"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:hint="@string/phonenumber"
+                android:inputType="phone"
+                android:maxLength="9"
+                android:padding="5dip"
+                android:textColor="@color/colorAppBlue"
+                android:textSize="7pt" />
+            <!-- Password Label -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/pass_draw1"/>
+            <EditText
+                android:id="@+id/input_password"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:hint=" Password"
+                android:inputType="textPassword"
+                android:textColor="@color/colorAppBlue"
+                android:textSize="7pt" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/passwordreset1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forgotpass"
+            android:onClick="reset"
+            android:layout_marginRight="25dp"
+            android:textSize="11dp"
+            android:layout_gravity="end"/>
+
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/roundlogbtn"
+            android:text="login"
+            android:onClick="logMeIn"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_password"
+            app:layout_constraintVertical_bias="0.34"></Button>
+
+        <Button
+            android:id="@+id/createAccount"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:onClick="createAccount"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/round52"
+            android:text="Register"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+</FrameLayout>
