@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -59,6 +60,13 @@
                     android:textColor="@color/colorAppBlue"
                     android:textSize="20sp" />
 
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_fileName="3671-hour-glass-animation.json" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -88,6 +96,13 @@
                     android:fontFamily="@font/helvetica_roman"
                     android:textColor="@color/colorAppBlue"
                     android:textSize="20sp" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_fileName="4640-progress-triangle-loading-animation.json" />
 
                 <TextView
                     android:layout_width="match_parent"

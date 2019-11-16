@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -92,7 +93,22 @@ public class Promotions extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.darkdarkTurq));
         }
+        Bundle extras=getIntent().getExtras();
+        String meso=extras.getString("code");
 
+        Log.e("code", meso);
+
+        tcode=(TextView)findViewById(R.id.sharectext);
+        bsharegen=(Button)findViewById(R.id.sharegen);
+
+        try {
+            jObjc = new JSONObject(meso);
+            gencode=jObjc.getString("SC");
+            tcode.setText(gencode);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         progBar= (ProgressBar)findViewById(R.id.pbshare);
         pogless();
 
@@ -109,41 +125,13 @@ public class Promotions extends AppCompatActivity {
         Toolbar toolbar =findViewById(R.id.promotionstoolbar);
         setSupportActionBar(toolbar);
 
-//
-//        Bhom= findViewById(R.id.hm12);
-//        Bhom.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent int1 =new Intent(getApplicationContext(),MainActivity.class);
-//                startActivity(int1);
-//            }
-//        });
-//
-//
-//
-//        Bmore= findViewById(R.id.more12);
-//        Bmore.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent int1 =new Intent(getApplicationContext(),More.class);
-//                startActivity(int1);
-//            }
-//        });
-
-//        Bshare= findViewById(R.id.sharebutton);
-//        Bshare.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent int1 =new Intent(Intent.ACTION_SEND);
-//                int1.setType("text/plain");
-//                String shareBody ="your body here";
-//                int1.putExtra(Intent.EXTRA_SUBJECT,shareBody);
-//                int1.putExtra(Intent.EXTRA_TEXT,shareBody);
-//                startActivity(Intent.createChooser(int1, "Share using"));
-//            }
-//        });
-
-
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -179,65 +167,27 @@ public class Promotions extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
+        inflater.inflate(R.menu.user_menu,menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-//            case R.id.usermenu:
-//                Intent int1 =new Intent(getApplicationContext(),Profile.class);
-//                startActivity(int1);
-
-            case R.id.action_profile:
-                startActivity(new Intent(Promotions.this, Profile.class));
-                break;
-//            case R.id.action_tutorial:
-//                startActivity(new Intent(Mapsimport1.this, Instructions.class));
-////                startActivity(new Intent(Mapsimport1.this, LOGIN2.class));
-////                Intent inty =new Intent(Mapsimport1.this,Events.class);
-////                inty.putExtra("updates",ups);
-////                startActivity(inty);
-//
-//                break;
-            case R.id.action_safetytips:
-                startActivity(new Intent(Promotions.this, SafetyTips.class));
-                break;
-//            case R.id.action_support:
-//                startActivity(new Intent(Mapsimport1.this, Support.class));
-//                break;
-//            case R.id.action_events:
-//                Intent inty =new Intent(Mapsimport1.this,Events.class);
-//                inty.putExtra("updates",ups);
-//                startActivity(inty);
-//                break;
-            case R.id.action_termsandconds:
-                Intent browserIntent = new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("http://stardigitalbikes.com/terms_and_conditions.php"));
-                startActivity(browserIntent);
-
-                break;
-//            case R.id.action_share:
-//                startActivity(new Intent(Mapsimport1.this, Promotions.class));
-//                break;
+            case R.id.usermenu:
+                Intent int1 =new Intent(getApplicationContext(),Profile.class);
+                startActivity(int1);
+                finish();
 
         }
         return super.onOptionsItemSelected(item);
     }
-
     public  void sharegen(View view){
         Button bshare=(Button)findViewById(R.id.sharegen);
 
 //        ANIMATION
         Animation animation= AnimationUtils.loadAnimation(Promotions.this,R.anim.bounce);
         bshare.startAnimation(animation);
-
-        if(daynight==0){//GENERATE CODE
-            progBar.setVisibility(ProgressBar.VISIBLE);
-            new Promotions.backgroundCodegen(this).execute();
-        }else{//SHARE CODE
+//SHARE CODE
 //            progBar.setVisibility(ProgressBar.VISIBLE);
             Intent int1 =new Intent(Intent.ACTION_SEND);
             int1.setType("text/plain");
@@ -248,121 +198,121 @@ public class Promotions extends AppCompatActivity {
             int1.putExtra(Intent.EXTRA_TEXT,shareBody);
             startActivity(Intent.createChooser(int1, "Share using"));
 
-        }
-
-    }
-    class backgroundCodegen extends AsyncTask<String, Void,String> {
-        AlertDialog dialog;
-        Context context;
-
-        public backgroundCodegen(Context context){
-            this.context=context;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            String jjon = s.toString();
-//            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-            progBar.setVisibility(ProgressBar.INVISIBLE);
-
-            try {
-                jObjc = new JSONObject(s);
-                sucki=jObjc.getInt("success");
-                msgs=jObjc.getString("success");
-                gencode=jObjc.getString("SC");
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            switch (sucki) {
-                case 0:
-                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-                    break;
-                case 1:
-                    daynight++;
-                    tcode.setText(gencode);
-                    bsharegen.setText("Share Code");
-                    break;
-                default:
-                        Toast.makeText(getApplicationContext(),"Try again",Toast.LENGTH_LONG).show();
-                        break;
-            }
-
-        }
-        public void onBackPressed(){
-            moveTaskToBack(true);
-        }
-        @Override
-        protected String doInBackground(String... voids) {
-            String result="";
-//            String AgCode =voids[0];
-
-            String connstr="http://stardigitalbikes.com/share_code_pdo.php";
-//            String connstr="http://192.168.43.113/pdobikephp/share_code_pdo.php";
-
-
-            prefer=getSharedPreferences(prefName,MODE_PRIVATE);
-            String Usurname=prefer.getString(SURNAME_KEY,""),
-                    Ufirstname=prefer.getString(FIRST_NAME_KEY,""),
-                    Uphone=prefer.getString(PHONE_NUMBER_KEY,""),
-                    Uemail=prefer.getString(EMAIL_ADDRESS_KEY,""),
-                    Uresidence=prefer.getString(RESIDENCE_KEY,"");
-            String Ugender=prefer.getString(GENDER_KEY,"");
-
-
-            try {
-                URL url =new URL(connstr);
-                HttpURLConnection http =(HttpURLConnection) url.openConnection();
-                http.setRequestMethod("POST");
-                http.setDoInput(true);
-                http.setDoOutput(true);
-
-
-                OutputStream ops =http.getOutputStream();
-                BufferedWriter writer =new BufferedWriter(new OutputStreamWriter(ops,"UTF-8"));
-                String data =URLEncoder.encode("surname","UTF-8")+"="+URLEncoder.encode(Usurname,"UTF-8")
-                        +"&&"+ URLEncoder.encode("firstname","UTF-8")+"="+URLEncoder.encode(Ufirstname,"UTF-8")
-                        +"&&"+ URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(Uphone,"UTF-8")
-                        +"&&"+ URLEncoder.encode("gender","UTF-8")+"="+URLEncoder.encode(Ugender,"UTF-8")
-                        +"&&"+ URLEncoder.encode("residence","UTF-8")+"="+URLEncoder.encode(Uresidence,"UTF-8");
-                writer.write(data);
-                writer.flush();
-                writer.close();
-                ops.close();
-                Log.d("JSON Exception","DONE SENDING");
-
-                InputStream ips =http.getInputStream();
-                BufferedReader reader=new BufferedReader(new InputStreamReader(ips,"ISO-8859-1"));
-                String line ="";
-                while ((line=reader.readLine()) !=null){
-                    result +=line;
-
-                }
-//#######INTRODICING THE READING OOF THE RETURNED JSON
-                ips.close();
-                reader.close();
-                json = result.toString();
-
-//##################################################################33
-                http.disconnect();
-                return result;
-
-            } catch (MalformedURLException e) {
-                Log.d("JSON Exception",e.toString());
-                result =e.getMessage();
-            } catch (ProtocolException e) {
-                Log.d("JSON Exception",e.toString());
-                result =e.getMessage();
-            } catch (IOException e) {
-                Log.d("JSON Exception",e.toString());
-                result =e.getMessage();
-            }
-
-            return result;
-        }
 
 
     }
+//    class backgroundCodegen extends AsyncTask<String, Void,String> {
+//        AlertDialog dialog;
+//        Context context;
+//
+//        public backgroundCodegen(Context context){
+//            this.context=context;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            String jjon = s.toString();
+////            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+//            progBar.setVisibility(ProgressBar.INVISIBLE);
+//
+//            try {
+//                jObjc = new JSONObject(s);
+//                sucki=jObjc.getInt("success");
+//                msgs=jObjc.getString("success");
+//                gencode=jObjc.getString("SC");
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            switch (sucki) {
+//                case 0:
+//                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+//                    break;
+//                case 1:
+//                    daynight++;
+//                    tcode.setText(gencode);
+//                    bsharegen.setText("Share Code");
+//                    break;
+//                default:
+//                        Toast.makeText(getApplicationContext(),"Try again",Toast.LENGTH_LONG).show();
+//                        break;
+//            }
+//
+//        }
+//        public void onBackPressed(){
+//            moveTaskToBack(true);
+//        }
+//        @Override
+//        protected String doInBackground(String... voids) {
+//            String result="";
+////            String AgCode =voids[0];
+//
+//            String connstr="http://stardigitalbikes.com/share_code_pdo.php";
+////            String connstr="http://192.168.43.113/pdobikephp/share_code_pdo.php";
+//
+//
+//            prefer=getSharedPreferences(prefName,MODE_PRIVATE);
+//            String Usurname=prefer.getString(SURNAME_KEY,""),
+//                    Ufirstname=prefer.getString(FIRST_NAME_KEY,""),
+//                    Uphone=prefer.getString(PHONE_NUMBER_KEY,""),
+//                    Uemail=prefer.getString(EMAIL_ADDRESS_KEY,""),
+//                    Uresidence=prefer.getString(RESIDENCE_KEY,"");
+//            String Ugender=prefer.getString(GENDER_KEY,"");
+//
+//
+//            try {
+//                URL url =new URL(connstr);
+//                HttpURLConnection http =(HttpURLConnection) url.openConnection();
+//                http.setRequestMethod("POST");
+//                http.setDoInput(true);
+//                http.setDoOutput(true);
+//
+//
+//                OutputStream ops =http.getOutputStream();
+//                BufferedWriter writer =new BufferedWriter(new OutputStreamWriter(ops,"UTF-8"));
+//                String data =URLEncoder.encode("surname","UTF-8")+"="+URLEncoder.encode(Usurname,"UTF-8")
+//                        +"&&"+ URLEncoder.encode("firstname","UTF-8")+"="+URLEncoder.encode(Ufirstname,"UTF-8")
+//                        +"&&"+ URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(Uphone,"UTF-8")
+//                        +"&&"+ URLEncoder.encode("gender","UTF-8")+"="+URLEncoder.encode(Ugender,"UTF-8")
+//                        +"&&"+ URLEncoder.encode("residence","UTF-8")+"="+URLEncoder.encode(Uresidence,"UTF-8");
+//                writer.write(data);
+//                writer.flush();
+//                writer.close();
+//                ops.close();
+//                Log.d("JSON Exception","DONE SENDING");
+//
+//                InputStream ips =http.getInputStream();
+//                BufferedReader reader=new BufferedReader(new InputStreamReader(ips,"ISO-8859-1"));
+//                String line ="";
+//                while ((line=reader.readLine()) !=null){
+//                    result +=line;
+//
+//                }
+////#######INTRODICING THE READING OOF THE RETURNED JSON
+//                ips.close();
+//                reader.close();
+//                json = result.toString();
+//
+////##################################################################33
+//                http.disconnect();
+//                return result;
+//
+//            } catch (MalformedURLException e) {
+//                Log.d("JSON Exception",e.toString());
+//                result =e.getMessage();
+//            } catch (ProtocolException e) {
+//                Log.d("JSON Exception",e.toString());
+//                result =e.getMessage();
+//            } catch (IOException e) {
+//                Log.d("JSON Exception",e.toString());
+//                result =e.getMessage();
+//            }
+//
+//            return result;
+//        }
+//
+//
+//    }
 
 
 }

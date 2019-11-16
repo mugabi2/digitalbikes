@@ -181,6 +181,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     private static final String RESIDENCE_KEY = "Residence";
     private static final String DIGITAL_TIME_KEY = "Digital Time";
     private static final String LOCATION_KEY ="Location";
+    private static final String GENDER_KEY ="Gender";
 
 
     SharedPreferences prefb;
@@ -271,9 +272,11 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     private int stars;
     Button sendFeed;
     EditText feedMsg;
-    String feedbackmsg;
+    String feedbackmsg,msgs;
     TextView reminder;
-
+//@#
+    String gencode;
+    int sharepress=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -403,7 +406,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
 
         myDialog = new Dialog(this);
-        myDialog.setContentView(R.layout.rent_bike_popup);
+        myDialog.setContentView(R.layout.rent_bike_popup);//rent_bike_popup
 
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
 //$$
@@ -525,7 +528,9 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             showFeedback();
         }else if(notinumber==6){
                 Toast.makeText(getApplicationContext(),"Bike taken please try another location",Toast.LENGTH_LONG).show();
-        }
+        }else if(notinumber==7){// REDEEM TIME
+
+             }
 
 
 
@@ -593,7 +598,12 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public void sha(View view){
-        startActivity(new Intent(Mapsimport1.this, Promotions.class));//Promotions
+        if (sharepress==0){//gen code from hrer
+//            progress bar please
+            new Mapsimport1.backgroundCodegen(this).execute();
+
+        }else{
+            Toast.makeText(getApplicationContext(),"wait wait",Toast.LENGTH_LONG).show();    }
     }
     public void sup(View view){
         startActivity(new Intent(Mapsimport1.this, Support.class));//Promotions
@@ -601,8 +611,122 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     public void ins(View view){
         startActivity(new Intent(Mapsimport1.this, Events.class));//Instructions// credit for progress/lottie
     }
+//   @#
+    class backgroundCodegen extends AsyncTask<String, Void,String> {
+        AlertDialog dialog;
+        Context context;
 
-    //$
+        public backgroundCodegen(Context context){
+            this.context=context;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            String jjon = s.toString();
+//            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            progBar.setVisibility(ProgressBar.INVISIBLE);
+            sharepress=0;
+            try {
+                jObjc = new JSONObject(s);
+                sucki=jObjc.getInt("success");
+                msgs=jObjc.getString("success");
+                gencode=jObjc.getString("SC");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            switch (sucki) {
+                case 0:
+                    Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                    break;
+                case 1: //success
+
+                Intent inty =new Intent(Mapsimport1.this,Promotions.class);
+                inty.putExtra("code",s);
+                startActivity(inty);
+
+                    break;
+                default:
+                    Toast.makeText(getApplicationContext(),"Try again",Toast.LENGTH_LONG).show();
+                    break;
+            }
+
+        }
+
+        @Override
+        protected String doInBackground(String... voids) {
+            String result="";
+//            String AgCode =voids[0];
+
+            String connstr="http://stardigitalbikes.com/share_code_pdo.php";
+//            String connstr="http://192.168.43.113/pdobikephp/share_code_pdo.php";
+
+
+            prefer=getSharedPreferences(prefName,MODE_PRIVATE);
+            String Usurname=prefer.getString(SURNAME_KEY,""),
+                    Ufirstname=prefer.getString(FIRST_NAME_KEY,""),
+                    Uphone=prefer.getString(PHONE_NUMBER_KEY,""),
+                    Uemail=prefer.getString(EMAIL_ADDRESS_KEY,""),
+                    Uresidence=prefer.getString(RESIDENCE_KEY,"");
+            String Ugender=prefer.getString(GENDER_KEY,"");
+
+//            pressed
+            sharepress=1;
+            try {
+                URL url =new URL(connstr);
+                HttpURLConnection http =(HttpURLConnection) url.openConnection();
+                http.setRequestMethod("POST");
+                http.setDoInput(true);
+                http.setDoOutput(true);
+
+
+                OutputStream ops =http.getOutputStream();
+                BufferedWriter writer =new BufferedWriter(new OutputStreamWriter(ops,"UTF-8"));
+                String data =URLEncoder.encode("surname","UTF-8")+"="+URLEncoder.encode(Usurname,"UTF-8")
+                        +"&&"+ URLEncoder.encode("firstname","UTF-8")+"="+URLEncoder.encode(Ufirstname,"UTF-8")
+                        +"&&"+ URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(Uphone,"UTF-8")
+                        +"&&"+ URLEncoder.encode("gender","UTF-8")+"="+URLEncoder.encode(Ugender,"UTF-8")
+                        +"&&"+ URLEncoder.encode("residence","UTF-8")+"="+URLEncoder.encode(Uresidence,"UTF-8");
+                writer.write(data);
+                writer.flush();
+                writer.close();
+                ops.close();
+                Log.d("JSON Exception","DONE SENDING");
+
+                InputStream ips =http.getInputStream();
+                BufferedReader reader=new BufferedReader(new InputStreamReader(ips,"ISO-8859-1"));
+                String line ="";
+                while ((line=reader.readLine()) !=null){
+                    result +=line;
+
+                }
+//#######INTRODICING THE READING OOF THE RETURNED JSON
+                ips.close();
+                reader.close();
+                json = result.toString();
+                sharepress=0;
+//##################################################################33
+                http.disconnect();
+                return result;
+
+            } catch (MalformedURLException e) {
+                Log.d("JSON Exception",e.toString());
+                result =e.getMessage();
+            } catch (ProtocolException e) {
+                Log.d("JSON Exception",e.toString());
+                result =e.getMessage();
+            } catch (IOException e) {
+                Log.d("JSON Exception",e.toString());
+                result =e.getMessage();
+            }
+
+            return result;
+        }
+
+
+    }
+
+    //
     class backgroundfeedback extends AsyncTask<String, Void,String> {
         Context context;
         public backgroundfeedback(Context context){

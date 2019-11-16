@@ -55,6 +55,14 @@ public class SafetyTips extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     //*******************MENU****************8

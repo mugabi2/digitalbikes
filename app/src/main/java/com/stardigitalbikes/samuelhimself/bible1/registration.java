@@ -83,7 +83,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
     Boolean loginStatus;
     static JSONObject jObjc = null;
 
-    Dialog shareDialog;
+    Dialog shareDialog, tacDialog;
 
 
 
@@ -105,6 +105,10 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+
+        tacDialog = new Dialog(this);
+        tacDialog.setContentView(R.layout.terms_and_conditions);
 
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
@@ -166,6 +170,35 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    public void showtac() {
+        Button tacb,proceed;
+        TextView upmsg;
+
+        tacb=tacDialog.findViewById(R.id.tacpop);
+        tacb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("http://stardigitalbikes.com/terms_and_conditions.php"));
+                startActivity(browserIntent);
+
+            }
+        });
+
+        proceed=tacDialog.findViewById(R.id.proceedpop);
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tacDialog.dismiss();
+            }
+        });
+
+        tacDialog.setCancelable(false);
+
+        tacDialog.show();
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
@@ -213,7 +246,11 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                 break;
         }
     }
-    public void TACwebsite(View view){
+    public void popme(View view) {
+//        $#
+        showtac();
+    }
+        public void TACwebsite(View view){
         Intent browserIntent = new Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("http://stardigitalbikes.com/terms_and_conditions.php"));

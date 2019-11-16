@@ -3,6 +3,11 @@
     <!--buttons-->
     <string name="digitaltimepacks">Digital Time Packs</string>
     <string name="hourglass">Hour Glass</string>
+    <string name="verify">Verify</string>
+    <string name="sharecodetoearn">Share app code to earn 20 minutes Free Digital Time</string>
+    <string name="sharecode">Share Code</string>
+    <string name="rentalagree">Rental Agreement</string>
+    <string name="byclick">By clicking verify, you agree to this Rental Agreement and the Terms and Conditions of Digital Bikes</string>
     <string name="timebucket">Time Bucket</string>
     <string name="onehour">1:00 hr</string>
     <string name="fullday">12:00 hrs</string>

@@ -1,9 +1,12 @@
 package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
@@ -20,7 +23,10 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,10 +77,12 @@ public class Profile extends AppCompatActivity {
 
     Boolean loginStatus=Boolean.TRUE;
 
+    Dialog dtDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
 
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
@@ -83,6 +91,9 @@ public class Profile extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.darkdarkTurq));
         }
+
+        dtDialog = new Dialog(this);
+        dtDialog.setContentView(R.layout.digital_time);
 
         progBar= (ProgressBar)findViewById(R.id.progressBar3);
         pogless();
@@ -110,39 +121,18 @@ public class Profile extends AppCompatActivity {
         TextView Tresidence=(TextView)findViewById(R.id.textinresidence);
         Tresidence.append(prefs.getString(RESIDENCE_KEY,""));
 
-//        Bhom= findViewById(R.id.hm11);
-//        Bhom.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent int1 =new Intent(getApplicationContext(),MainActivity.class);
-//                startActivity(int1);
-//                finish();
-//            }
-//        });
-//
-//
-//        Bmore= findViewById(R.id.more11);
-//        Bmore.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent int1 =new Intent(getApplicationContext(),More.class);
-//                startActivity(int1);
-//                finish();
-//            }
-//        });
-//
-//        Bsafe= findViewById(R.id.safety4);
-//        Bsafe.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent int1 =new Intent(getApplicationContext(),SafetyTips.class);
-//                startActivity(int1);
-//                finish();
-//            }
-//        });
+
         //  -------------toolbar---------
         Toolbar toolbar =findViewById(R.id.profiletoolbar);
         setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
     }
@@ -152,6 +142,10 @@ public class Profile extends AppCompatActivity {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.user_menu,menu);
         return true;
+    }
+    public void showPopup() {
+        ImageView closePopup;
+        dtDialog.show();
     }
 
     public void pogless() {
@@ -183,17 +177,18 @@ public class Profile extends AppCompatActivity {
 
 
     public void signMeOut(View view){
-        Button bsiout=(Button)findViewById(R.id.signout);
-
-//        ANIMATION
-        Animation animation= AnimationUtils.loadAnimation(Profile.this,R.anim.bounce);
-        bsiout.startAnimation(animation);
-
-        ProgressBar pb =findViewById(R.id.progressBar3);
-        pb.setVisibility(ProgressBar.VISIBLE);
-        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-        String phone=prefs.getString(PHONE_NUMBER_KEY,"");
-        new Profile.backgroundSignout(this).execute(phone);
+        showPopup();
+//        Button bsiout=(Button)findViewById(R.id.signout);
+//
+////        ANIMATION
+//        Animation animation= AnimationUtils.loadAnimation(Profile.this,R.anim.bounce);
+//        bsiout.startAnimation(animation);
+//
+//        ProgressBar pb =findViewById(R.id.progressBar3);
+//        pb.setVisibility(ProgressBar.VISIBLE);
+//        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+//        String phone=prefs.getString(PHONE_NUMBER_KEY,"");
+//        new Profile.backgroundSignout(this).execute(phone);
     }
 
     class backgroundSignout extends AsyncTask<String, Void,String> {

@@ -7,13 +7,57 @@
     android:orientation="vertical"
     app:behavior_hideable="false"
     app:behavior_peekHeight="90dp"
+    android:background="@color/white"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:scrollbars="none">
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rentalagree"
+                android:textColor="@color/colorAppBlue"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:textSize="25sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAppBlue"
+                android:text="@string/textForAbout"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:text="@string/byclick"
+                android:textColor="@color/red"/>
+            <Button
+                android:id="@+id/tacpop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:background="@drawable/round52"
+                android:textColor="@color/colorAppBlue"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/terms_and_conditions"/>
+            <Button
+                android:id="@+id/proceedpop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginVertical="4dp"
+                android:background="@drawable/roundlogbtn"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/verify"/>
+        </LinearLayout>
     </ScrollView>
 
 </android.support.v4.widget.NestedScrollView>
