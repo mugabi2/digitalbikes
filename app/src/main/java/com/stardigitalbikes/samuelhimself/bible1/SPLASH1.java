@@ -9,7 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,12 +18,8 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,17 +35,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class SPLASH1 extends AppCompatActivity {
 
@@ -83,6 +70,7 @@ public class SPLASH1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash1);
 
+        Log.d("splash","creating");
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
             Window window=this.getWindow();
@@ -197,6 +185,7 @@ public class SPLASH1 extends AppCompatActivity {
 
             json = s.toString();
 //            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+            Log.e("123",  s);
 
             try {
                 jObj = new JSONObject(json);
@@ -210,10 +199,6 @@ public class SPLASH1 extends AppCompatActivity {
                 }
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error creating the json object " + e.toString());
-//                dialog.setMessage("Please connect to the internet and then try again");
-//                dialog.show();
-//                showRefPopup();
-//                ###
                 Toast.makeText(getApplicationContext(),"Please check internet connection!",Toast.LENGTH_SHORT).show();
                 bspref.setVisibility(View.VISIBLE);
 

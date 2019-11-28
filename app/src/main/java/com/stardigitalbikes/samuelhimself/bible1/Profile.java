@@ -5,32 +5,24 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -95,12 +87,11 @@ public class Profile extends AppCompatActivity {
         dtDialog = new Dialog(this);
         dtDialog.setContentView(R.layout.digital_time);
 
+
         progBar= (ProgressBar)findViewById(R.id.progressBar3);
         pogless();
 
-
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-
 
         TextView Tname=(TextView)findViewById(R.id.textinname);
         Tname.append(prefs.getString(SURNAME_KEY,"")+" "+ prefs.getString(FIRST_NAME_KEY,""));

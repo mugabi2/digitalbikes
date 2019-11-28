@@ -17,6 +17,15 @@
     <color name="turqlit">#4d7e96</color>
     <color name="grey">#c9c9c9</color>
     <color name="red">#ca0205</color>
+    <color name="yellow">#F8E71C</color>
+
+    <integer-array name="dbcolors">
+        <item>@color/cyan</item>
+        <item>@color/pocket_color_3</item>
+        <item>@color/orange</item>
+        <item>@color/holo_red_dark</item>
+        <item>@color/limeyellow</item>
+    </integer-array>
 
     <color name="colorAccentCustom">#00c3ff</color>
     <color name="white">#ffffff</color>
@@ -49,6 +58,7 @@
         <item>@color/holo_red_dark</item>
     </integer-array>
 
+
     <integer-array name="gplus_colors">
         <item>@color/gplus_color_1</item>
         <item>@color/gplus_color_2</item>
@@ -75,6 +85,13 @@
         <item>@color/pocket_color_4</item>
     </integer-array>
 
+    <integer-array name="dbcolorspock">
+        <item>@color/pocket_color_3</item>
+        <item>@color/cyan</item>
+<!--        <item>@color/limeyellow</item>-->
+        <item>@color/pocket_color_1</item>
+        <item>@color/orange</item>
+    </integer-array>
     <integer-array name="pocket_background_colors">
         <item>@color/pocket_color_1</item>
         <item>@color/pocket_color_2</item>

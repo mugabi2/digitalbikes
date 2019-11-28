@@ -13,12 +13,21 @@
 <include layout="@layout/apptoolbar"
     android:id="@+id/credittoolbar"/>
 
-
-    <ProgressBar
-        android:id="@+id/castor"
-        android:layout_width="match_parent"
-        android:layout_height="211dp"
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
         android:indeterminate="true"
-        android:indeterminateOnly="false" />
+        app:cpb_color="#FFee44"
+        app:cpb_colors="@array/pocket_background_colors"
+        app:cpb_rotation_speed="1.0"
+        app:cpb_sweep_speed="1.0"
+        app:cpb_stroke_width="5dp"
+        app:cpb_min_sweep_angle="10"
+        app:cpb_max_sweep_angle="300"
+        />
 
 </LinearLayout>

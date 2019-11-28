@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,11 +40,8 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import static com.stardigitalbikes.samuelhimself.bible1.R.id.cash1;
 import static com.stardigitalbikes.samuelhimself.bible1.R.id.digitaltime1;
 import static com.stardigitalbikes.samuelhimself.bible1.R.id.fulltime;
-
-import static com.stardigitalbikes.samuelhimself.bible1.R.id.radio_female;
 
 public class Rent1 extends AppCompatActivity {
 

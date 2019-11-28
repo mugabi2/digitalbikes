@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="350dp"
@@ -8,7 +8,7 @@
     android:orientation="vertical"
     app:behavior_hideable="false"
     app:behavior_peekHeight="65dp"
-    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     tools:context=".Mapsimport1">
 
     <ScrollView
@@ -107,7 +107,7 @@
                     android:background="@drawable/round_corner_dark_blue_fill"/>
             </LinearLayout>
             <!--fire updates-->
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -123,7 +123,7 @@
                 android:orientation="horizontal">
 
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/carkjghd3"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
@@ -158,7 +158,7 @@
 
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
 
             </LinearLayout>
@@ -184,5 +184,5 @@
         </LinearLayout>
     </ScrollView>
 
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>
 

@@ -19,23 +19,23 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <!--<com.airbnb.lottie.LottieAnimationView-->
-            <!--android:id="@+id/lotsup"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--app:lottie_autoPlay="true"-->
-            <!--app:lottie_fileName="lf30_editor_fTwvh0.json"-->
-            <!--app:lottie_loop="true"/>-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lotsup"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lf30_editor_gdRUEk.json"
+            app:lottie_loop="true"/>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/carkjghd3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/card3"
         android:background="#ffffff"
         app:cardCornerRadius="7dp"
-        android:layout_marginBottom="50dp"
         app:layout_anchor="@+id/carddkjghd3kjghd3"
         app:layout_anchorGravity="right|bottom"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,19 +47,13 @@
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="280dp"
-            android:layout_height="102dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:padding="9dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.512"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.14">
+            android:padding="9dp">
 
 
             <Button
@@ -67,20 +61,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
                 android:background="#ffffff"
-                android:drawableLeft="@drawable/phone_draw4"
                 android:text="@string/callHelpLine"
-                android:textAllCaps="false"
-                android:textColor="#00003a" />
-
-            <Button
-                android:id="@+id/givefeedbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#ffffff"
-                android:drawableLeft="@drawable/feed3"
-                android:text="Rating and feedback"
                 android:textAllCaps="false"
                 android:textColor="#00003a" />
 
@@ -89,14 +72,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
                 android:background="#ffffff"
-                android:drawableLeft="@drawable/send_draw2"
                 android:text="Email us"
                 android:textAllCaps="false"
                 android:textColor="#00003a" />
+            <Button
+                android:id="@+id/givefeedbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="5dp"
+                android:background="#ffffff"
+                android:text="Rating and feedback"
+                android:textAllCaps="false"
+                android:textColor="#00003a" />
+
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
         <!--<com.airbnb.lottie.LottieAnimationView-->
             <!--android:layout_width="match_parent"-->
@@ -105,112 +99,89 @@
             <!--app:lottie_loop="true"-->
             <!--app:lottie_fileName="lf30_editor_fTwvh0.json" />-->
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/carddkjghd3kjghd3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/card3"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="#ffffff"
-        app:cardCornerRadius="7dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carkjghd3"
-        app:layout_constraintVertical_bias="0.217">
-
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/carddkjghd3kjghd3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignStart="@+id/card3"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#ffffff"
+            app:cardCornerRadius="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carkjghd3"
+            app:layout_constraintVertical_bias="0.217">
 
-            <TextView
-                android:id="@+id/textView35"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:gravity="left"
-                android:text="@string/visitOurOffices"
-                android:textColor="#00003a"
-                android:textSize="10pt"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.382"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.433" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="133dp"
-                    android:layout_height="104dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.034"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.06"
-                    app:srcCompat="@drawable/ic_office1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.712"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.577">
 
-                    <TextView
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.034"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.06"
+                        app:srcCompat="@drawable/ic_office1" />
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CHURCH HOUSE"
-                        android:textAllCaps="false"
-                        android:textColor="#00003a"
-                        android:textSize="8pt" />
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.712"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.577">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Office 001"
-                        android:textAllCaps="false"
-                        android:textColor="#00003a"
-                        android:textSize="8pt" />
+                        <TextView
+                            android:id="@+id/textView35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="@string/visitOurOffices"
+                            android:textColor="#00003a"
+                            android:textSize="10pt" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Kampala Road"
-                        android:textAllCaps="false"
-                        android:textColor="#00003a"
-                        android:textSize="8pt" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Office 001"
+                            android:textAllCaps="false"
+                            android:textColor="#00003a"
+                            android:textSize="8pt" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="P.O.BOX 416"
-                        android:textAllCaps="false"
-                        android:textColor="#00003a"
-                        android:textSize="8pt" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kampala Road"
+                            android:textAllCaps="false"
+                            android:textColor="#00003a"
+                            android:textSize="8pt" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="P.O.BOX 416"
+                            android:textAllCaps="false"
+                            android:textColor="#00003a"
+                            android:textSize="8pt" />
+
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
     </LinearLayout>
 </FrameLayout>

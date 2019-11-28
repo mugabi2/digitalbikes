@@ -6,21 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -40,16 +35,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import android.os.Bundle;
 import android.os.Handler;
-import android.app.Activity;
-import android.view.Menu;
 import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import static com.stardigitalbikes.samuelhimself.bible1.R.id.radio_female;
 
 public class LOGIN extends AppCompatActivity {
 

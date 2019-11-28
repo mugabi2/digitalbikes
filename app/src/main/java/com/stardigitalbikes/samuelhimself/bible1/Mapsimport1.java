@@ -1,7 +1,6 @@
 package com.stardigitalbikes.samuelhimself.bible1;
 
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationChannel;
@@ -9,39 +8,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -54,7 +46,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,7 +61,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -86,7 +76,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,61 +84,29 @@ import java.util.List;
 //impooiji
 
 
-import android.Manifest;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentSender;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Random;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -277,6 +234,9 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //@#
     String gencode;
     int sharepress=0;
+
+    private FirebaseFirestore db =FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -597,13 +557,39 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        tdigit.append(somet);
     }
 
-    public void sha(View view){
-        if (sharepress==0){//gen code from hrer
-//            progress bar please
-            new Mapsimport1.backgroundCodegen(this).execute();
 
-        }else{
-            Toast.makeText(getApplicationContext(),"wait wait",Toast.LENGTH_LONG).show();    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        parkref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Toast.makeText(bvs.this, "Error while loading!", Toast.LENGTH_SHORT).show();
+//                    Log.d(TAG, e.toString());
+//                    return;
+//                }
+//
+//                Log.d("bvs","in start");
+//                Log.d("bvs",e.toString());
+//                if (documentSnapshot.exists()) {
+//                    String title = documentSnapshot.getString(KEY_TITLE);
+//                    String description = documentSnapshot.getString(KEY_DESCRIPTION);
+//
+//                    africa.setText("Title: " + title + "\n" + "Description: " + description);
+//                }
+//            }
+//        });
+//    }
+
+    public void sha(View view){
+        startActivity(new Intent(Mapsimport1.this, Credit.class));//Promotions
+//        if (sharepress==0){//gen code from hrer
+////            progress bar please
+//            new Mapsimport1.backgroundCodegen(this).execute();
+//
+//        }else{
+//            Toast.makeText(getApplicationContext(),"wait wait",Toast.LENGTH_LONG).show();    }
     }
     public void sup(View view){
         startActivity(new Intent(Mapsimport1.this, Support.class));//Promotions
@@ -1160,7 +1146,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
         LatLng africa = new LatLng(0.337912, 32.568790);
         MarkerOptions af = new MarkerOptions().position(africa).title("Africa").snippet(pkafrica)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew2));
         switch (pkafrica){
             case "0 bikes":
                 mMap.addMarker(af);
@@ -1176,7 +1162,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
         LatLng cedat = new LatLng(0.335882, 32.564807);
         MarkerOptions cd = new MarkerOptions().position(cedat).title("CEDAT").snippet(pkcedat)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew3));
         switch (pkcedat){
             case "0 bikes":
                 mMap.addMarker(cd);

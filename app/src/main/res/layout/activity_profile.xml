@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,312 +11,229 @@
     <include layout="@layout/apptoolbar"
         android:id="@+id/profiletoolbar"/>
 
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="55dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/lgi"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <!--PHONE-->
     <LinearLayout
-        android:id="@+id/linearLayout10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/card3"
-            android:layout_width="130dp"
-            android:layout_height="60dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="7dp"
-            android:background="#ffffff"
-            app:cardCornerRadius="7dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="7dp">
-
-                <TextView
-                    android:id="@+id/textinphone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:textColor="#00003a"
-                    android:textSize="9pt" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phone number"
-                    android:textColor="#C5C5C5"
-                    android:textSize="4pt" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <!--<android.support.v7.widget.CardView-->
-        <!--android:id="@+id/card565"-->
-        <!--android:layout_width="130dp"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:background="#ffffff"-->
-        <!--android:layout_marginBottom="7dp"-->
-        <!--app:cardCornerRadius="7dp">-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="70dp"-->
-        <!--android:orientation="vertical"-->
-        <!--android:padding="7dp">-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/textinemail"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="9dp"-->
-        <!--android:textColor="#00003a"-->
-        <!--android:textSize="5pt" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/textView19"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:text="Email"-->
-        <!--android:textColor="#c5c5c5"-->
-        <!--android:textSize="4pt" />-->
-
-
-        <!--</LinearLayout>-->
-        <!--</android.support.v7.widget.CardView>-->
-
-    </LinearLayout>
-    <!--RESIDENCD-->
-    <LinearLayout
-        android:id="@+id/linearLayout12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
-
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/car55d3"
-            android:layout_width="130dp"
-            android:layout_height="60dp"
-            android:background="#ffffff"
-            android:layout_marginBottom="7dp"
-            android:layout_marginRight="10dp"
-            app:cardCornerRadius="7dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="7dp">
-
-                <TextView
-                    android:id="@+id/textinresidence"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:textColor="#00003a"
-                    android:textSize="9pt" />
-
-                <TextView
-                    android:id="@+id/textView27"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="Residence"
-                    android:textColor="#c5c5c5"
-                    android:textSize="4pt" />
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <!--<android.support.v7.widget.CardView-->
-        <!--android:id="@+id/caddrd3"-->
-        <!--android:layout_width="130dp"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:background="#ffffff"-->
-        <!--android:layout_marginBottom="7dp"-->
-        <!--app:cardCornerRadius="7dp">-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical"-->
-        <!--android:padding="7dp">-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/preferred1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="0dp"-->
-        <!--android:textColor="#00003a"-->
-        <!--android:textSize="9pt" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/textdi"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:text="Preferred Location"-->
-        <!--android:textColor="#c5c5c5"-->
-        <!--android:textSize="4pt" />-->
-
-        <!--</LinearLayout>-->
-        <!--</android.support.v7.widget.CardView>-->
-
-    </LinearLayout>
-    <!--DIGITAL TIME-->
-    <LinearLayout
-        android:id="@+id/linearLayout13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/carkjghd3"
-            android:layout_width="130dp"
-            android:layout_height="60dp"
-            android:background="#ffffff"
-            android:layout_marginBottom="7dp"
-            android:layout_alignStart="@+id/card3"
-            app:cardCornerRadius="7dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="7dp">
-
-                <TextView
-                    android:id="@+id/textdigitaltime2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:textColor="#00003a"
-                    android:textSize="9pt" />
-
-                <TextView
-                    android:id="@+id/textdigitaltime1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="Digital Time"
-                    android:textColor="#c5c5c5"
-                    android:textSize="4pt" />
-
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cadddfdrd3"
-            android:layout_width="130dp"
-            android:alpha="0"
-            android:layout_height="60dp"
-            android:layout_marginBottom="7dp"
-            app:cardCornerRadius="7dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="7dp">
-
-                <TextView
-                    android:id="@+id/prefefeerred1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:textColor="#00003a"
-                    android:textSize="9pt" />
-
-                <TextView
-                    android:id="@+id/teerextdi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="Preferred Location"
-                    android:textColor="#c5c5c5"
-                    android:textSize="4pt" />
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-    </LinearLayout>
-
-    <!--NAME-->
-    <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="116dp"
-        android:background="#ffffff"
-        android:gravity="center"
-        android:padding="7dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textinname"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="53dp"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/lgi"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+        <!--NAME-->
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#ffffff"
             android:gravity="center"
-            android:textColor="#00003a"
-            android:textSize="16pt" />
+            android:padding="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textinname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="#00003a"
+                android:textSize="16pt" />
+
+        </LinearLayout>
+        <!--PHONE-->
+        <LinearLayout
+            android:id="@+id/linearLayout10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="7dp"
+                android:background="#ffffff"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:id="@+id/textinphone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
+                        android:textColor="#00003a"
+                        android:textSize="9pt" />
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone number"
+                        android:textColor="#C5C5C5"
+                        android:textSize="5pt" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/car55d3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="7dp"
+                android:background="#ffffff"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:id="@+id/textinresidence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
+                        android:textColor="#00003a"
+                        android:textSize="9pt" />
+
+                    <TextView
+                        android:id="@+id/textView27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:text="Residence"
+                        android:textColor="#c5c5c5"
+                        android:textSize="5pt" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
+
+        <!--DIGITAL TIME-->
+        <LinearLayout
+            android:id="@+id/linearLayout13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/carkjghd3"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="8dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="8dp"
+                android:layout_alignStart="@+id/card3"
+                android:layout_marginBottom="7dp"
+                android:background="#ffffff"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:id="@+id/textdigitaltime2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:textColor="#00003a"
+                        android:textSize="9pt" />
+
+                    <TextView
+                        android:id="@+id/textdigitaltime1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:text="Digital Time"
+                        android:textColor="#c5c5c5"
+                        android:textSize="4pt" />
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="7dp"
+                app:cardCornerRadius="7dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:background="@color/cyan">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="lf30_editor_3JP9uC.json" />
+            </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
 
     </LinearLayout>
-
     <Button
         android:id="@+id/signout"
         android:layout_width="250dp"
@@ -335,7 +253,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout13"
         app:layout_constraintVertical_bias="0.269" />
 
     <ProgressBar
@@ -354,4 +271,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.532" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

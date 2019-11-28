@@ -4,13 +4,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@drawable/roundcornerdt"
     android:gravity="center">
 
     <LinearLayout
         android:layout_width="280dp"
+        android:padding="5dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/round_corner_white_fill"
+        android:background="@drawable/roundcornerdt"
         android:orientation="vertical">
 
         <ImageView
@@ -37,83 +39,86 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/colorLighter"
-            android:orientation="horizontal"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp">
+            android:background="@color/white"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorLighter"
+                android:background="@drawable/dtround"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/helvetica_roman"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@color/pocket_color_3"
+                    android:fontFamily="@font/helvetica_roman"
+                    android:layout_marginStart="0dp"
                     android:gravity="center"
                     android:text="@string/hourglass"
-                    android:textColor="@color/colorAppBlue"
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="24dp"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
-                    app:lottie_fileName="3671-hour-glass-animation.json" />
+                    app:lottie_fileName="lf30_editor_PNrU0S.json" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/helvetica_roman"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginTop="107dp"
+                    android:fontFamily="@font/helvetica_roman"
                     android:gravity="center"
-                    android:text="@string/onehour"
+                    android:text="1 hour\n1,000 shs"
                     android:textColor="@color/colorAppBlue"
                     android:textSize="20sp" />
 
-            </LinearLayout>
+            </FrameLayout>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorLighter"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_marginStart="0dp"
+                android:background="@drawable/dtroundtb"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@color/cyan"
                     android:gravity="center"
                     android:text="@string/timebucket"
                     android:fontFamily="@font/helvetica_roman"
-                    android:textColor="@color/colorAppBlue"
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
-
                 <com.airbnb.lottie.LottieAnimationView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="24dp"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
-                    app:lottie_fileName="4640-progress-triangle-loading-animation.json" />
+                    app:lottie_fileName="lf30_editor_8puxpE.json" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/fullday"
+                    android:text="12 hours\n10,000 shs"
+                    android:layout_marginTop="107dp"
                     android:fontFamily="@font/helvetica_roman"
                     android:textColor="@color/colorAppBlue"
                     android:textSize="20sp" />
-            </LinearLayout>
+            </FrameLayout>
 
 
 
