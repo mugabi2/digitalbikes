@@ -22,6 +22,11 @@ public class myFirebaseMessagingService extends FirebaseMessagingService {
     String tit;
 
     @Override
+    public void onNewToken(String s) {
+        Log.e("NEW_TOKEN", s);
+    }
+
+    @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
 //            Toast.makeText(getApplicationContext(), remoteMessage.toString(), Toast.LENGTH_LONG).show();

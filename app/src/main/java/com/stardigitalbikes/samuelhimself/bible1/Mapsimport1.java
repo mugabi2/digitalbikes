@@ -18,6 +18,8 @@ import android.os.Build;
 import android.os.Handler;
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import android.os.Bundle;
@@ -78,7 +80,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 //impooiji
@@ -98,6 +102,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -116,14 +121,14 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //    just want to see this comment am telling you
 
     //    this time i want to see this comment
-    private ProgressBar progBar;
     private TextView text;
     private Handler mHandler = new Handler();
     private int mProgressStatus = 0;
 
-    private SharedPreferences prefs, prefer;
+    private SharedPreferences prefs, prefs3, prefer;
     private String prefName = "preProfile";
     private String prefName2 = "preBike";
+    private String prefName3 = "milan";
 
     String serverKey = "2y10f2Kkl1GRi5si0AAsgvsgJWyqXsUszC3DuvRLwZZ";
     String gearS;
@@ -139,6 +144,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     private static final String DIGITAL_TIME_KEY = "Digital Time";
     private static final String LOCATION_KEY ="Location";
     private static final String GENDER_KEY ="Gender";
+    private static final String INTERMILAN_KEY ="Intermilan";
 
 
     SharedPreferences prefb;
@@ -146,7 +152,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     private static final String RENT_BIKE_KEY = "Rent Bike";
     static final int rentPrice1 = 1500, rentPrice2 = 2000;
     int sente, yourTime, gear;
-    String usname, ufname, uphone, umail, uresi, udura = "20", upaymeth, uagcode;
+    String usname, ufname, uphone, umail, uresi, udura = "20", upaymeth, uagcode,prx="0";
     Boolean rentStatus = false;
 
     private GoogleMap mMap;
@@ -166,20 +172,20 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     static String jsone = "";
     String method,pkucu="2000 bikes",pkmubs="2500 bikes";
 
-    String dura, duration = "20 minutes",ups;
+    String dura, duration = "20 minutes",ups,intermilan;
     Dialog myDialog, updialog,ratdialog;
 
 
 
     String ditime;
-    String paymentInt,location;
+    String paymentInt="1",location;
     int checkPm = 0, pmi, pmc = 1, pmd = -1, suckind, succfour, sucki;
 
     String returntime;
 
     TextView durationtext;
     SeekBar seekduration;
-    int min = 0, max = 7, current = 0;
+    int min = 0, max = 5, current = 0;
 
 //    BOTTOM SHEET PRICE
 
@@ -236,11 +242,18 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     int sharepress=0;
 
     private FirebaseFirestore db =FirebaseFirestore.getInstance();
+    private DocumentReference dbref = db.document("BVSMUK/population");
+
+    Map<String, Object> bracket;
+    final List<MarkerOptions> markers = new ArrayList<>();
+    ProgressBar pogba;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapsimport1);
+
+        pogba=findViewById(R.id.pogba2);
 
 //        feedabback
         ratdialog = new Dialog(this);
@@ -254,7 +267,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         }
 
 
-        progBar= (ProgressBar)findViewById(R.id.pbmap);
         pogless();
 
 //        recycler
@@ -375,7 +387,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        Tdt.append(ditime+ " Hrs");
 
 
-//        progBar= (ProgressBar)findViewById(R.id.progressBar2);
 
 //        pogless();
         Toolbar toolbar=findViewById(R.id.mapsimporttoolbar);
@@ -453,7 +464,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
 
-        Log.e("NTN MSG", notimessage);
+//        Log.e("NTN MSG", notimessage);
         reminder.setVisibility(ProgressBar.VISIBLE);
         reminder.append(notimessage);
 
@@ -558,50 +569,31 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        parkref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Toast.makeText(bvs.this, "Error while loading!", Toast.LENGTH_SHORT).show();
-//                    Log.d(TAG, e.toString());
-//                    return;
-//                }
-//
-//                Log.d("bvs","in start");
-//                Log.d("bvs",e.toString());
-//                if (documentSnapshot.exists()) {
-//                    String title = documentSnapshot.getString(KEY_TITLE);
-//                    String description = documentSnapshot.getString(KEY_DESCRIPTION);
-//
-//                    africa.setText("Title: " + title + "\n" + "Description: " + description);
-//                }
-//            }
-//        });
-//    }
 
     public void sha(View view){
-        startActivity(new Intent(Mapsimport1.this, Credit.class));//Promotions
-//        if (sharepress==0){//gen code from hrer
-////            progress bar please
-//            new Mapsimport1.backgroundCodegen(this).execute();
-//
-//        }else{
-//            Toast.makeText(getApplicationContext(),"wait wait",Toast.LENGTH_LONG).show();    }
+//        startActivity(new Intent(Mapsimport1.this, Credit.class));//Promotions
+        if (sharepress==0){//gen code from hrer
+//            progress bar please
+            new Mapsimport1.backgroundCodegen(this).execute();
+
+        }else{
+            Toast.makeText(getApplicationContext(),"wait wait",Toast.LENGTH_LONG).show();    }
     }
     public void sup(View view){
-        startActivity(new Intent(Mapsimport1.this, Support.class));//Promotions
+        startActivity(new Intent(Mapsimport1.this, Support.class));//support
     }
     public void ins(View view){
-        startActivity(new Intent(Mapsimport1.this, Events.class));//Instructions// credit for progress/lottie
+        startActivity(new Intent(Mapsimport1.this, Instructions.class));//Instructions// credit for progress/lottie
     }
 //   @#
     class backgroundCodegen extends AsyncTask<String, Void,String> {
         AlertDialog dialog;
         Context context;
 
+    @Override
+    protected void onPreExecute() {
+        pogba.setVisibility(View.VISIBLE);
+    }
         public backgroundCodegen(Context context){
             this.context=context;
         }
@@ -610,7 +602,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         protected void onPostExecute(String s) {
             String jjon = s.toString();
 //            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-            progBar.setVisibility(ProgressBar.INVISIBLE);
             sharepress=0;
             try {
                 jObjc = new JSONObject(s);
@@ -623,10 +614,11 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             }
             switch (sucki) {
                 case 0:
+                    pogba.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
                     break;
                 case 1: //success
-
+                    pogba.setVisibility(View.INVISIBLE);
                 Intent inty =new Intent(Mapsimport1.this,Promotions.class);
                 inty.putExtra("code",s);
                 startActivity(inty);
@@ -718,6 +710,10 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         public backgroundfeedback(Context context){
             this.context=context;
         }
+        @Override
+        protected void onPreExecute() {
+            pogba.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected void onPostExecute(String s) {
@@ -736,6 +732,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                 Log.e("JSON Parser", "Error creating the json object " + e.toString());
             }
 //            @#
+            pogba.setVisibility(View.INVISIBLE);
             ratdialog.dismiss();
             final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
             try {
@@ -1021,34 +1018,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        Toast.makeText(getApplicationContext(),feedbackmsg,Toast.LENGTH_SHORT).show();
         new Mapsimport1.backgroundfeedback(Mapsimport1.this).execute();
     }
-
-    public  void goToPrice(View view){
-        Button bproc=myDialog.findViewById(R.id.go_to_pickup_button);
-
-//        ANIMATION
-        Animation animation= AnimationUtils.loadAnimation(Mapsimport1.this,R.anim.bounce);
-        bproc.startAnimation(animation);
-
-
-        if (pmc==0) {//REQUEST DIGITAL TIME FROME HERE
-            if(ditime.equals("00:00")&& pmc>0){
-                Toast.makeText(getApplicationContext(), "You do not have digital time to spend", Toast.LENGTH_SHORT).show();
-            }else{
-                progBar.setVisibility(ProgressBar.VISIBLE);
-                new backgroundrequest(Mapsimport1.this).execute(usname, ufname, uphone, umail, uresi, udura, paymentInt, uagcode);
-                Toast.makeText(getApplicationContext(), "requesting.......", Toast.LENGTH_LONG).show();
-                Log.d("JSONStatus", "requestING");
-            }
-        }else if (pmc>0){
-//            if payment is digital time reequest directly
-            progBar.setVisibility(ProgressBar.VISIBLE);
-            new backgroundprice(Mapsimport1.this).execute();
-            Toast.makeText(getApplicationContext(), "requesting.....", Toast.LENGTH_LONG).show();
-        }else {
-            Toast.makeText(getApplicationContext(), "check the buttons...", Toast.LENGTH_LONG).show();
-        }
-    }
-
     public void onRadioButtonClickedPayment(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -1082,6 +1051,33 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
+    public  void goToPrice(View view){
+        Button bproc=myDialog.findViewById(R.id.go_to_pickup_button);
+
+//        ANIMATION
+        Animation animation= AnimationUtils.loadAnimation(Mapsimport1.this,R.anim.bounce);
+        bproc.startAnimation(animation);
+
+
+        if (pmc==0) {//REQUEST DIGITAL TIME FROME HERE
+            if(ditime.equals("00:00")&& pmc>0){
+                Toast.makeText(getApplicationContext(), "You do not have digital time to spend", Toast.LENGTH_SHORT).show();
+            }else{
+                new backgroundrequest(Mapsimport1.this).execute(usname, ufname, uphone, umail, uresi, udura, paymentInt, uagcode);
+                Toast.makeText(getApplicationContext(), "requesting.......", Toast.LENGTH_LONG).show();
+                Log.d("JSONStatus", "requestING");
+            }
+        }else if (pmc>0){
+//            if payment is digital time reequest directly
+            new backgroundrequest(Mapsimport1.this).execute(usname, ufname, uphone, umail, uresi, udura, paymentInt, uagcode);
+//            new backgroundprice(Mapsimport1.this).execute();
+            Toast.makeText(getApplicationContext(), "requesting.....", Toast.LENGTH_LONG).show();
+        }else {
+            Toast.makeText(getApplicationContext(), "check the buttons...", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
     public void pogless() {
 
         new Thread(new Runnable() {
@@ -1095,7 +1091,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                     // Update the progress bar
                     mHandler.post(new Runnable() {
                         public void run() {
-//                            progBar.setProgress(mProgressStatus);
 //                            text.setText(""+mProgressStatus+"%");
                         }
                     });
@@ -1132,219 +1127,536 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+    //    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        parkref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Toast.makeText(bvs.this, "Error while loading!", Toast.LENGTH_SHORT).show();
+//                    Log.d(TAG, e.toString());
+//                    return;
+//                }
+//
+//                Log.d("bvs","in start");
+//                Log.d("bvs",e.toString());
+//                if (documentSnapshot.exists()) {
+//                    String title = documentSnapshot.getString(KEY_TITLE);
+//                    String description = documentSnapshot.getString(KEY_DESCRIPTION);
+//
+//                    africa.setText("Title: " + title + "\n" + "Description: " + description);
+//                }
+//            }
+//        });
+//    }
+
+//    "?
+    public void showInfoWindow(final LatLng position, final String titler,String snip){
+
+                    MarkerOptions cd = new MarkerOptions().position(position).title(titler).snippet(snip)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew3));
+                    switch (pkcedat){
+                        case "0 bikes":
+                            mMap.addMarker(cd);
+                            break;
+                        default:
+                            if (location.equals("MUK")&&
+                                    !(pkcedat.equals("0 bikes"))){
+                                mMap.addMarker(cd).showInfoWindow();
+                            }
+                            break;
+                    }
+                    markers.add(cd);
+    }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(Mapsimport1.this));
         mMap.setOnInfoWindowClickListener(this);
-        final List<MarkerOptions> markers = new ArrayList<>();
-
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 //            bulidGoogleApiClient();
 //            mMap.setMyLocationEnabled(true);
 //        }
-
-        LatLng africa = new LatLng(0.337912, 32.568790);
-        MarkerOptions af = new MarkerOptions().position(africa).title("Africa").snippet(pkafrica)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew2));
-        switch (pkafrica){
-            case "0 bikes":
-                mMap.addMarker(af);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pkafrica.equals("0 bikes"))){
-                    mMap.addMarker(af).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(af);
-
-        LatLng cedat = new LatLng(0.335882, 32.564807);
-        MarkerOptions cd = new MarkerOptions().position(cedat).title("CEDAT").snippet(pkcedat)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew3));
-        switch (pkcedat){
-            case "0 bikes":
-                mMap.addMarker(cd);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pkcedat.equals("0 bikes"))){
-                    mMap.addMarker(cd).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(cd);
-
-        LatLng complex = new LatLng(0.329849, 32.570160);
-        MarkerOptions it = new MarkerOptions().position(complex).title("Complex").snippet(pkcomplex)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pkcomplex){
-            case "0 bikes":
-                mMap.addMarker(it);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pkcomplex.equals("0 bikes"))){
-                    mMap.addMarker(it).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(it);
-
-        LatLng fema = new LatLng(0.335345, 32.568673);
-        MarkerOptions fm = new MarkerOptions().position(fema).title("FEMA").snippet(pkfema)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pkfema){
-            case "0 bikes":
-                mMap.addMarker(fm);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pkfema.equals("0 bikes"))){
-                    mMap.addMarker(fm).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(fm);
-
-        LatLng library = new LatLng(0.334936, 32.568000);
-        MarkerOptions lb = new MarkerOptions().position(library).title("Library").snippet(pklibrary)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pklibrary){
-            case "0 bikes":
-                mMap.addMarker(lb);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pklibrary.equals("0 bikes"))){
-                    mMap.addMarker(lb).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(lb);
-//zzzzzzzzzzzzzzzoooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmm
-//       THESE(ZOOM VARIABLES) WILL BE TURNED INTO VARIABLES E.G FREEDOM
-//        USE THE LOCATION OF THE USER TO DETERMINE
-//                  1***WHERE TO ZOOM IN
-//                  2***WHICH MARKER TO OPEN WITH
+////zzzzzzzzzzzzzzzoooooooooooooooooooommmmmmmmmmmmmmmmmmmmmmm
+////       THESE(ZOOM VARIABLES) WILL BE TURNED INTO VARIABLES E.G FREEDOM
+////        USE THE LOCATION OF THE USER TO DETERMINE
+////                  1***WHERE TO ZOOM IN
+////                  2***WHICH MARKER TO OPEN WITH
         float zom= (float) 15.5;
 //        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0.331604, 32.568423),zom));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0.334561, 32.569160),zom));
+//.1
+//        dbref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+//                if (e!= null) {
+//                    Toast.makeText(Mapsimport1.this, "Error while loading!", Toast.LENGTH_SHORT).show();
+//                    Log.d(TAG, e.toString());
+//                    return;
+//                }
+//                String locolo1 = documentSnapshot.getString("africa");
+//                String locolo2 = documentSnapshot.getString("cedat");
+//                String locolo3 = documentSnapshot.getString("complex");
+//                String locolo4 = documentSnapshot.getString("fema");
+//                String locolo5 = documentSnapshot.getString("library");
+//                String locolo6 = documentSnapshot.getString("livingstone");
+//                String locolo7 = documentSnapshot.getString("lumumba");
+//                String locolo8 = documentSnapshot.getString("maingate");
+//                String locolo9 = documentSnapshot.getString("marystuart");
+//                String locolo10 = documentSnapshot.getString("mitchell");
+//                String locolo11 = documentSnapshot.getString("nkrumah");
+//                String locolo12 = documentSnapshot.getString("uh");
+//                if (documentSnapshot.exists()) {
+//
+//                    LatLng africa = new LatLng(0.337912, 32.568790);
+//
+//                    MarkerOptions af = new MarkerOptions().position(africa).title("Africa").snippet(locolo1).icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew2));
+//                    switch (locolo1){
+//                        case "0 bikes":
+//                            mMap.addMarker(af);
+//                            break;
+//                        default:
+//                            if (location.equals("MUK")&&
+//                                    !(locolo1.equals("0 bikes"))){
+//                                mMap.addMarker(af);
+//                            }
+//                            break;
+//                    }
+//                    markers.add(af);
+//
+////                    /.2
+//
+//                    LatLng cedat = new LatLng(0.335882, 32.564807);
+//                    MarkerOptions cd = new MarkerOptions().position(cedat).title("CEDAT").snippet(locolo2)
+//                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew3));
+//                    switch (locolo2){
+//                        case "0 bikes":
+//                            mMap.addMarker(cd);
+//                            break;
+//                        default:
+//                            if (location.equals("MUK")&&
+//                                    !(locolo2.equals("0 bikes"))){
+//                                mMap.addMarker(cd);
+//                            }
+//                            break;
+//                    }
+//                    markers.add(cd);
+////               /.3
+//
+//                    LatLng complex = new LatLng(0.329849, 32.570160);
+//                    MarkerOptions it = new MarkerOptions().position(complex).title("Complex").snippet(locolo3)
+//                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//
+//                    switch (locolo3){
+//                        case "0 bikes":
+//                            mMap.addMarker(it);
+//                            break;
+//                        default:
+//                            if (location.equals("MUK")&&
+//                                    !(locolo3.equals("0 bikes"))){
+//                                mMap.addMarker(it);
+//                            }
+//                            break;
+//                    }
+//                    markers.add(it);
+//
+////                    Toast.makeText(getApplicationContext(), locolo1+" ."+locolo2+" ."+locolo3, Toast.LENGTH_LONG).show();
+////                    //.4
+//
+//                    LatLng fema = new LatLng(0.335345, 32.568673);
+//                    MarkerOptions fm = new MarkerOptions().position(fema).title("FEMA").snippet(locolo4)
+//                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//                    switch (locolo4){
+//                        case "0 bikes":
+//                            mMap.addMarker(fm);
+//                            break;
+//                        default:
+//                            if (location.equals("MUK")&&
+//                                    !(locolo4.equals("0 bikes"))){
+//                                mMap.addMarker(fm);
+//                            }
+//                            break;
+//                    }
+//                    markers.add(fm);
+//
+//
+//             //.5
+////
+////                    LatLng library = new LatLng(0.334936, 32.568000);
+////                    MarkerOptions lb = new MarkerOptions().position(library).title("Library").snippet(locolo5)
+////                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+////
+////                    switch (locolo5){
+////                        case "0 bikes":
+////                            mMap.addMarker(lb);
+////                            break;
+////                        default:
+////                            if (location.equals("MUK")&&
+////                                    !(locolo5.equals("0 bikes"))){
+////                                mMap.addMarker(lb).showInfoWindow();
+////                            }
+////                            break;
+////                    }
+////                    markers.add(lb);
+//
+////                    //.6
+////
+////
+////                    LatLng livingstone = new LatLng(0.338686, 32.567718);
+////                    MarkerOptions lv = new MarkerOptions().position(livingstone).title("Livingstone").snippet(locolo6)
+////                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+////
+////                    switch (locolo6){
+////                        case "0 bikes":
+////                            mMap.addMarker(lv);
+////                            break;
+////                        default:
+////                            if (location.equals("MUK")&&
+////                                    !(locolo6.equals("0 bikes"))){
+////                                mMap.addMarker(lv).showInfoWindow();
+////                            }
+////                            break;
+////                    }
+////                    markers.add(lv);
+////
+////                    //.7
+////
+////                    LatLng lumumba = new LatLng(0.331717, 32.566073);
+////                    MarkerOptions lm = new MarkerOptions().position(lumumba).title("Lumumba").snippet(locolo7)
+////                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+////                    switch (locolo7){
+////                        case "0 bikes":
+////                            mMap.addMarker(lm);
+////                            break;
+////                        default:
+////                            if (location.equals("MUK")&&
+////                                    !(locolo7.equals("0 bikes"))){
+////                                mMap.addMarker(lm).showInfoWindow();
+////                            }
+////                            break;
+////                    }
+////                    markers.add(lm);
+////               //.8
+////
+////                    LatLng maingate = new LatLng(0.329760, 32.570937);
+////                    MarkerOptions mg = new MarkerOptions().position(maingate).title("Main Gate").snippet(locolo8)
+////                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+////                    switch (locolo8){
+////                        case "0 bikes":
+////                            mMap.addMarker(mg);
+////                            break;
+////                        default:
+////                            if (location.equals("MUK")&&
+////                                    !(locolo8.equals("0 bikes"))){
+////                                mMap.addMarker(mg).showInfoWindow();
+////                            }
+////                            break;
+////                    }
+////                    markers.add(mg);
+////               //.9
+////
+////                    LatLng marystuart = new LatLng(0.330985, 32.566668);
+////                    MarkerOptions ms = new MarkerOptions().position(marystuart).title("Marystuart").snippet(locolo9)
+////                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+////                    switch (locolo9){
+////                        case "0 bikes":
+////                            mMap.addMarker(ms);
+////                            break;
+////                        default:
+////                            if (location.equals("MUK")&&
+////                                    !(locolo9.equals("0 bikes"))){
+////                                mMap.addMarker(ms).showInfoWindow();
+////                            }
+////                            break;
+////                    }
+////                    markers.add(ms);
+////               //.10
+////
+////                    LatLng mitchell = new LatLng(0.333740, 32.570495);
+////                    MarkerOptions mt = new MarkerOptions().position(mitchell).title("Mitchell").snippet(locolo10)
+////                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+////                    switch (locolo10){
+////                        case "0 bikes":
+////                            mMap.addMarker(mt);
+////                            break;
+////                        default:
+////                            if (location.equals("MUK")&&
+////                                    !(locolo10.equals("0 bikes"))){
+////                                mMap.addMarker(mt).showInfoWindow();
+////                            }
+////                            break;
+////                    }
+////                    markers.add(mt);
+////               //.11
+////
+////                    LatLng nkrumah = new LatLng(0.336454, 32.569008);
+////                    MarkerOptions nk = new MarkerOptions().position(nkrumah).title("Nkrumah").snippet(locolo11)
+////                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+////                    switch (locolo11){
+////                        case "0 bikes":
+////                            mMap.addMarker(nk);
+////                            break;
+////                        default:
+////                            if (location.equals("MUK")&&
+////                                    !(locolo11.equals("0 bikes"))){
+////                                mMap.addMarker(nk).showInfoWindow();
+////                            }
+////                            break;
+////                    }
+////                    markers.add(nk);
+////               //.12
+////
+////                    LatLng uh = new LatLng(0.332969, 32.572506);
+////                    MarkerOptions u = new MarkerOptions().position(uh).title("University Hall").snippet(locolo12)
+////                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+////                    switch (locolo12){
+////                        case "0 bikes":
+////                            mMap.addMarker(u);
+////                            break;
+////                        default:
+////                            if (location.equals("MUK")&&
+////                                    !(locolo12.equals("0 bikes"))){
+////                                mMap.addMarker(u).showInfoWindow();
+////                            }
+////                            break;
+////                    }
+////                    markers.add(u);
+//                }
+//            }
+//        });
 
-
+        String tit;
+        LatLng africa = new LatLng(0.337912, 32.568790);
+        tit="Africa";
+        showInfoWindow(africa,tit,pkafrica);
+        LatLng cedat = new LatLng(0.335882, 32.564807);
+        tit="CEDAT"; showInfoWindow(cedat,tit,pkcedat);
+        LatLng complex = new LatLng(0.329849, 32.570160);
+        tit="Complex"; showInfoWindow(complex,tit,pkcomplex);
+        LatLng fema = new LatLng(0.335345, 32.568673);
+        tit="FEMA"; showInfoWindow(fema,tit,pkfema);
+        LatLng library = new LatLng(0.334936, 32.568000);
+        tit="Library"; showInfoWindow(library,tit,pklibrary);
         LatLng livingstone = new LatLng(0.338686, 32.567718);
-        MarkerOptions lv = new MarkerOptions().position(livingstone).title("Livingstone").snippet(pklivingstone)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pklivingstone){
-            case "0 bikes":
-                mMap.addMarker(lv);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pklivingstone.equals("0 bikes"))){
-                    mMap.addMarker(lv).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(lv);
-
+        tit="Livingstone"; showInfoWindow(livingstone,tit,pklivingstone);
         LatLng lumumba = new LatLng(0.331717, 32.566073);
-        MarkerOptions lm = new MarkerOptions().position(lumumba).title("Lumumba").snippet(pklumumba)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pklumumba){
-            case "0 bikes":
-                mMap.addMarker(lm);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pklumumba.equals("0 bikes"))){
-                    mMap.addMarker(lm).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(lm);
-
+        tit="Lumumba"; showInfoWindow(lumumba,tit,pklumumba);
         LatLng maingate = new LatLng(0.329760, 32.570937);
-        MarkerOptions mg = new MarkerOptions().position(maingate).title("Main Gate").snippet(pkmaingate)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pkmaingate){
-            case "0 bikes":
-                mMap.addMarker(mg);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pkmaingate.equals("0 bikes"))){
-                    mMap.addMarker(mg).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(mg);
-
+        tit="Main Gate"; showInfoWindow(maingate,tit,pkmaingate);
         LatLng marystuart = new LatLng(0.330985, 32.566668);
-        MarkerOptions ms = new MarkerOptions().position(marystuart).title("Marystuart").snippet(pkmarystuart)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pkmarystuart){
-            case "0 bikes":
-                mMap.addMarker(ms);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pkmarystuart.equals("0 bikes"))){
-                    mMap.addMarker(ms).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(ms);
-
+        tit="Marystuart"; showInfoWindow(marystuart,tit,pkmarystuart);
         LatLng mitchell = new LatLng(0.333740, 32.570495);
-        MarkerOptions mt = new MarkerOptions().position(mitchell).title("Mitchell").snippet(pkmitchell)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pkmitchell){
-            case "0 bikes":
-                mMap.addMarker(mt);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pkmitchell.equals("0 bikes"))){
-                    mMap.addMarker(mt).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(mt);
-
+        tit="Mitchell"; showInfoWindow(mitchell,tit,pkmitchell);
         LatLng nkrumah = new LatLng(0.336454, 32.569008);
-        MarkerOptions nk = new MarkerOptions().position(nkrumah).title("Nkrumah").snippet(pknkrumah)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pknkrumah){
-            case "0 bikes":
-                mMap.addMarker(nk);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pknkrumah.equals("0 bikes"))){
-                    mMap.addMarker(nk).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(nk);
-
+        tit="Nkrumah"; showInfoWindow(nkrumah,tit,pknkrumah);
         LatLng uh = new LatLng(0.332969, 32.572506);
-        MarkerOptions u = new MarkerOptions().position(uh).title("University Hall").snippet(pkuh)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
-        switch (pkuh){
-            case "0 bikes":
-                mMap.addMarker(u);
-                break;
-            default:
-                if (location.equals("MUK")&&
-                        !(pkuh.equals("0 bikes"))){
-                    mMap.addMarker(u).showInfoWindow();
-                }
-                break;
-        }
-        markers.add(u);
+        tit="UH"; showInfoWindow(uh,tit,pkuh);
 
+////.2
+//        LatLng cedat = new LatLng(0.335882, 32.564807);
+//        MarkerOptions cd = new MarkerOptions().position(cedat).title("CEDAT").snippet(pkcedat)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew3));
+//        switch (pkcedat){
+//            case "0 bikes":
+//                mMap.addMarker(cd);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pkcedat.equals("0 bikes"))){
+//                    mMap.addMarker(cd).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(cd);
+////.3
+//        LatLng complex = new LatLng(0.329849, 32.570160);
+//        MarkerOptions it = new MarkerOptions().position(complex).title("Complex").snippet(pkcomplex)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pkcomplex){
+//            case "0 bikes":
+//                mMap.addMarker(it);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pkcomplex.equals("0 bikes"))){
+//                    mMap.addMarker(it).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(it);
+//.4
+//        LatLng fema = new LatLng(0.335345, 32.568673);
+//        MarkerOptions fm = new MarkerOptions().position(fema).title("FEMA").snippet(pkfema)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pkfema){
+//            case "0 bikes":
+//                mMap.addMarker(fm);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pkfema.equals("0 bikes"))){
+//                    mMap.addMarker(fm).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(fm);
+////.5
+//        LatLng library = new LatLng(0.334936, 32.568000);
+//        MarkerOptions lb = new MarkerOptions().position(library).title("Library").snippet(pklibrary)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pklibrary){
+//            case "0 bikes":
+//                mMap.addMarker(lb);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pklibrary.equals("0 bikes"))){
+//                    mMap.addMarker(lb).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(lb);
+
+//.6
+//        LatLng livingstone = new LatLng(0.338686, 32.567718);
+//        MarkerOptions lv = new MarkerOptions().position(livingstone).title("Livingstone").snippet(pklivingstone)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pklivingstone){
+//            case "0 bikes":
+//                mMap.addMarker(lv);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pklivingstone.equals("0 bikes"))){
+//                    mMap.addMarker(lv).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(lv);
+////.7
+//        LatLng lumumba = new LatLng(0.331717, 32.566073);
+//        MarkerOptions lm = new MarkerOptions().position(lumumba).title("Lumumba").snippet(pklumumba)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pklumumba){
+//            case "0 bikes":
+//                mMap.addMarker(lm);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pklumumba.equals("0 bikes"))){
+//                    mMap.addMarker(lm).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(lm);
+////.8
+//        LatLng maingate = new LatLng(0.329760, 32.570937);
+//        MarkerOptions mg = new MarkerOptions().position(maingate).title("Main Gate").snippet(pkmaingate)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pkmaingate){
+//            case "0 bikes":
+//                mMap.addMarker(mg);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pkmaingate.equals("0 bikes"))){
+//                    mMap.addMarker(mg).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(mg);
+////.9
+//        LatLng marystuart = new LatLng(0.330985, 32.566668);
+//        MarkerOptions ms = new MarkerOptions().position(marystuart).title("Marystuart").snippet(pkmarystuart)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pkmarystuart){
+//            case "0 bikes":
+//                mMap.addMarker(ms);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pkmarystuart.equals("0 bikes"))){
+//                    mMap.addMarker(ms).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(ms);
+////.10
+//
+//        LatLng mitchell = new LatLng(0.333740, 32.570495);
+//        MarkerOptions mt = new MarkerOptions().position(mitchell).title("Mitchell").snippet(pkmitchell)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pkmitchell){
+//            case "0 bikes":
+//                mMap.addMarker(mt);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pkmitchell.equals("0 bikes"))){
+//                    mMap.addMarker(mt).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(mt);
+////.11
+//        LatLng nkrumah = new LatLng(0.336454, 32.569008);
+//        MarkerOptions nk = new MarkerOptions().position(nkrumah).title("Nkrumah").snippet(pknkrumah)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pknkrumah){
+//            case "0 bikes":
+//                mMap.addMarker(nk);
+//                break;
+//            default:
+//                if (location.equals("MUK")&&
+//                        !(pknkrumah.equals("0 bikes"))){
+//                    mMap.addMarker(nk).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(nk);
+////.12
+//        LatLng uh = new LatLng(0.332969, 32.572506);
+//        MarkerOptions u = new MarkerOptions().position(uh).title("University Hall").snippet(pkuh)
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew1));
+//        switch (pkuh){
+//            case "0 bikes":
+//                mMap.addMarker(u);
+//                break;
+//            default:
+//
+//                if (location.equals("MUK")&&
+//                        !(pkuh.equals("0 bikes"))){
+//                    mMap.addMarker(u).showInfoWindow();
+//                }
+//                break;
+//        }
+//        markers.add(u);
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                dbref.addSnapshotListener(Mapsimport1.this, new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Toast.makeText(Mapsimport1.this, "Error while loading!", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, e.toString());
+                            return;
+                        }
+
+                        if (documentSnapshot.exists()) {
+                            String acmilan = documentSnapshot.getString(marker.getTitle());
+                                    Log.d("acmilan**",acmilan);
+                            marker.setSnippet(acmilan);                        }
+                    }
+                });
+                return false;
+            }
+        });
+        int gg;
 ////        MUBS
 //        LatLng mubs = new LatLng(0.111111, 20.568423);
 //        MarkerOptions mbs = new MarkerOptions().position(mubs).title("MUBS").snippet(pkmubs)
@@ -1507,14 +1819,13 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        }
 //        markers.add(bta);
 
-
-
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
 //                Intent intent = new Intent(Mapsimport1.this, Price.class);
 //                intent.putExtra("marker", marker.getTitle());
 //                startActivity(intent);
+
                 String selected=marker.getTitle();
 
                 switch (selected){
@@ -1569,6 +1880,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                 }
 
                 if(availableBikes==1) {
+                    Log.d("napoli**","napoli1");
                     showPopup();
 //                    new backgroundrequest(Mapsimport1.this).execute(usname, ufname, uphone, umail, uresi, udura, upaymeth, uagcode);
 //                    ProgressBar pb =findViewById(R.id.progressBar2);
@@ -1576,11 +1888,12 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //                    Toast.makeText(getApplicationContext(), "requesting.......", Toast.LENGTH_SHORT).show();
 //                    Log.d("JSONStatus", "requestING");
                 }else if(availableBikes==2){
+                    Log.d("napoli**","napoli2");
 //                    REQUESZT BIKE RETURN
-                    progBar.setVisibility(ProgressBar.VISIBLE);
-                    Toast.makeText(getApplicationContext(), "requesting.....", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Requesting Agent", Toast.LENGTH_LONG).show();
                     returnBike(uagcode);
                 }else {
+                    Log.d("napoli**","napoli3");
                     Toast.makeText(getApplicationContext(), "no bikes available at "+selected, Toast.LENGTH_SHORT).show();}
             }
         });
@@ -1642,6 +1955,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        }
 
     }
+//@#
 
     class backgroundrequest extends AsyncTask<String, Void,String> {
         AlertDialog dialog;
@@ -1650,41 +1964,77 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             this.context=context;
 
         }
-
         @Override
         protected void onPreExecute() {
-            dialog= new AlertDialog.Builder(context).create();
-            dialog.setTitle("Bike renting status");
+            pogba.setVisibility(View.VISIBLE);
         }
-
         @Override
         protected void onPostExecute(String s) {
             json = s.toString();
             prefb=getSharedPreferences(prefName2,MODE_PRIVATE);
 //            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
 
-            progBar.setVisibility(ProgressBar.INVISIBLE);
 
 //            $#
             try {
                 jObj = new JSONObject(json);
                 int  success = jObj.getInt("success");
 
-                JSONArray userArray=jObjc.getJSONArray("user");
-                JSONObject user=userArray.getJSONObject(0);
-
-                int notinumb=user.getInt("NTN");
-
-                if (notinumb==6){//BIKES ARE NOT THERE
-                    Intent int1 =new Intent(getApplicationContext(),Mapsimport1.class);
-                    int1.putExtra("bikesin",s);
-                    startActivity(int1);
-                }else {
+//                JSONArray userArray=jObjc.getJSONArray("user");
+//                JSONObject user=userArray.getJSONObject(0);
+//
+//                int notinumb=user.getInt("NTN");
+//
+//                if (notinumb==6){//BIKES ARE NOT THERE
+//                    Intent int1 =new Intent(getApplicationContext(),Mapsimport1.class);
+//                    int1.putExtra("bikesin",s);
+//                    startActivity(int1);
+//                }else {
 //                    BIKES STILL THERE
                     switch (success) {
                         case 0:
+                            pogba.setVisibility(View.INVISIBLE);
                             break;
                         case 4:
+
+                            Log.d("fire", "firefire");
+                            JSONArray userArray=jObj.getJSONArray("fire");
+                            JSONObject fire=userArray.getJSONObject(0);
+
+                            bracket= new HashMap<>();
+                            String population;
+
+                            population=fire.getString("AF");
+                            bracket.put("Africa", population);
+                            Log.d("fire", population);
+
+                            population=fire.getString("CD");
+                            bracket.put("CEDAT", population);
+                            population=fire.getString("IT");
+                            bracket.put("Complex", population);
+                            population=fire.getString("FM");
+                            bracket.put("FEMA", population);
+                            population=fire.getString("LB");
+                            bracket.put("Library", population);
+                            population=fire.getString("LV");
+                            bracket.put("Livingstone", population);
+                            population=fire.getString("LM");
+                            bracket.put("Lumumba", population);
+                            population=fire.getString("MG");
+                            bracket.put("Main Gate", population);
+                            population=fire.getString("MS");
+                            bracket.put("Marystuart", population);
+                            population=fire.getString("MT");
+                            bracket.put("Mitchell", population);
+                            population=fire.getString("NK");
+                            bracket.put("Nkrumah", population);
+                            population=fire.getString("UH");
+                            bracket.put("UH", population);
+
+                            Log.d("firebracket", bracket.toString());
+
+                            savePop();
+
                             Intent int1 = new Intent(getApplicationContext(), Mapsimport1.class);
                             int1.putExtra("bikesin", s);
                             startActivity(int1);
@@ -1699,10 +2049,15 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                             startActivity(int3);
                             break;
                     }
-                }
+
+//                if(success>0){
+//
+//                }
+//                }
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error creating the json object " + e.toString());
             }
+//            Log.d("fire", bracket.toString());
         }
 
         @Override
@@ -1739,7 +2094,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                         +"&&"+ URLEncoder.encode("duration","UTF-8")+"="+URLEncoder.encode(udura,"UTF-8")
 //                        +"&&"+ URLEncoder.encode("durationInt","UTF-8")+"="+URLEncoder.encode(dura,"UTF-8")
                         +"&&"+ URLEncoder.encode("payment_method","UTF-8")+"="+URLEncoder.encode(payM,"UTF-8")
-//                        +"&&"+ URLEncoder.encode("gear","UTF-8")+"="+URLEncoder.encode(geary1,"UTF-8")
+                        +"&&"+ URLEncoder.encode("cash","UTF-8")+"="+URLEncoder.encode(prx,"UTF-8")
                         +"&&"+ URLEncoder.encode("agent_code","UTF-8")+"="+URLEncoder.encode(acode,"UTF-8")
                         +"&&"+ URLEncoder.encode("serverKey","UTF-8")+"="+URLEncoder.encode(serverKey,"UTF-8");
                 writer.write(data);
@@ -1764,8 +2119,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                     jObj = new JSONObject(json);
                     if(json!=null){
                         int success=jObj.getInt("success");
-
-                        Log.d("JSONStatus", "JSON RETURNED");
 
 //                        if(success==1){
 //                            rentStatus=true;
@@ -1968,7 +2321,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             cancel.setVisibility(View.INVISIBLE);
             updialog.setCancelable(false);
         }
-
+//000000000000
         updialog.show();
     }
 
@@ -1991,7 +2344,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
         seekduration.setMax(max-min);
         seekduration.setProgress(current-min);
-        duration="20 minutes";
+        duration="20 minutes @ 500";
         durationtext.setText(duration);
 
         seekduration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -2002,42 +2355,48 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                 switch (current){
                     case 0:
                         udura="20";
-                        duration="20 minutes";
+                        duration="20 minutes @ 500";
+                        prx="500";
                         durationtext.setText(duration);
                         break;
                     case 1:
                         udura="1";
-                        duration="1 hour";
+                        duration="1 hour @ 1000";
+                        prx="1000";
                         durationtext.setText(duration);
                         break;
                     case 2:
                         udura="2";
-                        duration="2 hours";
+                        duration="2 hours @ 2000";
+                        prx="2000";
                         durationtext.setText(duration);
                         break;
                     case 3:
                         udura="3";
-                        duration="3 hours";
+                        duration="3 hours @ 3000";
+                        prx="3000";
                         durationtext.setText(duration);
                         break;
+//                    case 4:
+//                        udura="4";
+//                        duration="4 hours @ 4000";
+//                        durationtext.setText(duration);
+//                        break;
+//                    case 5:
+//                        udura="5";
+//                        duration="5 hours @ 5000";
+//                        durationtext.setText(duration);
+//                        break;
                     case 4:
-                        udura="4";
-                        duration="4 hours";
+                        udura="6";
+                        duration="Half day @ 5000";
+                        prx="5000";
                         durationtext.setText(duration);
                         break;
                     case 5:
-                        udura="5";
-                        duration="5 hours";
-                        durationtext.setText(duration);
-                        break;
-                    case 6:
-                        udura="6";
-                        duration="Half day";
-                        durationtext.setText(duration);
-                        break;
-                    case 7:
                         udura="12";
-                        duration="Full day";
+                        duration="Full day @ 10000";
+                        prx="10000";
                         durationtext.setText(duration);
                         break;
                 }
@@ -2056,6 +2415,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
+
     class backgroundprice extends AsyncTask<String, Void,String> {
 
         AlertDialog dialog;
@@ -2065,13 +2425,16 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         }
 
         @Override
+        protected void onPreExecute() {
+            pogba.setVisibility(View.VISIBLE);
+        }
+        @Override
         protected void onPostExecute(String s) {
 //            dialog.setMessage(s);
 //            dialog.show();
 //            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
 //            Toast.makeText(getApplicationContext(),"cash: "+pmc+"dt: "+pmd,Toast.LENGTH_LONG).show();
 
-            progBar.setVisibility(ProgressBar.INVISIBLE);
 
             try {
                 jObjc = new JSONObject(s);
@@ -2198,8 +2561,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
         @Override
         protected void onPreExecute() {
-            dialog= new AlertDialog.Builder(context).create();
-            dialog.setTitle("Bike return status");
+            pogba.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -2208,7 +2570,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             prefb=getSharedPreferences(prefName2,MODE_PRIVATE);
 //            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
 
-            Log.d("JSON RETUTN",s);
+            Log.d("$$",s);
 
             try {
                 jObjc = new JSONObject(s);
@@ -2218,6 +2580,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
             }
             switch (sucki) {
                 case 0:
+                    pogba.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
                     break;
                 case 1:
@@ -2534,5 +2897,23 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //
 //
 //    }
+
+    public void savePop() {
+        Log.d("firemethod", "am in math");
+    db.collection("BVSMUK").document("population").set(bracket)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+//                    Toast.makeText(Mapsimport1.this, "Note saved", Toast.LENGTH_SHORT).show();
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Mapsimport1.this, "Error!", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, e.toString());
+                }
+            });
+}
 
 }

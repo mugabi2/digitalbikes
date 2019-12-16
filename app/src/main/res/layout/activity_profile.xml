@@ -167,6 +167,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/carkjghd3"
                 android:layout_width="match_parent"
@@ -175,7 +181,7 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="8dp"
                 android:layout_alignStart="@+id/card3"
-                android:layout_marginBottom="7dp"
+                android:layout_marginBottom="9dp"
                 android:background="#ffffff"
                 app:cardCornerRadius="7dp">
 
@@ -206,10 +212,51 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/carjghd3"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_alignStart="@+id/card3"
+                    android:layout_marginBottom="7dp"
+                    android:background="#ffffff"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:text="@string/muk"
+                            android:textColor="#00003a"
+                            android:textSize="9pt" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="@string/preferedlocation"
+                            android:textColor="#c5c5c5"
+                            android:textSize="4pt" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_weight="1"
+                android:onClick="showDT"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="7dp"
@@ -240,7 +287,7 @@
         android:layout_height="50dp"
         android:background="@drawable/roundlogbtn"
         android:textColor="#ffffff"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
@@ -248,7 +295,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="signMeOut"
-        android:padding="15dp"
+        android:padding="13dp"
         android:text="@string/signout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -88,9 +88,7 @@
     <integer-array name="dbcolorspock">
         <item>@color/pocket_color_3</item>
         <item>@color/cyan</item>
-<!--        <item>@color/limeyellow</item>-->
         <item>@color/pocket_color_1</item>
-        <item>@color/orange</item>
     </integer-array>
     <integer-array name="pocket_background_colors">
         <item>@color/pocket_color_1</item>

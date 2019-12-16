@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
@@ -17,7 +20,10 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -70,6 +76,7 @@ public class Profile extends AppCompatActivity {
     Boolean loginStatus=Boolean.TRUE;
 
     Dialog dtDialog;
+    String usname,ufname,uphone,pack,cash;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,12 +99,15 @@ public class Profile extends AppCompatActivity {
         pogless();
 
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+        usname=prefs.getString(SURNAME_KEY,"");
+        ufname=prefs.getString(FIRST_NAME_KEY,"");
+        uphone=prefs.getString(PHONE_NUMBER_KEY,"");
 
         TextView Tname=(TextView)findViewById(R.id.textinname);
-        Tname.append(prefs.getString(SURNAME_KEY,"")+" "+ prefs.getString(FIRST_NAME_KEY,""));
+        Tname.append(usname+" "+ ufname);
 
         TextView Tphone=(TextView)findViewById(R.id.textinphone);
-        Tphone.append(prefs.getString(PHONE_NUMBER_KEY,""));
+        Tphone.append(uphone);
 //
 //        TextView Temail=(TextView)findViewById(R.id.textinemail);
 //        Temail.append(prefs.getString(EMAIL_ADDRESS_KEY,""));
@@ -134,8 +144,37 @@ public class Profile extends AppCompatActivity {
         inflater.inflate(R.menu.user_menu,menu);
         return true;
     }
-    public void showPopup() {
-        ImageView closePopup;
+    public void showDT(View view) {
+        ImageView closePopupu;
+        closePopupu =(ImageView) dtDialog.findViewById(R.id.close_popup2);
+        closePopupu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dtDialog.dismiss();
+            }
+        });
+//        dtDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        FrameLayout hg=dtDialog.findViewById(R.id.hourglass);
+        hg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pack="1";
+                cash="1000";
+                new Profile.backgrounddigitaltime(Profile.this).execute();
+
+            }
+        });
+
+        FrameLayout tb=dtDialog.findViewById(R.id.timebucket);
+        tb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pack="2";
+                cash="10000";
+                new Profile.backgrounddigitaltime(Profile.this).execute();
+            }
+        });
         dtDialog.show();
     }
 
@@ -168,18 +207,18 @@ public class Profile extends AppCompatActivity {
 
 
     public void signMeOut(View view){
-        showPopup();
-//        Button bsiout=(Button)findViewById(R.id.signout);
-//
-////        ANIMATION
-//        Animation animation= AnimationUtils.loadAnimation(Profile.this,R.anim.bounce);
-//        bsiout.startAnimation(animation);
-//
-//        ProgressBar pb =findViewById(R.id.progressBar3);
-//        pb.setVisibility(ProgressBar.VISIBLE);
-//        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-//        String phone=prefs.getString(PHONE_NUMBER_KEY,"");
-//        new Profile.backgroundSignout(this).execute(phone);
+//        showDT();
+        Button bsiout=(Button)findViewById(R.id.signout);
+
+//        ANIMATION
+        Animation animation= AnimationUtils.loadAnimation(Profile.this,R.anim.bounce);
+        bsiout.startAnimation(animation);
+
+        ProgressBar pb =findViewById(R.id.progressBar3);
+        pb.setVisibility(ProgressBar.VISIBLE);
+        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+        String phone=prefs.getString(PHONE_NUMBER_KEY,"");
+        new Profile.backgroundSignout(this).execute(phone);
     }
 
     class backgroundSignout extends AsyncTask<String, Void,String> {
@@ -315,6 +354,140 @@ public class Profile extends AppCompatActivity {
                 loginStatus=Boolean.TRUE;
                 editor.putBoolean(LOGIN_STATUS_KEY,loginStatus);
                 editor.commit();
+                Log.d("JSON Exception",e.toString());
+                result =e.getMessage();
+            }
+
+            return result;
+        }
+
+
+    }
+
+//    public void timebucket(View view){
+//        pack="2";
+//        cash="10000";
+//        new Profile.backgroundSignout(this).execute();
+//    }
+//
+//    public void hourglass(View view){
+//        pack="1";
+//        cash="1000";
+//        new Profile.backgroundSignout(this).execute();
+//    }
+    class backgrounddigitaltime extends AsyncTask<String, Void,String> {
+        Context context;
+        public backgrounddigitaltime(Context context){
+            this.context=context;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            dtDialog.setCancelable(true);
+            try {
+                jObj = new JSONObject(s);
+                if(json!=null){
+                    int success=jObj.getInt("success");
+                    String feedmsg=jObj.getString("message");
+                    String ditime=jObj.getString("DT");
+                    if(success==1){
+                        dtDialog.setCancelable(true);
+                        //        save users digital tinme
+                        prefs=getSharedPreferences(prefName, MODE_PRIVATE);
+                        SharedPreferences.Editor editor=prefs.edit();
+                        editor.putString(DIGITAL_TIME_KEY, ditime);
+                        editor.commit();
+                        dtDialog.dismiss();
+                        startActivity(new Intent(Profile.this, Profile.class));
+                        Toast.makeText(getApplicationContext(),"Thank you for buying Digital Time",Toast.LENGTH_SHORT).show();
+                        Log.e("diti", s);
+                    }else{
+                        dtDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),feedmsg+" please try again",Toast.LENGTH_SHORT).show();
+                        Log.e("diti", "failed "+feedmsg);
+
+                    }
+
+                    Log.d("digi", s);
+                }else{
+                    Log.e("JSON Parser", "RETURNED JSON IS NULL ");
+                }
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error creating the json object " + e.toString());
+            }
+
+        }
+
+        @Override
+        protected String doInBackground(String... voids) {
+            String result="";
+
+            String connstr="http://stardigitalbikes.com/digital_time_buy.php";
+//            String connstr="http://192.168.43.113/pdobikephp/fines_clear_pdo.php";
+
+            dtDialog.setCancelable(false);
+            try {
+                URL url =new URL(connstr);
+                HttpURLConnection http =(HttpURLConnection) url.openConnection();
+                http.setRequestMethod("POST");
+                http.setDoInput(true);
+                http.setDoOutput(true);
+
+
+//                Log.d("PHONE NUMBER ISSH"," "+phonenum+" "+extrat+" "+bikeNumb+" "+fineCash);
+//                String str=String.valueOf(stars);
+                OutputStream ops =http.getOutputStream();
+                BufferedWriter writer =new BufferedWriter(new OutputStreamWriter(ops,"UTF-8"));
+                String data = URLEncoder.encode("surname","UTF-8")+"="+URLEncoder.encode(usname,"UTF-8")
+                        +"&&"+ URLEncoder.encode("firstname","UTF-8")+"="+URLEncoder.encode(ufname,"UTF-8")
+                        +"&&"+ URLEncoder.encode("phonenumber","UTF-8")+"="+URLEncoder.encode(uphone,"UTF-8")
+                        +"&&"+ URLEncoder.encode("digitaltimepack","UTF-8")+"="+URLEncoder.encode(pack,"UTF-8")
+                        +"&&"+ URLEncoder.encode("cash","UTF-8")+"="+URLEncoder.encode(cash,"UTF-8");
+                writer.write(data);
+                writer.flush();
+                writer.close();
+                ops.close();
+                Log.d("JSON Exception","DONE SENDING");
+
+                InputStream ips =http.getInputStream();
+                BufferedReader reader=new BufferedReader(new InputStreamReader(ips,"ISO-8859-1"));
+                String line ="";
+                while ((line=reader.readLine()) !=null){
+                    result +=line;
+
+                }
+//#######INTRODICING THE READING OOF THE RETURNED JSON
+                ips.close();
+                reader.close();
+                json = result.toString();
+
+//                try {
+//                    jObj = new JSONObject(json);
+//                    if(json!=null){
+//                        int success=jObj.getInt("success");
+//
+//                        Log.d("JSONStatus", "JSON RETURNED");
+//
+//
+//                    }else{
+//                        Log.e("JSON Parser", "RETURNED JSON IS NULL ");
+//                        message=jObj.getString("message");
+//                    }
+//                } catch (JSONException e) {
+//                    Log.e("JSON Parser", "Error creating the json object " + e.toString());
+//                }
+//##################################################################33
+                http.disconnect();
+                return result;
+
+            } catch (MalformedURLException e) {
+                Log.d("JSON Exception",e.toString());
+                result =e.getMessage();
+            } catch (ProtocolException e) {
+                Log.d("JSON Exception",e.toString());
+                result =e.getMessage();
+            } catch (IOException e) {
                 Log.d("JSON Exception",e.toString());
                 result =e.getMessage();
             }

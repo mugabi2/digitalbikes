@@ -38,23 +38,27 @@
         android:layout_height="match_parent"
         tools:context=".Mapsimport1" />
     <!--</com.google.android.gms.maps.MapView>-->
-    <ProgressBar
-        android:id="@+id/pbmap"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="126dp"
-        android:layout_height="107dp"
-        android:layout_centerInParent="true"
-        android:indeterminate="false"
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:id="@+id/pogba2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:max="100"
-        android:progressDrawable="@drawable/circle"
+        android:indeterminate="true"
         android:visibility="invisible"
+        app:cpb_color="#FFee44"
+        app:cpb_colors="@array/dbcolorspock"
+        app:cpb_max_sweep_angle="300"
+        app:cpb_min_sweep_angle="10"
+        app:cpb_rotation_speed="1.0"
+        app:cpb_stroke_width="5dp"
+        app:cpb_sweep_speed="1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
+        app:layout_constraintVertical_bias="0.72" />
+
 
     <include layout="@layout/bottom_sheet_price"/>
 

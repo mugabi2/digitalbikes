@@ -2,6 +2,11 @@
     <string name="app_name">Digital Bikes</string>
     <!--buttons-->
     <string name="digitaltimepacks">Digital Time Packs</string>
+    <string name="preferedlocation">Prefered Location</string>
+    <string name="muk">MUK</string>
+    <string name="ucu">UCU</string>
+    <string name="kya">KYA</string>
+    <string name="mubs">MUBS</string>
     <string name="hourglass">Hour Glass</string>
     <string name="verify">Verify</string>
     <string name="sharecodetoearn">Share app code to earn 20 minutes Free Digital Time</string>

@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/close_popup"
+            android:id="@+id/close_popup2"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_gravity="end"
@@ -43,6 +43,7 @@
             android:orientation="horizontal">
 
             <FrameLayout
+                android:id="@+id/hourglass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dtround"
@@ -83,6 +84,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/timebucket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

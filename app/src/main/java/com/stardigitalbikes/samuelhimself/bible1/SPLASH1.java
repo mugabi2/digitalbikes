@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -64,11 +65,12 @@ public class SPLASH1 extends AppCompatActivity {
 
     Dialog refDialog;
     Button bspref;
-
+    ProgressBar pogba;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash1);
+        pogba=findViewById(R.id.pogba1);
 
         Log.d("splash","creating");
 //        STATUS BAR
@@ -116,7 +118,7 @@ public class SPLASH1 extends AppCompatActivity {
         bspref.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bspref.setVisibility(View.INVISIBLE);
+                bspref.setVisibility(View.INVISIBLE);//refresh
                 new SPLASH1.backgroundBikesIn(SPLASH1.this).execute();
 
             }
@@ -173,6 +175,7 @@ public class SPLASH1 extends AppCompatActivity {
             dialog= new AlertDialog.Builder(context).create();
             dialog.setTitle("Connection error");
 
+            pogba.setVisibility(View.VISIBLE);
             prefs=getSharedPreferences(prefName, MODE_PRIVATE);
             number=prefs.getString(PHONE_NUMBER_KEY,"");
 
@@ -206,6 +209,7 @@ public class SPLASH1 extends AppCompatActivity {
 
             switch (sucksey) {
                 case 0:
+                    pogba.setVisibility(View.INVISIBLE);
 //                    Toast.makeText(getApplicationContext(),"Not connected!",Toast.LENGTH_LONG).show();
                     break;
                 case 1:
@@ -280,13 +284,14 @@ public class SPLASH1 extends AppCompatActivity {
                 return result;
 
             } catch (MalformedURLException e) {
-                Log.d("JSON Exception",e.toString());
+                Log.d("JSON Exception one",e.toString());
                 result =e.getMessage();
             } catch (ProtocolException e) {
-                Log.d("JSON Exception",e.toString());
+                Log.d("JSON Exception two",e.toString());
                 result =e.getMessage();
             } catch (IOException e) {
-                Log.d("JSON Exception",e.toString());
+//                    Toast.makeText(SPLASH1.this,"Not reaching Digital Bikes network!",Toast.LENGTH_SHORT).show();
+                Log.d("JSON Exception three",e.toString());
                 result =e.getMessage();
             }
             return result;
