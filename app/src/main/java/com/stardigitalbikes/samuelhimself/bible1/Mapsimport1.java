@@ -28,6 +28,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -39,8 +40,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -95,6 +98,7 @@ import android.graphics.Color;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -145,6 +149,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     private static final String LOCATION_KEY ="Location";
     private static final String GENDER_KEY ="Gender";
     private static final String INTERMILAN_KEY ="Intermilan";
+    private Interpolator mCurrentInterpolator;
 
 
     SharedPreferences prefb;
@@ -248,6 +253,11 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
     final List<MarkerOptions> markers = new ArrayList<>();
     ProgressBar pogba;
 
+    private SmoothProgressBar pogback;
+    int one=1,two=2,three=3,four=4,five=5;
+
+    private SmoothProgressBar pogbacker;
+    private Interpolator mCurrentInterpolator2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -258,6 +268,19 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        feedabback
         ratdialog = new Dialog(this);
         ratdialog.setContentView(R.layout.rating);
+        pogbacker=ratdialog.findViewById(R.id.pogback3);
+
+        mCurrentInterpolator = new FastOutSlowInInterpolator();
+
+        pogbacker.setSmoothProgressDrawableSpeed(one);
+        pogbacker.setSmoothProgressDrawableProgressiveStartSpeed(one);
+        pogbacker.setSmoothProgressDrawableProgressiveStopSpeed(one);
+        pogbacker.setSmoothProgressDrawableSectionsCount(five);
+        pogbacker.setSmoothProgressDrawableInterpolator(mCurrentInterpolator);
+        pogbacker.setSmoothProgressDrawableColors(getResources().getIntArray(R.array.dbcolorspock));
+//        pogback.setSmoothProgressDrawableMirrorMode(true);
+//        pogback.setSmoothProgressDrawableSeparatorLength(dpToPx(mSeparatorLength));
+
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
             Window window=this.getWindow();
@@ -379,9 +402,20 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
         myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.rent_bike_popup);//rent_bike_popup
-
+        pogback=myDialog.findViewById(R.id.pogback1);
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-//$$
+
+        mCurrentInterpolator = new FastOutSlowInInterpolator();
+
+        pogback.setSmoothProgressDrawableSpeed(one);
+        pogback.setSmoothProgressDrawableProgressiveStartSpeed(one);
+        pogback.setSmoothProgressDrawableProgressiveStopSpeed(one);
+        pogback.setSmoothProgressDrawableSectionsCount(five);
+        pogback.setSmoothProgressDrawableInterpolator(mCurrentInterpolator);
+        pogback.setSmoothProgressDrawableColors(getResources().getIntArray(R.array.dbcolorspock));
+//        pogback.setSmoothProgressDrawableMirrorMode(true);
+//        pogback.setSmoothProgressDrawableSeparatorLength(dpToPx(mSeparatorLength));
+
         TextView Tdt=(TextView)findViewById(R.id.textdigitaltime3);
         Tdt.append(prefs.getString(DIGITAL_TIME_KEY,"")+ " Hrs");
 //        Tdt.append(ditime+ " Hrs");
@@ -568,8 +602,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //        tdigit.append(somet);
     }
 
-
-
     public void sha(View view){
 //        startActivity(new Intent(Mapsimport1.this, Credit.class));//Promotions
         if (sharepress==0){//gen code from hrer
@@ -712,7 +744,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         }
         @Override
         protected void onPreExecute() {
-            pogba.setVisibility(View.VISIBLE);
+            pogbacker.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -732,7 +764,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                 Log.e("JSON Parser", "Error creating the json object " + e.toString());
             }
 //            @#
-            pogba.setVisibility(View.INVISIBLE);
+            pogbacker.setVisibility(View.INVISIBLE);
             ratdialog.dismiss();
             final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
             try {
@@ -839,7 +871,6 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
 
     }
-
 
     //    creat notification channel
 
@@ -1156,13 +1187,13 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 
                     MarkerOptions cd = new MarkerOptions().position(position).title(titler).snippet(snip)
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.iconnew3));
-                    switch (pkcedat){
+                    switch (snip){
                         case "0 bikes":
                             mMap.addMarker(cd);
                             break;
                         default:
                             if (location.equals("MUK")&&
-                                    !(pkcedat.equals("0 bikes"))){
+                                    !(snip.equals("0 bikes"))){
                                 mMap.addMarker(cd).showInfoWindow();
                             }
                             break;
@@ -1453,7 +1484,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         LatLng nkrumah = new LatLng(0.336454, 32.569008);
         tit="Nkrumah"; showInfoWindow(nkrumah,tit,pknkrumah);
         LatLng uh = new LatLng(0.332969, 32.572506);
-        tit="UH"; showInfoWindow(uh,tit,pkuh);
+        tit="University Hall"; showInfoWindow(uh,tit,pkuh);
 
 ////.2
 //        LatLng cedat = new LatLng(0.335882, 32.564807);
@@ -1648,9 +1679,52 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                         }
 
                         if (documentSnapshot.exists()) {
-                            String acmilan = documentSnapshot.getString(marker.getTitle());
-                                    Log.d("acmilan**",acmilan);
-                            marker.setSnippet(acmilan);                        }
+                            if(!pkafrica.equals("Agent Available")) {
+                                String bonucci = marker.getTitle();
+                                String acmilan = documentSnapshot.getString(bonucci);
+                                Log.d("acmilan**", acmilan);
+                                marker.setSnippet(acmilan);
+
+                                switch (bonucci) {
+                                    case "Africa":
+                                        pkafrica = acmilan;
+                                        break;
+                                    case "CEDAT":
+                                        pkcedat = acmilan;
+                                        break;
+                                    case "Complex":
+                                        pkcomplex = acmilan;
+                                        break;
+                                    case "FEMA":
+                                        pkfema = acmilan;
+                                        break;
+                                    case "Library":
+                                        pklibrary = acmilan;
+                                        break;
+                                    case "Livingstone":
+                                        pklivingstone = acmilan;
+                                        break;
+                                    case "Lumumba":
+                                        pklumumba = acmilan;
+                                        break;
+                                    case "Main Gate":
+                                        pkmaingate = acmilan;
+                                        break;
+                                    case "Marystuart":
+                                        pkmarystuart = acmilan;
+                                        break;
+                                    case "Mitchell":
+                                        pkmitchell = acmilan;
+                                        break;
+                                    case "Nkrumah":
+                                        pknkrumah = acmilan;
+                                        break;
+                                    case "University Hall":
+                                        pkuh = acmilan;
+                                        break;
+                                }
+                            }
+                        }
                     }
                 });
                 return false;
@@ -1966,13 +2040,16 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
         }
         @Override
         protected void onPreExecute() {
-            pogba.setVisibility(View.VISIBLE);
+            pogback.setVisibility(View.VISIBLE);
+            myDialog.setCancelable(false);
+
         }
         @Override
         protected void onPostExecute(String s) {
             json = s.toString();
             prefb=getSharedPreferences(prefName2,MODE_PRIVATE);
 //            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            myDialog.setCancelable(true);
 
 
 //            $#
@@ -1993,7 +2070,7 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
 //                    BIKES STILL THERE
                     switch (success) {
                         case 0:
-                            pogba.setVisibility(View.INVISIBLE);
+                            pogback.setVisibility(View.INVISIBLE);
                             break;
                         case 4:
 
@@ -2029,22 +2106,24 @@ public class Mapsimport1 extends AppCompatActivity implements OnMapReadyCallback
                             population=fire.getString("NK");
                             bracket.put("Nkrumah", population);
                             population=fire.getString("UH");
-                            bracket.put("UH", population);
+                            bracket.put("University Hall", population);
 
                             Log.d("firebracket", bracket.toString());
 
                             savePop();
-
+                            pogback.setVisibility(View.INVISIBLE);
                             Intent int1 = new Intent(getApplicationContext(), Mapsimport1.class);
                             int1.putExtra("bikesin", s);
                             startActivity(int1);
                             break;
                         case 2:
+                            pogback.setVisibility(View.INVISIBLE);
                             Intent int2 = new Intent(getApplicationContext(), fine.class);
                             int2.putExtra("fines", s);
                             startActivity(int2);
                             break;
                         case 3:
+                            pogback.setVisibility(View.INVISIBLE);
                             Intent int3 = new Intent(getApplicationContext(), finalRegistration.class);
                             startActivity(int3);
                             break;

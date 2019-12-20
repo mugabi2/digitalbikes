@@ -11,6 +11,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -20,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -75,14 +79,31 @@ public class Support extends AppCompatActivity {
 
     Button feedB;
 
+    private SmoothProgressBar pogback;
+    int one=1,two=2,three=3,four=4,five=5;
+    private Interpolator mCurrentInterpolator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
 
+
 //        feedabback
         ratdialog = new Dialog(this);
         ratdialog.setContentView(R.layout.rating);
+
+        pogback=ratdialog.findViewById(R.id.pogback3);
+        mCurrentInterpolator = new FastOutSlowInInterpolator();
+
+        pogback.setSmoothProgressDrawableSpeed(one);
+        pogback.setSmoothProgressDrawableProgressiveStartSpeed(one);
+        pogback.setSmoothProgressDrawableProgressiveStopSpeed(one);
+        pogback.setSmoothProgressDrawableSectionsCount(five);
+        pogback.setSmoothProgressDrawableInterpolator(mCurrentInterpolator);
+        pogback.setSmoothProgressDrawableColors(getResources().getIntArray(R.array.dbcolorspock));
+//        pogback.setSmoothProgressDrawableMirrorMode(true);
+//        pogback.setSmoothProgressDrawableSeparatorLength(dpToPx(mSeparatorLength));
 
         feedB=findViewById(R.id.givefeedbtn);
         feedB.setOnClickListener(new View.OnClickListener() {
@@ -213,8 +234,16 @@ public class Support extends AppCompatActivity {
             this.context=context;
         }
 
+    @Override
+    protected void onPreExecute() {
+        pogback.setVisibility(View.VISIBLE);
+        ratdialog.setCancelable(false);
+    }
+
         @Override
         protected void onPostExecute(String s) {
+            pogback.setVisibility(View.INVISIBLE);
+            ratdialog.setCancelable(true);
             try {
                 jObj = new JSONObject(s);
                 if(json!=null){
@@ -223,13 +252,14 @@ public class Support extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),feedThanks,Toast.LENGTH_SHORT).show();
 
                     Log.d("JSONStatus", "JSON RETURNED");
+                    ratdialog.dismiss();
                 }else{
                     Log.e("JSON Parser", "RETURNED JSON IS NULL ");
+                    Toast.makeText(getApplicationContext(),"Please try again",Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error creating the json object " + e.toString());
             }
-            ratdialog.dismiss();
         }
 
         @Override

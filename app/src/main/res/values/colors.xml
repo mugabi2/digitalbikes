@@ -90,6 +90,12 @@
         <item>@color/cyan</item>
         <item>@color/pocket_color_1</item>
     </integer-array>
+    <integer-array name="dbcolorspocker">
+        <item>@color/pocket_color_3</item>
+        <item>@color/cyan</item>
+        <item>@color/orange</item>
+        <item>@color/pocket_color_1</item>
+    </integer-array>
     <integer-array name="pocket_background_colors">
         <item>@color/pocket_color_1</item>
         <item>@color/pocket_color_2</item>

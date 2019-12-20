@@ -14,6 +14,9 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +25,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -77,12 +81,18 @@ public class Profile extends AppCompatActivity {
 
     Dialog dtDialog;
     String usname,ufname,uphone,pack,cash;
+    ProgressBar pogba;
+
+    private SmoothProgressBar pogback;
+    int one=1,two=2,three=3,four=4,five=5;
+    private Interpolator mCurrentInterpolator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
+        pogba=findViewById(R.id.pogba3);
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
             Window window=this.getWindow();
@@ -93,10 +103,20 @@ public class Profile extends AppCompatActivity {
 
         dtDialog = new Dialog(this);
         dtDialog.setContentView(R.layout.digital_time);
+        pogback=dtDialog.findViewById(R.id.pogback2);
 
+        mCurrentInterpolator = new FastOutSlowInInterpolator();
 
-        progBar= (ProgressBar)findViewById(R.id.progressBar3);
-        pogless();
+        pogback.setSmoothProgressDrawableSpeed(one);
+        pogback.setSmoothProgressDrawableProgressiveStartSpeed(one);
+        pogback.setSmoothProgressDrawableProgressiveStopSpeed(one);
+        pogback.setSmoothProgressDrawableSectionsCount(five);
+        pogback.setSmoothProgressDrawableInterpolator(mCurrentInterpolator);
+        pogback.setSmoothProgressDrawableColors(getResources().getIntArray(R.array.dbcolorspock));
+//        pogback.setSmoothProgressDrawableMirrorMode(true);
+//        pogback.setSmoothProgressDrawableSeparatorLength(dpToPx(mSeparatorLength));
+
+//        pogless();
 
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
         usname=prefs.getString(SURNAME_KEY,"");
@@ -191,7 +211,6 @@ public class Profile extends AppCompatActivity {
                     // Update the progress bar
                     mHandler.post(new Runnable() {
                         public void run() {
-                            progBar.setProgress(mProgressStatus);
 //                            text.setText(""+mProgressStatus+"%");
                         }
                     });
@@ -214,8 +233,6 @@ public class Profile extends AppCompatActivity {
         Animation animation= AnimationUtils.loadAnimation(Profile.this,R.anim.bounce);
         bsiout.startAnimation(animation);
 
-        ProgressBar pb =findViewById(R.id.progressBar3);
-        pb.setVisibility(ProgressBar.VISIBLE);
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
         String phone=prefs.getString(PHONE_NUMBER_KEY,"");
         new Profile.backgroundSignout(this).execute(phone);
@@ -231,19 +248,19 @@ public class Profile extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            pogba.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected void onPostExecute(String s) {
             prefl=getSharedPreferences(preflogin, MODE_PRIVATE);
+            pogba.setVisibility(View.INVISIBLE);
             if(!prefl.getBoolean(LOGIN_STATUS_KEY,Boolean.TRUE)){
                 Intent int1 =new Intent(getApplicationContext(),LOGIN.class);
                 startActivity(int1);
                 finish();
             }
             else {
-                ProgressBar pb =findViewById(R.id.progressBar3);
-                pb.setVisibility(ProgressBar.INVISIBLE);
                 Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
             }
         }
@@ -381,10 +398,15 @@ public class Profile extends AppCompatActivity {
             this.context=context;
         }
 
+    @Override
+    protected void onPreExecute() {
+        pogback.setVisibility(View.VISIBLE);
+    }
         @Override
         protected void onPostExecute(String s) {
             Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
             dtDialog.setCancelable(true);
+            pogback.setVisibility(View.INVISIBLE);
             try {
                 jObj = new JSONObject(s);
                 if(json!=null){
@@ -400,11 +422,11 @@ public class Profile extends AppCompatActivity {
                         editor.commit();
                         dtDialog.dismiss();
                         startActivity(new Intent(Profile.this, Profile.class));
-                        Toast.makeText(getApplicationContext(),"Thank you for buying Digital Time",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Thank you for buying Digital Time",Toast.LENGTH_LONG).show();
                         Log.e("diti", s);
                     }else{
                         dtDialog.dismiss();
-                        Toast.makeText(getApplicationContext(),feedmsg+" please try again",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),feedmsg+" please try again",Toast.LENGTH_LONG).show();
                         Log.e("diti", "failed "+feedmsg);
 
                     }

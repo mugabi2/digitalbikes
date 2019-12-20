@@ -2,6 +2,7 @@ package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,12 +12,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,6 +31,12 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +54,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.stardigitalbikes.samuelhimself.bible1.R.id.radio_female;
 
@@ -56,7 +69,6 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
     private SharedPreferences prefer;
     private String prefName2 ="preBike";
     String thecode="0",send;
-
 
     String serverKey="2y10f2Kkl1GRi5si0AAsgvsgJWyqXsUszC3DuvRLwZZ";
     private static final String SURNAME_KEY ="Surname";
@@ -95,15 +107,63 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
     EditText epromocode;
     String promotion;
+    ProgressBar pogba;
+
+    private SmoothProgressBar pogback;
+    int one=1,two=2,three=3,four=4,five=5;
+    private Interpolator mCurrentInterpolator;
+
+    // under this activity we need to create a listener that will keep checking if the user is verified or not
+    com.stardigitalbikes.samuelhimself.bible1.Permissions permit=new com.stardigitalbikes.samuelhimself.bible1.Permissions();
+
+    private Handler handler;
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+
+
+            if (permit.isUserVerified(registration.this)) {
+                finish();
+//                startActivity(new Intent(registration.this, Instructions.class));
+                Toast.makeText(registration.this, "Verification succeeded ", Toast.LENGTH_SHORT).show();
+                Log.d("sxs", "verifying click ");
+
+                // stop handler from updating
+                handler.removeCallbacks(runnable);
+            }
+
+            handler.postDelayed(runnable, 1000); // keep checking after every one second
+        }
+    };
+
+    String sname;
+    String fname;
+    String phone;
+    //            String email = eemail.getText().toString();
+    String psword;
+    String resid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
 
+        pogba=findViewById(R.id.pogba5);
         tacDialog = new Dialog(this);
         tacDialog.setContentView(R.layout.terms_and_conditions);
 
+        pogback=tacDialog.findViewById(R.id.pogback5);
+
+        mCurrentInterpolator = new FastOutSlowInInterpolator();
+
+        pogback.setSmoothProgressDrawableSpeed(one);
+        pogback.setSmoothProgressDrawableProgressiveStartSpeed(one);
+        pogback.setSmoothProgressDrawableProgressiveStopSpeed(one);
+        pogback.setSmoothProgressDrawableSectionsCount(five);
+        pogback.setSmoothProgressDrawableInterpolator(mCurrentInterpolator);
+        pogback.setSmoothProgressDrawableColors(getResources().getIntArray(R.array.dbcolorspock));
+//        pogback.setSmoothProgressDrawableMirrorMode(true);
+//        pogback.setSmoothProgressDrawableSeparatorLength(dpToPx(mSeparatorLength));
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
             Window window=this.getWindow();
@@ -116,19 +176,19 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
         epromocode=findViewById(R.id.pcodeif);
 
-        checkBoxer=findViewById(R.id.check);
-        checkBoxer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("check", "cheque "+tac);
-//                Toast.makeText(getApplicationContext(),"check "+tac,Toast.LENGTH_SHORT).show();
-                if(checkBoxer.isChecked()){
-                    tac=1;
-                }else{
-                    tac=0;
-                }
-            }
-        });
+//        checkBoxer=findViewById(R.id.check);
+//        checkBoxer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("check", "cheque "+tac);
+////                Toast.makeText(getApplicationContext(),"check "+tac,Toast.LENGTH_SHORT).show();
+//                if(checkBoxer.isChecked()){
+//                    tac=1;
+//                }else{
+//                    tac=0;
+//                }
+//            }
+//        });
 
         Button bsinu=findViewById(R.id.signup);
 //        ANIMATION
@@ -150,8 +210,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         shareDialog = new Dialog(this);
         shareDialog.setContentView(R.layout.share_code);
 
-        progBar= (ProgressBar)findViewById(R.id.progressBar4);
-        pogless();
+//        pogless();
 
         esname=(EditText)findViewById(R.id.sname);
         efname=(EditText)findViewById(R.id.fname);
@@ -162,6 +221,65 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         Bsignup=(Button)findViewById(R.id.signup);
 
 
+    }
+    private void verifyPhoneNumber(final String phoneNumber) {
+        String url = "https://stardigitalbikes.com/africasTalking/smsverification.php";
+
+        pogback.setVisibility(View.VISIBLE);
+        pogba.setVisibility(View.VISIBLE);
+//        final ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Sending verification code...");
+//        Log.d("sms", "Sending verification code... ");
+//        progressDialog.setCancelable(false);
+//        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//                progressDialog.dismiss();
+                Log.d("sxs", "response");
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                progressDialog.dismiss();
+                finish();
+                Toast.makeText(registration.this, "network error!", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("phone", phoneNumber);
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(stringRequest);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (permit.isUserVerified(registration.this)) {
+            if (handler != null) {
+                handler.removeCallbacks(runnable);
+            }
+            finish();
+            startActivity(new Intent(this, Instructions.class));
+        }
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        handler.removeCallbacks(runnable);
     }
 
     public void showtac() {
@@ -180,15 +298,15 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        proceed=tacDialog.findViewById(R.id.proceedpop);
-        proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tacDialog.dismiss();
-            }
-        });
+//        proceed=tacDialog.findViewById(R.id.proceedpop);
+//        proceed.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                tacDialog.dismiss();
+//            }
+//        });
 
-        tacDialog.setCancelable(false);
+        tacDialog.setCancelable(true);
 
         tacDialog.show();
     }
@@ -264,7 +382,6 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
                     // Update the progress bar
                     mHandler.post(new Runnable() {
                         public void run() {
-                            progBar.setProgress(mProgressStatus);
 //                            text.setText(""+mProgressStatus+"%");
                         }
                     });
@@ -283,42 +400,43 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         int plen =phonel.length();
 
         if (plen==9) {
-            String sname = esname.getText().toString();
-            String fname = efname.getText().toString();
-            String phone = ephone.getText().toString();
-//            String email = eemail.getText().toString();
-            String psword = epassword.getText().toString();
-            String resid = eresi.getText().toString();
+             sname = esname.getText().toString();
+             fname = efname.getText().toString();
+             phone = ephone.getText().toString();
+//             email = eemail.getText().toString();
+             psword = epassword.getText().toString();
+             resid = eresi.getText().toString();
 
 
             //Checking if all fields have been filled
             if (!sname.isEmpty() && !fname.isEmpty() && !phone.isEmpty() && !psword.isEmpty() && !resid.isEmpty()) {
-                if (tac==1) {
-
-                    String pcode=epromocode.getText().toString();
+//                if (tac==1) {
+//PROMO WAS HERE
+                String pcode=epromocode.getText().toString();
 //                    thecode=scode;
 //////////////
-                    if(!pcode.isEmpty()){
+                if(!pcode.isEmpty()){
 //      PROMO CODE???????
-                        promotion="1";
-                        thecode=pcode;
+                    promotion="1";
+                    thecode=pcode;
 //                        new registration.backgroundsharecode(registration.this).execute();
-                        new backgroundregistration(this).execute(sname, fname, phone, psword, resid, sex);
-                    }else {
-                        promotion="0";
-                        ProgressBar pb = findViewById(R.id.progressBar4);
-                        pb.setVisibility(ProgressBar.VISIBLE);
-                        new backgroundregistration(this).execute(sname, fname, phone, psword, resid, sex);
-                        Log.d("Request status", "GOOD INPUT am gonna make the REGITSTRATION");
-                    }
-
+                    new backgroundregistration(registration.this).execute(sname, fname, phone, psword, resid, sex);
+                    Log.d("sxs", "with promo");
+                }else {
+                    promotion="0";
+                    new backgroundregistration(registration.this).execute(sname, fname, phone, psword, resid, sex);
+                    Log.d("sxs", "REGITSTRATION without code");
+                }
+//                String atphone="0"+phone;
+//                Log.d("sxs", atphone);
+//                verifyPhoneNumber(atphone);
 //                    ProgressBar pb = findViewById(R.id.progressBar4);
 //                    pb.setVisibility(ProgressBar.VISIBLE);
 //                    new backgroundregistration(this).execute(sname, fname, phone, email, psword, resid, sex);
 //                    Log.d("Request status", "GOOD INPUT am gonna make the request");
-                }else{
-                    Toast.makeText(getApplicationContext(), "Please check Terms and Conditions", Toast.LENGTH_SHORT).show();
-                }
+//                }else{
+//                    Toast.makeText(getApplicationContext(), "Please check Terms and Conditions", Toast.LENGTH_SHORT).show();
+//                }
             } else {
                 Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
             }
@@ -336,15 +454,23 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
         }
 
         @Override
+        protected void onPreExecute() {
+            pogback.setVisibility(View.VISIBLE);
+            pogba.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected void onPostExecute(String s) {
             prefl=getSharedPreferences(preflogin, MODE_PRIVATE);
-            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
 
+            pogback.setVisibility(View.INVISIBLE);
+            pogba.setVisibility(View.INVISIBLE);
             Log.d("SHREE",s);
             try {
                 jObjc = new JSONObject(s);
                 suckinda=jObjc.getInt("success");
-                mesg=jObjc.getString("message");
+//                mesg=jObjc.getString("message");
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -369,7 +495,7 @@ public class registration extends AppCompatActivity implements AdapterView.OnIte
 
                     break;
             }
-            Log.d("SHARE CODE", " "+mesg);
+//            Log.d("SHARE CODE", " "+mesg);
         }
 
         @Override

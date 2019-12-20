@@ -70,10 +70,13 @@ public class LOGIN extends AppCompatActivity {
     String usersurname,userfirstname,userphonenumb,useremailadd,userresidence,usergender,message,prefer2;
     Boolean loginStatus;
     String mesag;
+    ProgressBar pogba;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
+
+        pogba=findViewById(R.id.pogba4);
 
 //        STATUS BAR
         if(Build.VERSION.SDK_INT >=21){
@@ -192,8 +195,7 @@ public class LOGIN extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            dialog= new AlertDialog.Builder(context).create();
-            dialog.setTitle("login status");
+            pogba.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -206,6 +208,7 @@ public class LOGIN extends AppCompatActivity {
 
 //            prefl=getSharedPreferences(preflogin, MODE_PRIVATE);
 
+            pogba.setVisibility(View.INVISIBLE);
             try {
                 jObj = new JSONObject(json);
                 int  success = jObj.getInt("success");

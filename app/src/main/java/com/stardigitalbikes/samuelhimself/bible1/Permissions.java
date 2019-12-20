@@ -23,10 +23,10 @@ public class Permissions {
         String code = sharedPreferences.getString(KEY_THEM_ALL, "");
 
         if (code.contentEquals("1")) {
-            Log.d("sms", " very");
+            Log.d("sxs", " very");
             return true;
         } else {
-            Log.d("sms", "not very");
+            Log.d("sxs", "not very");
             // in the else part we can just return false
             return false;
         }

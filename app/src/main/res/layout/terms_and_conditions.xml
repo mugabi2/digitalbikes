@@ -39,7 +39,23 @@
                 android:layout_marginVertical="3dp"
                 android:text="@string/byclick"
                 android:textColor="@color/red"/>
-            <Button
+
+            <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+                android:id="@+id/pogback5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cpb_color="#FFee44"
+                app:cpb_colors="@array/dbcolorspock"
+                android:visibility="invisible"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:indeterminate="true"
+                android:indeterminateOnly="false"/>
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/tacpop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,15 +64,17 @@
                 android:textColor="@color/colorAppBlue"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/terms_and_conditions"/>
-            <Button
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/proceedpop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
+                android:onClick="regMe"
                 android:layout_marginVertical="4dp"
                 android:background="@drawable/roundlogbtn"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/verify"/>
+                android:text="@string/signup"/>
         </LinearLayout>
     </ScrollView>
 

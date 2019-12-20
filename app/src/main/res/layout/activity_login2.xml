@@ -113,7 +113,7 @@
             android:layout_gravity="end"/>
 
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="250dp"
             android:layout_height="50dp"
@@ -128,9 +128,9 @@
             app:layout_constraintHorizontal_bias="0.476"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_password"
-            app:layout_constraintVertical_bias="0.34"></Button>
+            app:layout_constraintVertical_bias="0.34"></androidx.appcompat.widget.AppCompatButton>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/createAccount"
             android:layout_width="300dp"
             android:layout_height="35dp"
@@ -142,4 +142,26 @@
             android:textAllCaps="false"/>
 
     </LinearLayout>
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:id="@+id/pogba4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        android:layout_marginTop="50dp"
+        app:cpb_color="#FFee44"
+        app:cpb_colors="@array/dbcolorspock"
+        app:cpb_max_sweep_angle="300"
+        app:cpb_min_sweep_angle="10"
+        app:cpb_rotation_speed="1.0"
+        app:cpb_stroke_width="5dp"
+        app:cpb_sweep_speed="1.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.72" />
 </FrameLayout>

@@ -2,6 +2,9 @@ package com.stardigitalbikes.samuelhimself.bible1;
 
 import android.content.Intent;
 import android.os.Handler;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.RetryPolicy;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import android.os.Bundle;
@@ -150,7 +153,6 @@ public class Events extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(stringRequest);
 
-
     }
 
     @Override
@@ -166,7 +168,27 @@ public class Events extends AppCompatActivity {
             startActivity(new Intent(this, Instructions.class));
         }
     }
+    int CONNECTION_TIME_OUT;
+    public class MyRetryPolicyWithoutRetry implements RetryPolicy
+    {
+        @Override
+        public int getCurrentTimeout()
+        {
+            return CONNECTION_TIME_OUT; /*200000*/
+        }
 
+        @Override
+        public int getCurrentRetryCount()
+        {
+            return 0;
+        }
+
+        @Override
+        public void retry(VolleyError error) throws VolleyError
+        {
+            throw(error);
+        }
+    }
 
     @Override
     protected void onStop() {
